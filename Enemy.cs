@@ -10,8 +10,8 @@ public partial class Enemy : CharacterBody2D
 	PlayerCharacter targetNode;
 	Area2D hitbox;
 	//Area2D hitbox = GetNode<Area2D>("Hitbox");
-	
-	
+
+
 
 	public override void _Ready()
 	{
@@ -22,19 +22,23 @@ public partial class Enemy : CharacterBody2D
 
 		// hitbox.BodyEntered += HitboxTriggered;
 
-		
+
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
+
+		if (!IsInstanceValid(targetNode))
+		{
+			return;
+
+		}
 		// Get direction
-		// target position − my position = arrow from me to target
-		
 		var thisPosition = GlobalPosition;
 		var targetPosition = targetNode.GlobalPosition;
 		// change arrow to more correct and discriptive name.
 		var arrow = targetPosition - thisPosition;
-		
+
 		// Set Velocity to direction × speed.
 		Velocity = arrow.Normalized() * moveSpeed;
 
@@ -49,19 +53,17 @@ public partial class Enemy : CharacterBody2D
 				player.Damage(2);
 			}
 		}
-		
-
 	}
 
-/*
-	public void HitboxTriggered(Node2D body)
-	{
-		if (body is PlayerCharacter player)
+	/*
+		public void HitboxTriggered(Node2D body)
 		{
-			player.Damage(2);
+			if (body is PlayerCharacter player)
+			{
+				player.Damage(2);
+			}
 		}
-	}
-*/
+	*/
 	public int Damage(int damageAmt)
 	{
 		return health - damageAmt;

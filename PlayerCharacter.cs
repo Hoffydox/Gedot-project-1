@@ -2,17 +2,19 @@ using Godot;
 
 public partial class PlayerCharacter : CharacterBody2D
 {
+	[Signal] public delegate void DiedEventHandler();
 	[Export] int maxHealth = 20;
 	int health;
 	[Export] float moveSpeed = 300f;
 
-	[Export] float invicibleDuration = 0.5f;
+	[Export] float invincibleDuration = 0.5f;
 	float invincibleTimeLeft;
 
 	public override void _Ready()
 	{
 		health = maxHealth;
-	invincibleTimeLeft = invicibleDuration;
+		//spawn protection
+		invincibleTimeLeft = invincibleDuration;
 	}
 	// _PhysicsProcess calls ca. 60 times per second
 	public override void _PhysicsProcess(double delta)
@@ -28,20 +30,32 @@ public partial class PlayerCharacter : CharacterBody2D
 		// so no need to multiply by delta - MoveAndSlide handles that itself.
 		MoveAndSlide();
 		invincibleTimeLeft = invincibleTimeLeft - (float)delta;
-		
+
 	}
 
 	public void Damage(int damageAmount)
 	{
 		if (invincibleTimeLeft > 0)
 		{
-			GD.Print(what:"No damage - playerInvincible = " + invincibleTimeLeft);
-			return;	
-		} 
-		
+			return;
+		}
+
 		health = health - damageAmount;
-		invincibleTimeLeft = invicibleDuration;
-		GD.Print(what:"Emotional Damage! New Hp = " + health);
+		invincibleTimeLeft = invincibleDuration;
+		GD.Print(what: "Emotional Damage! New Hp = " + health);
+		if (health <= 0)
+		{
+			//dies.
+			PlayerDeath();
+		}
+		
+	}
+
+	public void PlayerDeath()
+	{
+		EmitSignal(SignalName.Died);
+		//Death method. Can trigger other things before QueueFree();
+		QueueFree();
 	}
 
 	public void Heal(int healAmount)
@@ -50,11 +64,12 @@ public partial class PlayerCharacter : CharacterBody2D
 		{
 			health = maxHealth;
 			GD.Print("Overhealed.");
-		} else
+		}
+		else
 		{
 			health = health + healAmount;
 		}
 
-		
+
 	}
 }
