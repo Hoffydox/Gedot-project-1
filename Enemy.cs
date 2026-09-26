@@ -8,12 +8,20 @@ public partial class Enemy : CharacterBody2D
 
 	//store player node
 	PlayerCharacter targetNode;
+	Area2D hitbox;
+	//Area2D hitbox = GetNode<Area2D>("Hitbox");
+	
+	
 
 	public override void _Ready()
 	{
 		health = maxHealth;
 		// Get reference of player
 		targetNode = GetTree().GetFirstNodeInGroup("player") as PlayerCharacter;
+		hitbox = GetNode<Area2D>("Hitbox");
+
+		// hitbox.BodyEntered += HitboxTriggered;
+
 		
 	}
 
@@ -31,8 +39,29 @@ public partial class Enemy : CharacterBody2D
 		Velocity = arrow.Normalized() * moveSpeed;
 
 		MoveAndSlide();
+
+		var overlapCollection = hitbox.GetOverlappingBodies();
+		foreach (var body in overlapCollection)
+		{
+			// runs once for each item; 'body' is the current one
+			if (body is PlayerCharacter player)
+			{
+				player.Damage(2);
+			}
+		}
+		
+
 	}
 
+/*
+	public void HitboxTriggered(Node2D body)
+	{
+		if (body is PlayerCharacter player)
+		{
+			player.Damage(2);
+		}
+	}
+*/
 	public int Damage(int damageAmt)
 	{
 		return health - damageAmt;

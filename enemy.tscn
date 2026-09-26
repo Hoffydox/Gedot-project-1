@@ -6,6 +6,9 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kmypb"]
 size = Vector2(126, 128)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_02bu0"]
+size = Vector2(132, 134)
+
 [node name="Enemy" type="CharacterBody2D" unique_id=1025845291]
 script = ExtResource("1_4gyqm")
 
@@ -15,3 +18,8 @@ texture = ExtResource("1_7k104")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=652836845]
 shape = SubResource("RectangleShape2D_kmypb")
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=1853930107]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=41365693]
+shape = SubResource("RectangleShape2D_02bu0")
