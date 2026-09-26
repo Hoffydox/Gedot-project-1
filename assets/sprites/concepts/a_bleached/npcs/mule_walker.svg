@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <!-- Mule walker: four-legged cargo robot with crates strapped on. Follows the player, carries ore. -->
+
+  <ellipse cx="66" cy="68" rx="48" ry="50" fill="#4a3f36" opacity="0.14"/>
+  <g stroke="#8c826d" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <path d="M36 36 L18 24 L10 30"/><path d="M92 36 L110 24 L118 30"/>
+    <path d="M36 92 L18 104 L10 98"/><path d="M92 92 L110 104 L118 98"/>
+  </g>
+  <rect x="30" y="26" width="68" height="76" rx="10" fill="#d8cbb0" stroke="#8c826d" stroke-width="4"/>
+  <rect x="36" y="32" width="26" height="30" fill="#c9b78f" stroke="#8c826d" stroke-width="3"/>
+  <rect x="66" y="32" width="26" height="22" fill="#9dbdb5" stroke="#6f8c85" stroke-width="3"/>
+  <rect x="38" y="66" width="52" height="24" rx="4" fill="#c9b78f" stroke="#8c826d" stroke-width="3"/>
+  <path d="M30 60 L98 60 M30 94 L98 94" stroke="#ff6a13" stroke-width="4"/>
+  <rect x="50" y="102" width="28" height="12" rx="4" fill="#e9e2cf" stroke="#8c826d" stroke-width="3"/>
+  <circle cx="58" cy="108" r="2.5" fill="#2a1410"/><circle cx="70" cy="108" r="2.5" fill="#2a1410"/>
+</svg>

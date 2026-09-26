@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <!-- Tank enemy: heavy purple armoured hexagon (for a future slow, tough enemy) -->
+  <polygon points="64,4 118,34 118,94 64,124 10,94 10,34" fill="#6d28d9" stroke="#2e1065" stroke-width="7" stroke-linejoin="round"/>
+  <polygon points="64,24 100,44 100,84 64,104 28,84 28,44" fill="#8b5cf6" stroke="#4c1d95" stroke-width="4" stroke-linejoin="round"/>
+  <rect x="42" y="56" width="44" height="12" rx="4" fill="#1e1b4b"/>
+  <circle cx="53" cy="62" r="4" fill="#f87171"/>
+  <circle cx="75" cy="62" r="4" fill="#f87171"/>
+  <circle cx="30" cy="40" r="4" fill="#c4b5fd"/>
+  <circle cx="98" cy="40" r="4" fill="#c4b5fd"/>
+  <circle cx="30" cy="88" r="4" fill="#c4b5fd"/>
+  <circle cx="98" cy="88" r="4" fill="#c4b5fd"/>
+</svg>

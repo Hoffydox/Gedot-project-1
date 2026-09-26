@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <!-- Burrower: hides under the sand as a ripple, then erupts. Telegraph = the dashed rings. -->
+
+  <circle cx="64" cy="64" r="56" fill="#d8cbb0" opacity="0.55"/>
+  <circle cx="64" cy="64" r="56" fill="none" stroke="#c4b595" stroke-width="3" stroke-dasharray="10 8"/>
+  <circle cx="64" cy="64" r="42" fill="none" stroke="#c4b595" stroke-width="3" stroke-dasharray="6 8"/>
+  <g fill="#efe8d8" stroke="#7a3b2e" stroke-width="3" stroke-linejoin="round">
+    <polygon points="36,40 44,18 50,42"/><polygon points="84,34 94,14 96,40"/>
+    <polygon points="92,80 116,82 96,90"/><polygon points="30,84 10,92 34,92"/>
+    <polygon points="62,104 66,124 72,104"/>
+  </g>
+  <ellipse cx="64" cy="64" rx="26" ry="18" fill="#2a1410"/>
+  <path d="M42 60 L48 68 L54 60 L60 68 L66 60 L72 68 L78 60 L84 68" fill="none" stroke="#efe8d8" stroke-width="3" stroke-linejoin="round"/>
+</svg>

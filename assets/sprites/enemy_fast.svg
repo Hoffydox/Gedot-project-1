@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <!-- Fast enemy: small orange dart shape (for a future quick, weak enemy) -->
+  <polygon points="64,8 116,112 64,90 12,112" fill="#f97316" stroke="#7c2d12" stroke-width="6" stroke-linejoin="round"/>
+  <polygon points="64,34 92,94 64,82 36,94" fill="#fb923c"/>
+  <circle cx="54" cy="66" r="5" fill="#fef08a"/>
+  <circle cx="74" cy="66" r="5" fill="#fef08a"/>
+</svg>

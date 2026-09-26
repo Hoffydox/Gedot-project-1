@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <!-- Fuel drum from above: faded teal, bleached on one edge, hazard ticks. -->
+
+  <ellipse cx="70" cy="70" rx="44" ry="44" fill="#4a3f36" opacity="0.14"/>
+  <circle cx="64" cy="64" r="44" fill="#9dbdb5" stroke="#6f8c85" stroke-width="5"/>
+  <circle cx="64" cy="64" r="34" fill="none" stroke="#6f8c85" stroke-width="3"/>
+  <circle cx="80" cy="50" r="7" fill="#7fa39b" stroke="#6f8c85" stroke-width="3"/>
+  <path d="M30 88 A44 44 0 0 1 22 70" fill="none" stroke="#efe8d8" stroke-width="5" opacity="0.7"/>
+  <path d="M46 70 L56 80 M56 70 L66 80 M66 70 L76 80" stroke="#e8d49a" stroke-width="4" opacity="0.8"/>
+</svg>

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <!-- Half-buried drop pod, sand drifting over it. Maybe lootable once. -->
+
+  <ellipse cx="62" cy="70" rx="54" ry="44" fill="#d8cbb0" opacity="0.6"/>
+  <path d="M16 70 Q40 60 60 70 Q80 80 108 68" fill="none" stroke="#c4b595" stroke-width="3" stroke-dasharray="8 6"/>
+  <ellipse cx="64" cy="62" rx="36" ry="30" fill="#d9d4c7" stroke="#8c826d" stroke-width="5"/>
+  <ellipse cx="64" cy="62" rx="24" ry="20" fill="none" stroke="#b8b2a3" stroke-width="3"/>
+  <path d="M42 50 L86 50" stroke="#9dbdb5" stroke-width="6"/>
+  <ellipse cx="70" cy="68" rx="12" ry="8" fill="#5f6c6a" stroke="#3f4847" stroke-width="3"/>
+  <path d="M28 82 Q40 96 58 94 Q76 102 100 86 L104 98 Q76 116 56 108 Q34 108 24 94 Z" fill="#d8cbb0" stroke="#c4b595" stroke-width="3"/>
+  <path d="M96 40 L112 26 M100 48 L118 44" stroke="#8c826d" stroke-width="3" stroke-linecap="round"/>
+</svg>

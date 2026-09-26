@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <!-- Basic enemy: red spiky blob with angry eyes -->
+  <polygon points="64,4 78,26 104,16 100,44 124,54 104,72 116,98 88,96 80,124 64,104 48,124 40,96 12,98 24,72 4,54 28,44 24,16 50,26"
+           fill="#dc2626" stroke="#7f1d1d" stroke-width="5" stroke-linejoin="round"/>
+  <circle cx="64" cy="66" r="30" fill="#ef4444"/>
+  <path d="M40 50 L58 60" stroke="#450a0a" stroke-width="6" stroke-linecap="round"/>
+  <path d="M88 50 L70 60" stroke="#450a0a" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="52" cy="66" r="6" fill="#fef08a"/>
+  <circle cx="76" cy="66" r="6" fill="#fef08a"/>
+  <path d="M50 86 L58 80 L64 86 L70 80 L78 86" fill="none" stroke="#450a0a" stroke-width="4" stroke-linejoin="round"/>
+</svg>

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <!-- Ink style test: hermit as a field-journal sketch -->
+
+  <g fill="none" stroke="#3b2f28" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M64 22 L104 60 L94 108 L34 108 L24 60 Z" fill="#efe8d8" stroke-width="3"/>
+    <path d="M40 72 L88 72 M36 90 L92 90" stroke-width="1.5" stroke-dasharray="4 3"/>
+    <path d="M106 18 L96 116" stroke-width="3"/>
+    <circle cx="64" cy="58" r="30" fill="#efe8d8" stroke-width="3"/>
+    <circle cx="64" cy="58" r="17" stroke-width="2"/>
+    <path d="M52 64 Q64 76 76 64" stroke-width="2"/>
+    <path d="M40 40 L48 36 M44 48 L52 44 M84 44 L90 50 M82 52 L88 58" stroke-width="1.2"/>
+  </g>
+</svg>

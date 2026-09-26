@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <!-- Hauler: slow armoured isopod with lichen on its plates. Soaks damage, shoves deployables. -->
+
+  <ellipse cx="66" cy="70" rx="48" ry="54" fill="#4a3f36" opacity="0.14"/>
+  <g stroke="#7a3b2e" stroke-width="4" stroke-linecap="round">
+    <path d="M22 40 L10 34"/><path d="M20 58 L6 56"/><path d="M20 76 L6 80"/><path d="M24 94 L12 102"/>
+    <path d="M106 40 L118 34"/><path d="M108 58 L122 56"/><path d="M108 76 L122 80"/><path d="M104 94 L116 102"/>
+  </g>
+  <ellipse cx="64" cy="66" rx="44" ry="54" fill="#d8cbb0" stroke="#8c826d" stroke-width="5"/>
+  <path d="M33 30 Q64 24 95 30" fill="none" stroke="#8c826d" stroke-width="3"/><path d="M30 42 Q64 36 98 42" fill="none" stroke="#8c826d" stroke-width="3"/><path d="M27 54 Q64 48 101 54" fill="none" stroke="#8c826d" stroke-width="3"/><path d="M24 66 Q64 60 104 66" fill="none" stroke="#8c826d" stroke-width="3"/><path d="M27 78 Q64 72 101 78" fill="none" stroke="#8c826d" stroke-width="3"/><path d="M30 90 Q64 84 98 90" fill="none" stroke="#8c826d" stroke-width="3"/>
+  <ellipse cx="46" cy="50" rx="10" ry="6" fill="#9dbdb5" opacity="0.7"/>
+  <ellipse cx="84" cy="82" rx="12" ry="7" fill="#9dbdb5" opacity="0.6"/>
+  <ellipse cx="72" cy="40" rx="6" ry="4" fill="#9dbdb5" opacity="0.6"/>
+  <path d="M44 112 Q64 124 84 112" fill="#d9a08b" stroke="#7a3b2e" stroke-width="4"/>
+  <circle cx="56" cy="114" r="3" fill="#2a1410"/><circle cx="72" cy="114" r="3" fill="#2a1410"/>
+</svg>

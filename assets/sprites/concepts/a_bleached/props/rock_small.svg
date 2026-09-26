@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <!-- Small rock cluster and pebbles, for scattering. -->
+
+  <ellipse cx="48" cy="58" rx="26" ry="16" fill="#4a3f36" opacity="0.14"/><ellipse cx="90" cy="86" rx="18" ry="12" fill="#4a3f36" opacity="0.14"/>
+  <path d="M24 56 L32 34 L56 30 L70 50 L60 66 L34 68 Z" fill="#e9e2cf" stroke="#8c826d" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M56 30 L48 50 L60 66 M48 50 L24 56" fill="none" stroke="#c9bfa8" stroke-width="2.5"/>
+  <path d="M76 84 L84 70 L100 72 L104 88 L90 96 Z" fill="#d8cbb0" stroke="#8c826d" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M40 92 L48 86 L56 92 L50 100 Z" fill="#e9e2cf" stroke="#8c826d" stroke-width="2.5" stroke-linejoin="round"/>
+  <circle cx="96" cy="40" r="5" fill="#d8cbb0" stroke="#8c826d" stroke-width="2"/>
+</svg>

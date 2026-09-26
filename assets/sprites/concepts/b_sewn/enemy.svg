@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <!-- Concept B (crystal fauna): living geode made of faceted cyan/rose shards -->
+  <g stroke="#34405e" stroke-width="3.5" stroke-linejoin="round">
+    <!-- outer shards / legs -->
+    <polygon points="30,30 8,14 20,40" fill="#a9ecea"/>
+    <polygon points="98,30 120,14 108,40" fill="#f3b6cc"/>
+    <polygon points="22,80 4,94 30,92" fill="#f3b6cc"/>
+    <polygon points="106,80 124,94 98,92" fill="#a9ecea"/>
+    <polygon points="50,104 44,124 62,108" fill="#a9ecea"/>
+    <polygon points="78,104 84,124 66,108" fill="#f3b6cc"/>
+    <!-- faceted body -->
+    <polygon points="64,14 100,34 108,72 84,106 44,106 20,72 28,34" fill="#7fd6d6"/>
+    <polygon points="64,14 100,34 64,58" fill="#b8f1ef"/>
+    <polygon points="64,14 28,34 64,58" fill="#95e2e0"/>
+    <polygon points="28,34 20,72 64,58" fill="#e79bb8"/>
+    <polygon points="100,34 108,72 64,58" fill="#f1b3c9"/>
+    <polygon points="20,72 44,106 64,58" fill="#6cc3c6"/>
+    <polygon points="108,72 84,106 64,58" fill="#d985a8"/>
+    <polygon points="44,106 84,106 64,58" fill="#58aeb4"/>
+  </g>
+  <!-- glowing core with eyes -->
+  <circle cx="64" cy="62" r="13" fill="#fff4d6" stroke="#34405e" stroke-width="3"/>
+  <path d="M55 60 L62 64" stroke="#34405e" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M73 60 L66 64" stroke="#34405e" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M58 70 L70 70" stroke="#34405e" stroke-width="2.5" stroke-linecap="round"/>
+</svg>

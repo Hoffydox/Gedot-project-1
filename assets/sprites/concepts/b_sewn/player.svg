@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <!-- Concept B (sewn & taped): quilted, hand-repaired prospector seen from above -->
+  <!-- gold-foil wrapped backpack -->
+  <rect x="34" y="10" width="60" height="40" rx="10" fill="#c9a24a" stroke="#7d6326" stroke-width="4"/>
+  <path d="M40 22 L52 18 L60 26 L72 20 L86 28" fill="none" stroke="#f0d68a" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M42 38 L56 34 L66 40 L84 34" fill="none" stroke="#9b7c30" stroke-width="3" stroke-linejoin="round"/>
+  <!-- quilted torso -->
+  <ellipse cx="64" cy="72" rx="50" ry="34" fill="#e7dfcb" stroke="#8f8672" stroke-width="4"/>
+  <g stroke="#a89f8a" stroke-width="2.5" stroke-dasharray="4 4" fill="none">
+    <path d="M24 60 Q64 52 104 60"/>
+    <path d="M16 74 Q64 66 112 74"/>
+    <path d="M22 88 Q64 82 106 88"/>
+    <path d="M40 44 L40 100"/>
+    <path d="M88 44 L88 100"/>
+  </g>
+  <!-- tape patches -->
+  <rect x="14" y="62" width="22" height="10" fill="#8e8f8a" opacity="0.9" transform="rotate(-18 25 67)"/>
+  <rect x="94" y="80" width="20" height="9" fill="#8e8f8a" opacity="0.9" transform="rotate(14 104 84)"/>
+  <!-- signal orange tag -->
+  <rect x="92" y="54" width="14" height="10" rx="2" fill="#ff6a13"/>
+  <!-- helmet with a stitched seam -->
+  <circle cx="64" cy="74" r="25" fill="#f4f0e6" stroke="#8f8672" stroke-width="4"/>
+  <path d="M42 70 Q64 60 86 70" fill="none" stroke="#a89f8a" stroke-width="2.5" stroke-dasharray="3 3"/>
+  <!-- visor -->
+  <ellipse cx="64" cy="86" rx="17" ry="9" fill="#4a5360" stroke="#2f353e" stroke-width="3"/>
+  <path d="M53 84 Q58 80 65 81" fill="none" stroke="#c9d3de" stroke-width="3" stroke-linecap="round" opacity="0.8"/>
+</svg>

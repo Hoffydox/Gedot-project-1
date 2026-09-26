@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <!-- Concept A (sun-bleached): pale desert beetle-thing, hard angular shell, big mandibles -->
+  <!-- legs: bone-white, jointed and sharp -->
+  <g stroke="#8c826d" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <path d="M42 42 L20 24 L14 8"/>
+    <path d="M38 62 L12 58 L4 72"/>
+    <path d="M42 80 L18 96 L12 114"/>
+    <path d="M86 42 L108 24 L114 8"/>
+    <path d="M90 62 L116 58 L124 72"/>
+    <path d="M86 80 L110 96 L116 114"/>
+  </g>
+  <g stroke="#e8dcc4" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <path d="M42 42 L20 24 L14 8"/>
+    <path d="M38 62 L12 58 L4 72"/>
+    <path d="M42 80 L18 96 L12 114"/>
+    <path d="M86 42 L108 24 L114 8"/>
+    <path d="M90 62 L116 58 L124 72"/>
+    <path d="M86 80 L110 96 L116 114"/>
+  </g>
+  <!-- mandibles (facing down), hooked -->
+  <path d="M54 98 L40 114 L50 124 L50 112 Z" fill="#7a3b2e" stroke="#4a1f17" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M74 98 L88 114 L78 124 L78 112 Z" fill="#7a3b2e" stroke="#4a1f17" stroke-width="3" stroke-linejoin="round"/>
+  <!-- angular shell -->
+  <path d="M64 8 L94 30 L98 70 L82 96 L46 96 L30 70 L34 30 Z" fill="#d9a08b" stroke="#7a3b2e" stroke-width="5" stroke-linejoin="round"/>
+  <line x1="64" y1="10" x2="64" y2="90" stroke="#7a3b2e" stroke-width="4"/>
+  <!-- ridges and bleached, cracked patches -->
+  <path d="M40 40 L58 34" stroke="#7a3b2e" stroke-width="3" stroke-linecap="round"/>
+  <path d="M88 40 L70 34" stroke="#7a3b2e" stroke-width="3" stroke-linecap="round"/>
+  <path d="M44 60 L50 50 L56 58 Z" fill="#efd9c8"/>
+  <path d="M78 66 L86 56 L90 68 Z" fill="#efd9c8"/>
+  <!-- head, eyes narrowed -->
+  <path d="M46 88 L82 88 L76 104 L52 104 Z" fill="#b9806c" stroke="#7a3b2e" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M52 94 L60 97" stroke="#1a0b08" stroke-width="4" stroke-linecap="round"/>
+  <path d="M76 94 L68 97" stroke="#1a0b08" stroke-width="4" stroke-linecap="round"/>
+</svg>

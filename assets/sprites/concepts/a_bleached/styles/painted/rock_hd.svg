@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <!-- Painted style test: boulder with gradient lighting and cool lilac shadow -->
+
+  <defs>
+    <linearGradient id="lit" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fbf7ee"/><stop offset="1" stop-color="#d9d0bd"/>
+    </linearGradient>
+    <linearGradient id="dark" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#c7bdc9"/><stop offset="1" stop-color="#9a8fa3"/>
+    </linearGradient>
+    <radialGradient id="shade" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#3a2a22" stop-opacity="0.3"/><stop offset="1" stop-color="#3a2a22" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <ellipse cx="74" cy="80" rx="58" ry="44" fill="url(#shade)"/>
+  <path d="M20 70 L30 34 L62 16 L98 26 L114 62 L102 98 L60 110 L28 98 Z" fill="url(#lit)"/>
+  <path d="M66 56 L114 62 L102 98 L60 110 Z" fill="url(#dark)"/>
+  <path d="M66 56 L28 98 L60 110 Z" fill="#e3dac8"/>
+  <path d="M62 16 L66 56 L30 34 Z" fill="#fffdf8" opacity="0.7"/>
+  <path d="M40 44 L50 50 L46 62 M84 76 L92 84" fill="none" stroke="#a79c88" stroke-width="1.5"/>
+  <path d="M20 70 L30 34 L62 16 L98 26 L114 62 L102 98 L60 110 L28 98 Z" fill="none" stroke="#8c826d" stroke-width="1.5" stroke-linejoin="round"/>
+</svg>

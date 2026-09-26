@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <!-- Merchant: faded striped canvas stall. The trader's wide sun hat peeks out front. -->
+
+  <ellipse cx="66" cy="58" rx="54" ry="44" fill="#4a3f36" opacity="0.14"/>
+  <rect x="10" y="84" width="22" height="22" fill="#d8cbb0" stroke="#8c826d" stroke-width="3"/>
+  <rect x="96" y="80" width="24" height="26" fill="#d8cbb0" stroke="#8c826d" stroke-width="3"/>
+  <path d="M100 86 L116 100 M116 86 L100 100" stroke="#8c826d" stroke-width="2"/>
+  <rect x="14" y="10" width="20" height="78" fill="#9dbdb5"/><rect x="34" y="10" width="20" height="78" fill="#efe8d8"/><rect x="54" y="10" width="20" height="78" fill="#9dbdb5"/><rect x="74" y="10" width="20" height="78" fill="#efe8d8"/><rect x="94" y="10" width="20" height="78" fill="#9dbdb5"/>
+  <rect x="14" y="10" width="100" height="78" fill="none" stroke="#8c826d" stroke-width="4"/>
+  <path d="M14 88 Q24 96 34 88 Q44 96 54 88 Q64 96 74 88 Q84 96 94 88 Q104 96 114 88" fill="#e9e2cf" stroke="#8c826d" stroke-width="3"/>
+  <circle cx="64" cy="104" r="16" fill="#e8d49a" stroke="#8c826d" stroke-width="3"/>
+  <circle cx="64" cy="104" r="8" fill="#d7c07e"/>
+  <rect x="84" y="30" width="24" height="14" rx="2" fill="#ff6a13"/>
+  <text x="96" y="41" font-family="monospace" font-size="10" font-weight="bold" fill="#efe8d8" text-anchor="middle">$</text>
+</svg>

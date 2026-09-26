@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <!-- Ink style test: field-journal sketch, cream fill, hatched shading -->
+
+  <g fill="none" stroke="#3b2f28" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M64 10 L93 31 L97 70 L81 95 L47 95 L31 70 L35 31 Z" fill="#efe8d8" stroke-width="3"/>
+    <path d="M64 12 L64 90" stroke-width="2"/>
+    <path d="M42 30 L20 16 L14 4 M36 60 L10 56 L3 68 M42 80 L18 98 L12 114" stroke-width="2.5"/>
+    <path d="M86 30 L108 16 L114 4 M92 60 L118 56 L125 68 M86 80 L110 98 L116 114" stroke-width="2.5"/>
+    <path d="M47 92 L81 92 L75 106 L53 106 Z" fill="#efe8d8" stroke-width="2.5"/>
+    <path d="M54 104 L42 118 L50 124 M74 104 L86 118 L78 124" stroke-width="3"/>
+    <path d="M70 60 Q84 66 80 82" stroke-width="1.5"/>
+  </g>
+  <path d="M40 30 L34 50" stroke="#3b2f28" stroke-width="1.2" opacity="0.6"/><path d="M46 32 L40 52" stroke="#3b2f28" stroke-width="1.2" opacity="0.6"/><path d="M52 34 L46 54" stroke="#3b2f28" stroke-width="1.2" opacity="0.6"/><path d="M58 36 L52 56" stroke="#3b2f28" stroke-width="1.2" opacity="0.6"/><path d="M64 38 L58 58" stroke="#3b2f28" stroke-width="1.2" opacity="0.6"/><path d="M70 40 L64 60" stroke="#3b2f28" stroke-width="1.2" opacity="0.6"/><path d="M76 42 L70 62" stroke="#3b2f28" stroke-width="1.2" opacity="0.6"/><path d="M82 44 L76 64" stroke="#3b2f28" stroke-width="1.2" opacity="0.6"/>
+  <circle cx="58" cy="99" r="2" fill="#3b2f28"/><circle cx="70" cy="99" r="2" fill="#3b2f28"/>
+</svg>

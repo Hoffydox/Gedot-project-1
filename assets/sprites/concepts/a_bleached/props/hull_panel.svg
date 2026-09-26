@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <!-- Bent hull plate with rivets and paint peeling off in chunks. -->
+
+  <ellipse cx="68" cy="74" rx="50" ry="36" fill="#4a3f36" opacity="0.14"/>
+  <path d="M18 36 L90 20 L112 50 L106 96 L66 110 L24 94 Z" fill="#d4d0c4" stroke="#8c826d" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M40 40 L96 30 L102 70 L50 80 Z" fill="#d9a08b" opacity="0.55"/>
+  <path d="M60 40 L70 52 L64 60 L76 70" fill="none" stroke="#e9e2cf" stroke-width="5"/>
+  <path d="M66 110 L76 90 L106 96" fill="#bdb8ab" stroke="#8c826d" stroke-width="3" stroke-linejoin="round"/>
+  <circle cx="26" cy="44" r="2.5" fill="#8c826d"/><circle cx="26" cy="64" r="2.5" fill="#8c826d"/><circle cx="30" cy="84" r="2.5" fill="#8c826d"/><circle cx="98" cy="34" r="2.5" fill="#8c826d"/><circle cx="102" cy="56" r="2.5" fill="#8c826d"/><circle cx="104" cy="80" r="2.5" fill="#8c826d"/><circle cx="46" cy="30" r="2.5" fill="#8c826d"/><circle cx="70" cy="26" r="2.5" fill="#8c826d"/>
+</svg>

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <!-- Skitter: small fast bone-white tick. Swarms in numbers, dies in one hit. -->
+
+  <ellipse cx="34" cy="36" rx="16" ry="12" fill="#4a3f36" opacity="0.14"/>
+  <g stroke="#8c826d" stroke-width="6" stroke-linecap="round" fill="none">
+    <path d="M26 26 L12 14 L6 20"/><path d="M24 32 L6 32"/><path d="M26 38 L12 50 L6 46"/>
+    <path d="M38 26 L52 14 L58 20"/><path d="M40 32 L58 32"/><path d="M38 38 L52 50 L58 46"/>
+  </g>
+  <g stroke="#efe8d8" stroke-width="3" stroke-linecap="round" fill="none">
+    <path d="M26 26 L12 14 L6 20"/><path d="M24 32 L6 32"/><path d="M26 38 L12 50 L6 46"/>
+    <path d="M38 26 L52 14 L58 20"/><path d="M40 32 L58 32"/><path d="M38 38 L52 50 L58 46"/>
+  </g>
+  <ellipse cx="32" cy="32" rx="12" ry="15" fill="#efe8d8" stroke="#7a3b2e" stroke-width="3"/>
+  <path d="M32 19 L32 44" stroke="#d9a08b" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="28" cy="44" r="2" fill="#2a1410"/><circle cx="36" cy="44" r="2" fill="#2a1410"/>
+</svg>

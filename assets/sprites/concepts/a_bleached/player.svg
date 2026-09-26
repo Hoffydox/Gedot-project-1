@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <!-- Concept A (sun-bleached): prospector seen from above, chalky faded suit -->
+  <!-- backpack / life support -->
+  <rect x="34" y="12" width="60" height="38" rx="8" fill="#cfc6b0" stroke="#8c826d" stroke-width="4"/>
+  <rect x="40" y="18" width="48" height="6" fill="#ff6a13"/>
+  <circle cx="46" cy="38" r="4" fill="#8c826d"/>
+  <circle cx="82" cy="38" r="4" fill="#8c826d"/>
+  <!-- torso -->
+  <ellipse cx="64" cy="72" rx="48" ry="32" fill="#e9e2cf" stroke="#9c927e" stroke-width="4"/>
+  <!-- faded teal shoulder pads -->
+  <circle cx="22" cy="72" r="16" fill="#9dbdb5" stroke="#6f8c85" stroke-width="4"/>
+  <circle cx="106" cy="72" r="16" fill="#9dbdb5" stroke="#6f8c85" stroke-width="4"/>
+  <!-- peeling salmon decal with a chipped corner -->
+  <polygon points="86,90 100,90 100,96 94,101 86,101" fill="#dca08a" opacity="0.8"/>
+  <!-- helmet -->
+  <circle cx="64" cy="74" r="26" fill="#f3eee2" stroke="#9c927e" stroke-width="4"/>
+  <rect x="60" y="48" width="8" height="14" rx="2" fill="#ff6a13"/>
+  <!-- visor (facing down / toward the camera) -->
+  <ellipse cx="64" cy="86" rx="18" ry="10" fill="#6d8784" stroke="#4d625f" stroke-width="3"/>
+  <path d="M52 84 Q58 80 66 81" fill="none" stroke="#dfeeea" stroke-width="3" stroke-linecap="round" opacity="0.8"/>
+</svg>
