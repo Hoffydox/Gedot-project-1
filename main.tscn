@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://bqdp333nnfli1" path="res://Main.cs" id="1_h2yge"]
 [ext_resource type="PackedScene" uid="uid://vsw26awys5id" path="res://player.tscn" id="2_h2yge"]
 [ext_resource type="Script" uid="uid://bfsvkxb2kav2w" path="res://EnemySpawner.cs" id="3_h2yge"]
+[ext_resource type="Script" uid="uid://bpatjlej76nga" path="res://WaveManager.cs" id="5_lquwl"]
 
 [node name="Main" type="Node2D" unique_id=1471844778]
 script = ExtResource("1_h2yge")
@@ -18,4 +19,7 @@ spawnDistance = 1000.0
 
 [node name="SpawnTimer" type="Timer" parent="EnemySpawner" unique_id=679449819]
 wait_time = 2.0
-autostart = true
+
+[node name="WaveManager" type="Node" parent="." unique_id=862410994 node_paths=PackedStringArray("spawner")]
+script = ExtResource("5_lquwl")
+spawner = NodePath("../EnemySpawner")

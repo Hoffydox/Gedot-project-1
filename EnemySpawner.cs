@@ -1,7 +1,5 @@
 using Godot;
 
-
-
 public partial class EnemySpawner : Node2D
 {
 	[Export] PackedScene enemyScene;
@@ -35,4 +33,18 @@ public partial class EnemySpawner : Node2D
 		AddChild(enemy);
 		enemy.GlobalPosition = spawnPoint;
 	}
+
+	public void StartSpawning()
+	{
+		spawnTimer.Start();
+
+	}
+	
+	public void StopSpawning()
+	{
+		spawnTimer.Stop();
+
+	}
+
+
 }
