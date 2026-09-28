@@ -11,6 +11,7 @@ size = Vector2(132, 134)
 
 [node name="Enemy" type="CharacterBody2D" unique_id=1025845291]
 script = ExtResource("1_4gyqm")
+moveSpeed = 50.0
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1294025134]
 modulate = Color(1, 0, 0, 1)

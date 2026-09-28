@@ -3,12 +3,19 @@
 [ext_resource type="PackedScene" uid="uid://de6l0ibad3bui" path="res://enemy.tscn" id="1_0xm2m"]
 [ext_resource type="Script" uid="uid://bqdp333nnfli1" path="res://Main.cs" id="1_h2yge"]
 [ext_resource type="PackedScene" uid="uid://vsw26awys5id" path="res://player.tscn" id="2_h2yge"]
+[ext_resource type="Script" uid="uid://bfsvkxb2kav2w" path="res://EnemySpawner.cs" id="3_h2yge"]
 
 [node name="Main" type="Node2D" unique_id=1471844778]
 script = ExtResource("1_h2yge")
 
-[node name="Enemy" parent="." unique_id=1025845291 instance=ExtResource("1_0xm2m")]
-position = Vector2(446, -28)
-
 [node name="Player" parent="." unique_id=1144244028 instance=ExtResource("2_h2yge")]
-position = Vector2(437, 506)
+position = Vector2(574, 337)
+
+[node name="EnemySpawner" type="Node2D" parent="." unique_id=1506017884]
+script = ExtResource("3_h2yge")
+enemyScene = ExtResource("1_0xm2m")
+spawnDistance = 1000.0
+
+[node name="SpawnTimer" type="Timer" parent="EnemySpawner" unique_id=679449819]
+wait_time = 2.0
+autostart = true
