@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <!-- Pale salt crust with a network of cracks. -->
+  <path d="M447.1 256.0 Q447.1 256.0 440.2 292.7 Q433.3 329.5 432.2 380.2 Q431.0 431.0 387.2 449.0 Q343.4 467.1 299.7 477.3 Q256.0 487.5 212.9 475.8 Q169.8 464.1 144.2 428.7 Q118.7 393.3 91.7 364.3 Q64.7 335.2 53.6 295.6 Q42.6 256.0 33.8 208.2 Q25.1 160.4 51.8 119.4 Q78.4 78.4 118.9 50.5 Q159.3 22.6 207.7 14.1 Q256.0 5.6 297.6 30.3 Q339.2 55.1 367.6 85.6 Q395.9 116.1 440.7 138.5 Q485.4 161.0 466.2 208.5 Z" fill="#f3efe6" opacity="0.32"/>
+  <path d="M204.3 291.8 L200.6 299.3 L167.7 354.9 L150.1 371.6 L188.3 409.5" fill="none" stroke="#c9bea6" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+  <path d="M204.3 291.8 L200.6 299.3 L167.7 354.9 L150.1 371.6 L188.3 409.5" fill="none" stroke="#fbf8f1" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round" transform="translate(1.5 -1.5)"/>
+  <path d="M252.2 231.3 L285.8 227.6 L319.8 195.3 L344.3 217.8 L402.2 239.3" fill="none" stroke="#c9bea6" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+  <path d="M252.2 231.3 L285.8 227.6 L319.8 195.3 L344.3 217.8 L402.2 239.3" fill="none" stroke="#fbf8f1" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round" transform="translate(1.5 -1.5)"/>
+  <path d="M253.8 292.7 L236.7 311.2 L215.2 309.4 L230.0 259.6 L277.6 218.0 L254.0 204.2" fill="none" stroke="#c9bea6" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+  <path d="M253.8 292.7 L236.7 311.2 L215.2 309.4 L230.0 259.6 L277.6 218.0 L254.0 204.2" fill="none" stroke="#fbf8f1" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round" transform="translate(1.5 -1.5)"/>
+  <path d="M206.2 263.8 L240.3 220.6 L280.1 236.6 L221.9 178.0 L276.1 196.7 L246.1 148.9" fill="none" stroke="#c9bea6" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+  <path d="M206.2 263.8 L240.3 220.6 L280.1 236.6 L221.9 178.0 L276.1 196.7 L246.1 148.9" fill="none" stroke="#fbf8f1" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round" transform="translate(1.5 -1.5)"/>
+  <path d="M213.1 224.0 L194.7 182.4 L243.2 217.4 L203.3 264.3 L216.3 298.0 L236.6 345.3 L271.1 386.0" fill="none" stroke="#c9bea6" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+  <path d="M213.1 224.0 L194.7 182.4 L243.2 217.4 L203.3 264.3 L216.3 298.0 L236.6 345.3 L271.1 386.0" fill="none" stroke="#fbf8f1" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round" transform="translate(1.5 -1.5)"/>
+  <path d="M219.7 279.1 L248.7 271.8 L294.6 278.4 L266.4 246.5" fill="none" stroke="#c9bea6" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+  <path d="M219.7 279.1 L248.7 271.8 L294.6 278.4 L266.4 246.5" fill="none" stroke="#fbf8f1" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round" transform="translate(1.5 -1.5)"/>
+  <path d="M212.7 255.2 L210.8 303.8 L234.9 273.4 L194.6 285.4" fill="none" stroke="#c9bea6" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+  <path d="M212.7 255.2 L210.8 303.8 L234.9 273.4 L194.6 285.4" fill="none" stroke="#fbf8f1" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round" transform="translate(1.5 -1.5)"/>
+</svg>

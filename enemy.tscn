@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://de6l0ibad3bui"]
 
 [ext_resource type="Script" uid="uid://drt617fudhvlg" path="res://Enemy.cs" id="1_4gyqm"]
-[ext_resource type="Texture2D" uid="uid://c6mn0pgxvbgdl" path="res://assets/sprites/enemy_basic.svg" id="2_4gyqm"]
+[ext_resource type="Texture2D" uid="uid://nsg4wqdwlxe7" path="res://assets/sprites/concepts/a_bleached/enemy.svg" id="2_4gyqm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kmypb"]
 size = Vector2(126, 128)
@@ -14,7 +14,6 @@ script = ExtResource("1_4gyqm")
 moveSpeed = 50.0
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1294025134]
-modulate = Color(1, 0, 0, 1)
 texture = ExtResource("2_4gyqm")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=652836845]

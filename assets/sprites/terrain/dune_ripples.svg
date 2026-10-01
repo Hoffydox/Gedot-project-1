@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <!-- Wind-carved dune ripples. -->
+  <path d="M166 150 Q256 124 346 150" fill="none" stroke="#cdbfa3" stroke-width="5" stroke-linecap="round" opacity="0.8"/>
+  <path d="M172 154 Q256 128 340 154" fill="none" stroke="#f0eadd" stroke-width="3" stroke-linecap="round" opacity="0.8"/>
+  <path d="M136 182 Q256 156 376 182" fill="none" stroke="#cdbfa3" stroke-width="5" stroke-linecap="round" opacity="0.8"/>
+  <path d="M142 186 Q256 160 370 186" fill="none" stroke="#f0eadd" stroke-width="3" stroke-linecap="round" opacity="0.8"/>
+  <path d="M106 214 Q256 188 406 214" fill="none" stroke="#cdbfa3" stroke-width="5" stroke-linecap="round" opacity="0.8"/>
+  <path d="M112 218 Q256 192 400 218" fill="none" stroke="#f0eadd" stroke-width="3" stroke-linecap="round" opacity="0.8"/>
+  <path d="M76 246 Q256 220 436 246" fill="none" stroke="#cdbfa3" stroke-width="5" stroke-linecap="round" opacity="0.8"/>
+  <path d="M82 250 Q256 224 430 250" fill="none" stroke="#f0eadd" stroke-width="3" stroke-linecap="round" opacity="0.8"/>
+  <path d="M106 278 Q256 252 406 278" fill="none" stroke="#cdbfa3" stroke-width="5" stroke-linecap="round" opacity="0.8"/>
+  <path d="M112 282 Q256 256 400 282" fill="none" stroke="#f0eadd" stroke-width="3" stroke-linecap="round" opacity="0.8"/>
+  <path d="M136 310 Q256 284 376 310" fill="none" stroke="#cdbfa3" stroke-width="5" stroke-linecap="round" opacity="0.8"/>
+  <path d="M142 314 Q256 288 370 314" fill="none" stroke="#f0eadd" stroke-width="3" stroke-linecap="round" opacity="0.8"/>
+  <path d="M166 342 Q256 316 346 342" fill="none" stroke="#cdbfa3" stroke-width="5" stroke-linecap="round" opacity="0.8"/>
+  <path d="M172 346 Q256 320 340 346" fill="none" stroke="#f0eadd" stroke-width="3" stroke-linecap="round" opacity="0.8"/>
+</svg>

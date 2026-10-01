@@ -5,9 +5,12 @@
 [ext_resource type="PackedScene" uid="uid://vsw26awys5id" path="res://player.tscn" id="2_h2yge"]
 [ext_resource type="Script" uid="uid://bfsvkxb2kav2w" path="res://EnemySpawner.cs" id="3_h2yge"]
 [ext_resource type="Script" uid="uid://bpatjlej76nga" path="res://WaveManager.cs" id="5_lquwl"]
+[ext_resource type="PackedScene" path="res://terrain.tscn" id="6_terrain"]
 
 [node name="Main" type="Node2D" unique_id=1471844778]
 script = ExtResource("1_h2yge")
+
+[node name="Terrain" parent="." instance=ExtResource("6_terrain")]
 
 [node name="Player" parent="." unique_id=1144244028 instance=ExtResource("2_h2yge")]
 position = Vector2(574, 337)
