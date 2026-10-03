@@ -1,28 +1,23 @@
 using Godot;
 
-public partial class Enemy : CharacterBody2D
+public partial class Enemy : CharacterBody2D, IDamageable
 {
 	[Export] int maxHealth = 20;
 	int health;
 	[Export] float moveSpeed = 150f;
+	[Export] float attackCooldown = 1.0f;
+	float attackTimeLeft;
+
 
 	//store player node
 	PlayerCharacter targetNode;
 	Area2D hitbox;
-	//Area2D hitbox = GetNode<Area2D>("Hitbox");
-
-
-
 	public override void _Ready()
 	{
 		health = maxHealth;
 		// Get reference of player
 		targetNode = GetTree().GetFirstNodeInGroup("player") as PlayerCharacter;
 		hitbox = GetNode<Area2D>("Hitbox");
-
-		// hitbox.BodyEntered += HitboxTriggered;
-
-
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -37,45 +32,44 @@ public partial class Enemy : CharacterBody2D
 		var thisPosition = GlobalPosition;
 		var targetPosition = targetNode.GlobalPosition;
 		// change arrow to more correct and discriptive name.
-		var arrow = targetPosition - thisPosition;
+		var directionToTarget = targetPosition - thisPosition;
 
 		// Set Velocity to direction × speed.
-		Velocity = arrow.Normalized() * moveSpeed;
+		Velocity = directionToTarget.Normalized() * moveSpeed;
 
 		MoveAndSlide();
+
+		attackTimeLeft = attackTimeLeft - (float)delta;
+		if (attackTimeLeft > 0)
+		{
+			return;
+		}
 
 		var overlapCollection = hitbox.GetOverlappingBodies();
 		foreach (var body in overlapCollection)
 		{
 			// runs once for each item; 'body' is the current one
-			if (body is PlayerCharacter player)
+			if (body is IDamageable target)
 			{
-				player.Damage(2);
+				if (target is Enemy) // to prevent self-damage.
+				{
+					continue;
+				}
+				target.Damage(2);
+				attackTimeLeft = attackCooldown;
+				break; //only attacks 1 thing on the foreach "list". Break leaves the loop.
 			}
 		}
+
+
 	}
 
-	/*
-		public void HitboxTriggered(Node2D body)
-		{
-			if (body is PlayerCharacter player)
-			{
-				player.Damage(2);
-			}
-		}
-	*/
-	public int Damage(int damageAmt)
+	public void Damage(int amount)
 	{
-		return health - damageAmt;
-	}
-
-	public int Heal(int healAmt)
-	{
-		if (health + healAmt >= maxHealth)
+		health -= amount;
+		if (health <= 0)
 		{
-			return maxHealth;
+			QueueFree();
 		}
-
-		return health + healAmt;
 	}
 }

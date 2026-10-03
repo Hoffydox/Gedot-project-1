@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class PlayerCharacter : CharacterBody2D
+public partial class PlayerCharacter : CharacterBody2D, IDamageable
 {
 	[Signal] public delegate void DiedEventHandler();
 	[Signal] public delegate void HealthChangedEventHandler(int current, int max);

@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class Deployable : StaticBody2D
+public partial class Deployable : StaticBody2D, IDamageable
 {
 
 	[Export] int maxHealth = 50;
@@ -17,5 +17,14 @@ public partial class Deployable : StaticBody2D
 
 		GD.Print(what: "Placed!");
 
+	}
+	public void Damage(int amount)
+	{
+		health -= amount;
+		GD.Print(what: "my HP: " + health);
+		if (health <= 0)
+		{
+			QueueFree();
+		}
 	}
 }

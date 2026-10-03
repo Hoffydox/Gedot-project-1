@@ -8,7 +8,7 @@ public partial class WaveManager : Node
 	public enum WaveState { Waiting, Active, Resting }
 	
 	[Export] bool autoStartNextWave = true;
-	[Export] public float waveDuration = 2;
+	[Export] public float waveDuration = 150;
 	[Export] float restDuration = 8;
 	[Export] EnemySpawner spawner;
 
