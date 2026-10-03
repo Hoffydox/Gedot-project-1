@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://vsw26awys5id"]
 
 [ext_resource type="Script" uid="uid://hl0ihwkf28y6" path="res://PlayerCharacter.cs" id="1_onrkg"]
+[ext_resource type="PackedScene" uid="uid://bl04none8oq0q" path="res://drill.tscn" id="2_i3pqv"]
 [ext_resource type="Texture2D" uid="uid://jnes7bp01kho" path="res://assets/sprites/concepts/a_bleached/player.svg" id="2_onrkg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kmypb"]
@@ -9,6 +10,7 @@ size = Vector2(130, 128)
 [node name="Player" type="CharacterBody2D" unique_id=1144244028 groups=["player"]]
 script = ExtResource("1_onrkg")
 moveSpeed = 350.0
+drillScene = ExtResource("2_i3pqv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1220609943]
 shape = SubResource("RectangleShape2D_kmypb")

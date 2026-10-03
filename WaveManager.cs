@@ -80,6 +80,10 @@ public partial class WaveManager : Node
 
 	public void StartWave()
 	{
+		if (currentState == WaveState.Active) //Prevents start of wave, mid-wave. 
+		{
+			return;
+		}
 		waveNumber++;
 		ChangeState(WaveState.Active);
 		//Signal that wave started.

@@ -11,6 +11,11 @@ public partial class PlayerCharacter : CharacterBody2D
 	[Export] float moveSpeed = 300f;
 
 	[Export] float invincibleDuration = 0.5f;
+
+	[Export] PackedScene drillScene;
+
+	Drill placedDrill;
+
 	float invincibleTimeLeft;
 
 	public override void _Ready()
@@ -34,6 +39,11 @@ public partial class PlayerCharacter : CharacterBody2D
 		// so no need to multiply by delta - MoveAndSlide handles that itself.
 		MoveAndSlide();
 		invincibleTimeLeft = invincibleTimeLeft - (float)delta;
+
+		if (Input.IsActionJustPressed("deploy"))
+		{
+			PlaceDrill();
+		}
 
 	}
 
@@ -68,6 +78,7 @@ public partial class PlayerCharacter : CharacterBody2D
 		EmitSignal(SignalName.HealthChanged, health, maxHealth);
 	}
 
+
 	public void Heal(int healAmount)
 	{
 		if (health == maxHealth)
@@ -85,5 +96,28 @@ public partial class PlayerCharacter : CharacterBody2D
 			health = health + healAmount;
 			EmitHealthChanged();
 		}
+	}
+
+	public void PlaceDrill()
+	{
+		if (IsInstanceValid(placedDrill))
+		{
+			return;
+		}
+		var drill = drillScene.Instantiate<Drill>();
+
+		Vector2 spawnDirection = Vector2.Down;
+
+		var offset = spawnDirection * 150;
+		var spawnPoint = GlobalPosition + offset;
+
+		GetParent().AddChild(drill);
+
+		drill.GlobalPosition = spawnPoint;
+
+		placedDrill = drill;
+
+		//placedDrill.
+
 	}
 }

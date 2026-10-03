@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://bl04none8oq0q"]
+
+[ext_resource type="Script" uid="uid://b4bmjo8if4g58" path="res://Drill.cs" id="1_0n8n4"]
+[ext_resource type="Texture2D" uid="uid://bhhu84wvq40" path="res://assets/sprites/concepts/a_bleached/deployables/drill.svg" id="2_xj5j7"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_x3gae"]
+radius = 70.0
+
+[node name="Drill" type="StaticBody2D" unique_id=136462650]
+script = ExtResource("1_0n8n4")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=751430034]
+texture = ExtResource("2_xj5j7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1250898611]
+position = Vector2(0, -4)
+shape = SubResource("CircleShape2D_x3gae")

@@ -27,6 +27,6 @@ spawnDistance = 1000.0
 [node name="SpawnTimer" type="Timer" parent="EnemySpawner" unique_id=679449819]
 wait_time = 2.0
 
-[node name="WaveManager" type="Node" parent="." unique_id=862410994 node_paths=PackedStringArray("spawner")]
+[node name="WaveManager" type="Node" parent="." unique_id=862410994 node_paths=PackedStringArray("spawner") groups=["wave_manager"]]
 script = ExtResource("5_lquwl")
 spawner = NodePath("../EnemySpawner")

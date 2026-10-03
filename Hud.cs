@@ -31,17 +31,17 @@ public partial class Hud : Node2D
 		{
 			return;
 		}
-			switch (waveManager.State)
-			{
-				case WaveManager.WaveState.Active:
-					statusLabel.Text = "Active";
-					break;
-				case WaveManager.WaveState.Resting:
-					statusLabel.Text = "Resting for " + Mathf.Ceil(waveManager.TimeLeft) + " Seconds";
-					break;
-				case WaveManager.WaveState.Waiting:
-					statusLabel.Text = "Press E to start the next wave!"; break;
-			}
+		switch (waveManager.State)
+		{
+			case WaveManager.WaveState.Active:
+				statusLabel.Text = "Active";
+				break;
+			case WaveManager.WaveState.Resting:
+				statusLabel.Text = "Resting for " + Mathf.Ceil(waveManager.TimeLeft) + " Seconds";
+				break;
+			case WaveManager.WaveState.Waiting:
+				statusLabel.Text = "Press E to start the next wave!"; break;
+		}
 	}
 
 	public void UpdateUI(int current, int max)
@@ -54,18 +54,18 @@ public partial class Hud : Node2D
 		{
 			return;
 		}
-			if (waveNumber <= 0)
-			{
-				waveLabel.Text = "Press E to start first wave!";
-			}
-			else
-			{
-				waveLabel.Text = "Wave: " + waveNumber;
-			}
+		if (waveNumber <= 0)
+		{
+			waveLabel.Text = "Press E to start first wave!";
+		}
+		else
+		{
+			waveLabel.Text = "Wave: " + waveNumber;
+		}
 	}
 	public void ShowGameOver()
 	{
-		
+
 		gameOver = true;
 		statusLabel.Text = "Game Over - Press R to restart!";
 	}

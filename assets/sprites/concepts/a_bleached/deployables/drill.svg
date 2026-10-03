@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <!-- Deployable: prospector's drill rig seen from above. Tripod legs, engine block, drill head in the middle. -->
+  <ellipse cx="68" cy="70" rx="54" ry="50" fill="#4a3f36" opacity="0.14"/>
+  <!-- tripod legs with outlines -->
+  <g stroke="#8c826d" stroke-width="11" stroke-linecap="round"><path d="M64 64 L18 26"/><path d="M64 64 L110 26"/><path d="M64 64 L64 118"/></g>
+  <g stroke="#cfc6b0" stroke-width="7" stroke-linecap="round"><path d="M64 64 L18 26"/><path d="M64 64 L110 26"/><path d="M64 64 L64 118"/></g>
+  <g fill="#9dbdb5" stroke="#6f8c85" stroke-width="3"><circle cx="18" cy="26" r="8"/><circle cx="110" cy="26" r="8"/><circle cx="64" cy="118" r="8"/></g>
+  <!-- engine block with hazard stripes -->
+  <rect x="34" y="34" width="60" height="44" rx="6" fill="#e9e2cf" stroke="#8c826d" stroke-width="4"/>
+  <path d="M38 70 L46 62 M48 70 L56 62 M58 70 L66 62 M68 70 L76 62 M78 70 L86 62" stroke="#ff6a13" stroke-width="4" stroke-linecap="round"/>
+  <rect x="40" y="40" width="16" height="10" rx="2" fill="#6d8784" stroke="#4d625f" stroke-width="2"/>
+  <circle cx="84" cy="45" r="4" fill="#ff6a13"/>
+  <!-- drill head -->
+  <circle cx="64" cy="86" r="17" fill="#d6d0c2" stroke="#8c826d" stroke-width="4"/>
+  <path d="M64 72 L68 86 L64 100 L60 86 Z" fill="#8c826d"/>
+  <path d="M50 86 L64 82 L78 86 L64 90 Z" fill="#a89f8a"/>
+  <circle cx="64" cy="86" r="4" fill="#2a1410"/>
+</svg>
