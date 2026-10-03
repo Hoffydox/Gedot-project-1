@@ -3,8 +3,11 @@ using Godot;
 public partial class PlayerCharacter : CharacterBody2D
 {
 	[Signal] public delegate void DiedEventHandler();
+	[Signal] public delegate void HealthChangedEventHandler(int current, int max);
 	[Export] int maxHealth = 20;
 	int health;
+	public int Health => health;
+	public int MaxHealth => maxHealth;
 	[Export] float moveSpeed = 300f;
 
 	[Export] float invincibleDuration = 0.5f;
@@ -13,6 +16,7 @@ public partial class PlayerCharacter : CharacterBody2D
 	public override void _Ready()
 	{
 		health = maxHealth;
+
 		//spawn protection
 		invincibleTimeLeft = invincibleDuration;
 	}
@@ -43,12 +47,13 @@ public partial class PlayerCharacter : CharacterBody2D
 		health = health - damageAmount;
 		invincibleTimeLeft = invincibleDuration;
 		GD.Print(what: "Emotional Damage! New Hp = " + health);
+		EmitHealthChanged();
 		if (health <= 0)
 		{
 			//dies.
 			PlayerDeath();
 		}
-		
+
 	}
 
 	public void PlayerDeath()
@@ -58,18 +63,27 @@ public partial class PlayerCharacter : CharacterBody2D
 		QueueFree();
 	}
 
+	public void EmitHealthChanged()
+	{
+		EmitSignal(SignalName.HealthChanged, health, maxHealth);
+	}
+
 	public void Heal(int healAmount)
 	{
-		if (health + healAmount >= maxHealth)
+		if (health == maxHealth)
+		{
+			return;
+		}
+		else if (health + healAmount >= maxHealth)
 		{
 			health = maxHealth;
 			GD.Print("Overhealed.");
+			EmitHealthChanged();
 		}
 		else
 		{
 			health = health + healAmount;
+			EmitHealthChanged();
 		}
-
-
 	}
 }

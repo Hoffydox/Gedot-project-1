@@ -4,17 +4,22 @@ using Godot;
 public partial class WaveManager : Node
 {
 
-	enum WaveState { Waiting, Active, Resting }
-
+	[Signal] public delegate void WaveStartedEventHandler(int waveNumber);
+	public enum WaveState { Waiting, Active, Resting }
+	
 	[Export] bool autoStartNextWave = true;
-	[Export] float waveDuration = 20;
+	[Export] public float waveDuration = 2;
 	[Export] float restDuration = 8;
 	[Export] EnemySpawner spawner;
 
 	//fields:
-	WaveState currentState = WaveState.Active;
+	WaveState currentState = WaveState.Active; 
+	public WaveState State => currentState; 
 	float timeLeft;
-	int waveNumber = 0;
+
+	public float TimeLeft => timeLeft;
+	int waveNumber = 0;   
+	public int WaveNumber => waveNumber;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -77,6 +82,9 @@ public partial class WaveManager : Node
 	{
 		waveNumber++;
 		ChangeState(WaveState.Active);
+		//Signal that wave started.
+		EmitSignal(SignalName.WaveStarted, waveNumber);
+		 
 	}
 
 	private void ChangeState(WaveState newState)

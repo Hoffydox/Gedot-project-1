@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://1kq2mcdyl8tu"]
+
+[ext_resource type="Script" uid="uid://cnn5gkx4m8lf" path="res://Hud.cs" id="1_37p78"]
+
+[node name="HUD" type="Node2D" unique_id=515233469]
+script = ExtResource("1_37p78")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1301283802]
+
+[node name="HealthLabel" type="Label" parent="CanvasLayer" unique_id=1094262651]
+anchors_preset = -1
+offset_left = 16.0
+offset_right = 52.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0.20536679, 0.09932422, 1.2032688e-08, 1)
+theme_override_font_sizes/font_size = 32
+text = "Health"
+
+[node name="WaveLabel" type="Label" parent="CanvasLayer" unique_id=181236762]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -21.5
+offset_right = 21.5
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.20536679, 0.09932422, 1.2032688e-08, 1)
+theme_override_font_sizes/font_size = 32
+text = "Wave"
+horizontal_alignment = 1
+
+[node name="StatusLabel" type="Label" parent="CanvasLayer" unique_id=494683683]
+anchors_preset = -1
+anchor_left = 0.876
+anchor_right = 1.0
+offset_left = -49.0
+offset_right = -16.0
+offset_bottom = 23.0
+grow_horizontal = 0
+theme_override_colors/font_color = Color(0.20536679, 0.09932422, 1.2032688e-08, 1)
+theme_override_font_sizes/font_size = 32
+text = "Status"
+horizontal_alignment = 2

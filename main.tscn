@@ -2,15 +2,19 @@
 
 [ext_resource type="PackedScene" uid="uid://de6l0ibad3bui" path="res://enemy.tscn" id="1_0xm2m"]
 [ext_resource type="Script" uid="uid://bqdp333nnfli1" path="res://Main.cs" id="1_h2yge"]
+[ext_resource type="PackedScene" uid="uid://1kq2mcdyl8tu" path="res://hud.tscn" id="2_272bh"]
 [ext_resource type="PackedScene" uid="uid://vsw26awys5id" path="res://player.tscn" id="2_h2yge"]
 [ext_resource type="Script" uid="uid://bfsvkxb2kav2w" path="res://EnemySpawner.cs" id="3_h2yge"]
 [ext_resource type="Script" uid="uid://bpatjlej76nga" path="res://WaveManager.cs" id="5_lquwl"]
-[ext_resource type="PackedScene" path="res://terrain.tscn" id="6_terrain"]
+[ext_resource type="PackedScene" uid="uid://d1d2sahcjbdak" path="res://terrain.tscn" id="6_terrain"]
 
 [node name="Main" type="Node2D" unique_id=1471844778]
 script = ExtResource("1_h2yge")
 
-[node name="Terrain" parent="." instance=ExtResource("6_terrain")]
+[node name="HUD" parent="." unique_id=515233469 node_paths=PackedStringArray("waveManager") instance=ExtResource("2_272bh")]
+waveManager = NodePath("../WaveManager")
+
+[node name="Terrain" parent="." unique_id=22942818 instance=ExtResource("6_terrain")]
 
 [node name="Player" parent="." unique_id=1144244028 instance=ExtResource("2_h2yge")]
 position = Vector2(574, 337)
