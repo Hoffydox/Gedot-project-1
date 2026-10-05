@@ -5,6 +5,7 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 	[Signal] public delegate void DiedEventHandler();
 	[Signal] public delegate void HealthChangedEventHandler(int current, int max);
 	[Export] int maxHealth = 20;
+	[Export] PackedScene turretScene;
 	int health;
 	public int Health => health;
 	public int MaxHealth => maxHealth;
@@ -15,6 +16,7 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 	[Export] PackedScene drillScene;
 
 	Drill placedDrill;
+	Turret placedTurret;
 
 	float invincibleTimeLeft;
 
@@ -43,6 +45,10 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 		if (Input.IsActionJustPressed("deploy"))
 		{
 			PlaceDrill();
+		}
+		if (Input.IsActionJustPressed("deploy_turret"))
+		{
+			PlaceTurret();
 		}
 
 	}
@@ -116,6 +122,25 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 		drill.GlobalPosition = spawnPoint;
 
 		placedDrill = drill;
+
+		//placedDrill.
+
+	}
+	public void PlaceTurret()
+	{
+		
+		var turret = turretScene.Instantiate<Turret>();
+
+		Vector2 spawnDirection = Vector2.Up;
+
+		var offset = spawnDirection * 150;
+		var spawnPoint = GlobalPosition + offset;
+
+		GetParent().AddChild(turret);
+
+		turret.GlobalPosition = spawnPoint;
+
+		placedTurret = turret;
 
 		//placedDrill.
 

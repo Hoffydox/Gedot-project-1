@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://d4cvo6fkojffx"]
+
+[ext_resource type="Script" uid="uid://bbph06wvl2baa" path="res://Turret.cs" id="1_3oylf"]
+[ext_resource type="Texture2D" uid="uid://b4lr45hf3gxxm" path="res://assets/sprites/concepts/a_bleached/deployables/turret_base.svg" id="2_c5apd"]
+[ext_resource type="Texture2D" uid="uid://bn2thytca05rr" path="res://assets/sprites/concepts/a_bleached/deployables/turret_head.svg" id="3_coqkk"]
+[ext_resource type="PackedScene" uid="uid://dgt6v6tdiryjq" path="res://bullet.tscn" id="4_coqkk"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tjdg3"]
+radius = 71.00704
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_02bu0"]
+radius = 500.0
+
+[node name="Turret" type="StaticBody2D" unique_id=307342662]
+script = ExtResource("1_3oylf")
+bulletScene = ExtResource("4_coqkk")
+
+[node name="Base" type="Sprite2D" parent="." unique_id=2114257505]
+texture = ExtResource("2_c5apd")
+
+[node name="Head" type="Sprite2D" parent="." unique_id=559732876]
+texture = ExtResource("3_coqkk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1374158787]
+shape = SubResource("CircleShape2D_tjdg3")
+
+[node name="Range" type="Area2D" parent="." unique_id=2030920518]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Range" unique_id=829666713]
+shape = SubResource("CircleShape2D_02bu0")

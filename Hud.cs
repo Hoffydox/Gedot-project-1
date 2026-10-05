@@ -56,7 +56,7 @@ public partial class Hud : Node2D
 		}
 		if (waveNumber <= 0)
 		{
-			waveLabel.Text = "Press E to start first wave!";
+			waveLabel.Text = " ";
 		}
 		else
 		{
