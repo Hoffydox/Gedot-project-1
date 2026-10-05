@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://kta8f6vh4gis"]
+
+[ext_resource type="Script" uid="uid://cbeybpv50hj3h" path="res://Pickup.cs" id="1_iqk3k"]
+[ext_resource type="Texture2D" uid="uid://jd5635fmc7o" path="res://assets/sprites/concepts/a_bleached/pickups/ore.svg" id="2_amdaw"]
+[ext_resource type="Texture2D" uid="uid://cu23cstbl1ww3" path="res://assets/sprites/concepts/a_bleached/pickups/scrap.svg" id="3_0tmqx"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kmypb"]
+radius = 22.090721
+
+[node name="Pickup" type="Area2D" unique_id=972663329]
+script = ExtResource("1_iqk3k")
+oreTexture = ExtResource("2_amdaw")
+scrapTexture = ExtResource("3_0tmqx")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=230740811]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1868885325]
+shape = SubResource("CircleShape2D_kmypb")

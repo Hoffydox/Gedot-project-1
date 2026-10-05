@@ -4,6 +4,11 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 {
 	[Signal] public delegate void DiedEventHandler();
 	[Signal] public delegate void HealthChangedEventHandler(int current, int max);
+	[Signal] public delegate void LootChangedEventHandler(int ore, int scrap);
+	int carriedOre;
+	int carriedScrap;
+	public int CarriedOre => carriedOre;
+	public int CarriedScrap => carriedScrap;
 	[Export] int maxHealth = 20;
 	[Export] PackedScene turretScene;
 	int health;
@@ -83,6 +88,10 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 	{
 		EmitSignal(SignalName.HealthChanged, health, maxHealth);
 	}
+	public void EmitLootChanged()
+	{
+		EmitSignal(SignalName.LootChanged, carriedOre, carriedScrap);
+	}
 
 
 	public void Heal(int healAmount)
@@ -127,7 +136,7 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 	}
 	public void PlaceTurret()
 	{
-		
+
 		var turret = turretScene.Instantiate<Turret>();
 
 		Vector2 spawnDirection = Vector2.Up;
@@ -141,5 +150,19 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 
 		placedTurret = turret;
 
+	}
+
+	public void AddLoot(Pickup.LootType type, int amount)
+	{
+		if (type == Pickup.LootType.Ore)
+		{
+			carriedOre += amount;
+		}
+		else if (type == Pickup.LootType.Scrap)
+		{
+			carriedScrap += amount;
+
+		}
+		EmitLootChanged();
 	}
 }

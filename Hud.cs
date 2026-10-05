@@ -6,6 +6,7 @@ public partial class Hud : Node2D
 	[Export] WaveManager waveManager;
 
 	Label healthLabel;
+	Label lootLabel;
 	Label waveLabel;
 	Label statusLabel;
 
@@ -18,6 +19,7 @@ public partial class Hud : Node2D
 	public override void _Ready()
 	{
 		healthLabel = GetNode<Label>("CanvasLayer/HealthLabel");
+		lootLabel = GetNode<Label>("CanvasLayer/LootLabel");
 		waveLabel = GetNode<Label>("CanvasLayer/WaveLabel");
 		statusLabel = GetNode<Label>("CanvasLayer/StatusLabel");
 
@@ -79,4 +81,10 @@ public partial class Hud : Node2D
 		gameOver = true;
 		statusLabel.Text = "Game Over - Press R to restart!";
 	}
+
+	public void OnLootChanged(int ore, int scrap)
+	{
+		lootLabel.Text = "Ore: " + ore + " Scrap: " + scrap + " ";
+	}
+
 }

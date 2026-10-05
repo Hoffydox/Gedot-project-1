@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://drt617fudhvlg" path="res://Enemy.cs" id="1_4gyqm"]
 [ext_resource type="Texture2D" uid="uid://nsg4wqdwlxe7" path="res://assets/sprites/concepts/a_bleached/enemy.svg" id="2_4gyqm"]
+[ext_resource type="PackedScene" uid="uid://kta8f6vh4gis" path="res://pickup.tscn" id="2_qi2p4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kmypb"]
 size = Vector2(126, 128)
@@ -11,6 +12,7 @@ size = Vector2(132, 134)
 
 [node name="Enemy" type="CharacterBody2D" unique_id=1025845291]
 script = ExtResource("1_4gyqm")
+pickupScene = ExtResource("2_qi2p4")
 moveSpeed = 75.0
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1294025134]

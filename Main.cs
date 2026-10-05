@@ -18,12 +18,16 @@ public partial class Main : Node2D
 		fetchedPlayerNode = GetNode<PlayerCharacter>("Player");
 		fetchedHudNode = GetNode<Hud>("HUD");
 		fetchedWaveNode = GetNode<WaveManager>("WaveManager");
+		
 		fetchedPlayerNode.Died += GameOver;
 		fetchedPlayerNode.HealthChanged += fetchedHudNode.UpdateUI;
+		fetchedPlayerNode.LootChanged += fetchedHudNode.OnLootChanged;
+		
 		fetchedWaveNode.SwarmStarted += fetchedHudNode.OnSwarmStarted;
-
 		fetchedHudNode.UpdateUI(fetchedPlayerNode.Health, fetchedPlayerNode.MaxHealth);
 		fetchedHudNode.OnSwarmStarted(fetchedWaveNode.SwarmNumber);
+
+		fetchedHudNode.OnLootChanged(0,0); // inistiate loot. Could be taken from savedstate later.
 
 	}
 

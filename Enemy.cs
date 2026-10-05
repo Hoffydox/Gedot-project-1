@@ -3,10 +3,14 @@ using Godot;
 public partial class Enemy : CharacterBody2D, IDamageable
 {
 	[Export] int maxHealth = 20;
+	[Export] PackedScene pickupScene;
 	int health;
 	[Export] float moveSpeed = 150f;
 	[Export] float attackCooldown = 1.0f;
 	float attackTimeLeft;
+	bool isDead = false;
+
+	[Export] int scrapWorth = 1; // should be a random number? between 0 - 3? or something similar.
 
 
 	//store player node
@@ -60,8 +64,6 @@ public partial class Enemy : CharacterBody2D, IDamageable
 				break; //only attacks 1 thing on the foreach "list". Break leaves the loop.
 			}
 		}
-
-
 	}
 
 	public void Damage(int amount)
@@ -69,7 +71,25 @@ public partial class Enemy : CharacterBody2D, IDamageable
 		health -= amount;
 		if (health <= 0)
 		{
-			QueueFree();
+			
+			EnemyDeath();
+			
 		}
+	}
+	public void EnemyDeath()
+	{
+		
+		if (isDead == true)
+		{
+			return;
+		}
+
+			var spawnPoint = GlobalPosition;
+			var pickup = pickupScene.Instantiate<Pickup>();
+			pickup.GlobalPosition = spawnPoint;
+			pickup.Setup(Pickup.LootType.Scrap, scrapWorth);
+			GetParent().CallDeferred(Node.MethodName.AddChild, pickup);
+			QueueFree();
+		isDead = true;
 	}
 }

@@ -2,12 +2,17 @@ using Godot;
 
 public partial class Drill : Deployable
 {
-	[Export] float drillDuration = 30;
+	[Export] PackedScene pickupScene;
+	[Export] float drillDuration = 30.3f;
+	[Export] float oreRate = 0.5f;
+	float oreMined;
+
 	float drillTimeLeft;
 
 	public float DrillTimeLeft => drillTimeLeft;
 
 	WaveManager targetWaveManager;
+
 
 	public override void OnPlaced()
 	{
@@ -17,7 +22,7 @@ public partial class Drill : Deployable
 		if (!IsInstanceValid(targetWaveManager))
 		{
 			return;
-		} 
+		}
 		targetWaveManager.StartSwarm(this);
 	}
 
@@ -28,31 +33,40 @@ public partial class Drill : Deployable
 		{
 			FinishDrilling();
 		}
+		oreMined += oreRate * (float)delta;
 	}
 
 	public void FinishDrilling()
 	{
-		if (!IsInstanceValid(targetWaveManager))
-		{
-			return;
-		} 
 		GD.Print(what: "Drilling Complete!");
-		targetWaveManager.EndSwarm();
+		if (IsInstanceValid(targetWaveManager))
+		{
+			targetWaveManager.EndSwarm();
+		}
 		/* ADD an animation here in the future. maybe switch mineral patch with exhausted patch. */
+		// drop an ore pickup 
+
+		var spawnPoint = GlobalPosition;
+
+		var pickup = pickupScene.Instantiate<Pickup>();
+		GetParent().AddChild(pickup);
+		pickup.GlobalPosition = spawnPoint;
+		pickup.Setup(Pickup.LootType.Ore, (int)oreMined);
 		QueueFree();
-		
+
 	}
 
 	public override void OnDestroyed()
 	{
-		if (!IsInstanceValid(targetWaveManager))
-		{
-			return;
-		} 
 		GD.Print(what: "Drill destroyed!");
-		targetWaveManager.EndSwarm();
+		if (IsInstanceValid(targetWaveManager))
+		{
+			targetWaveManager.EndSwarm();
+		}
 		/* should switch mineral patch with exhausted patch. also happend here? can player get back and mine later? */
+		oreMined = 0;
 		base.OnDestroyed();
+
 	}
 
 }

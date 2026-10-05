@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
+  <!-- Pickup: raw ore chunk. Pale rock with amber crystal veins. -->
+  <ellipse cx="25" cy="38" rx="17" ry="6" fill="#4a3f36" opacity="0.16"/>
+  <path d="M8 30 L12 16 L24 9 L37 14 L41 28 L33 38 L15 38 Z" fill="#e9e2cf" stroke="#8c826d" stroke-width="2.5" stroke-linejoin="round"/>
+  <path d="M24 9 L22 24 L41 28 M22 24 L15 38" fill="none" stroke="#c9bfa8" stroke-width="2"/>
+  <polygon points="17,22 21,13 24,22 21,28" fill="#f2b84b" stroke="#a8641a" stroke-width="1.5" stroke-linejoin="round"/>
+  <polygon points="27,26 31,18 35,27 31,32" fill="#f7cd6f" stroke="#a8641a" stroke-width="1.5" stroke-linejoin="round"/>
+  <path d="M19 16 L20 19" stroke="#fff3d1" stroke-width="1.5" stroke-linecap="round"/>
+</svg>

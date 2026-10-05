@@ -41,3 +41,16 @@ theme_override_colors/font_color = Color(0.20536679, 0.09932422, 1.2032688e-08, 
 theme_override_font_sizes/font_size = 32
 text = "Status"
 horizontal_alignment = 2
+
+[node name="LootLabel" type="Label" parent="CanvasLayer" unique_id=693147684]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -22.5
+offset_right = 69.0
+offset_bottom = 22.5
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.20536679, 0.09932422, 1.2032688e-08, 1)
+theme_override_font_sizes/font_size = 32
+text = "Loot"
+horizontal_alignment = 1
