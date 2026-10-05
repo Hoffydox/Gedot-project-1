@@ -9,6 +9,8 @@ public partial class Hud : Node2D
 	Label waveLabel;
 	Label statusLabel;
 
+
+
 	bool gameOver = false;
 
 
@@ -33,14 +35,22 @@ public partial class Hud : Node2D
 		}
 		switch (waveManager.State)
 		{
-			case WaveManager.WaveState.Active:
-				statusLabel.Text = "Active";
+			case WaveManager.WaveState.Swarm:
+				var drill = waveManager.CurrentDrill;
+				if (IsInstanceValid(drill))
+				{
+					statusLabel.Text = "SWARM! Drilling: " + Mathf.Ceil(drill.DrillTimeLeft) + "s";
+				}
+				else
+				{
+					statusLabel.Text = "SWARM!";
+				}
+
 				break;
-			case WaveManager.WaveState.Resting:
-				statusLabel.Text = "Resting for " + Mathf.Ceil(waveManager.TimeLeft) + " Seconds";
+
+			case WaveManager.WaveState.Calm:
+				statusLabel.Text = "Place a drill (F) to start drilling";
 				break;
-			case WaveManager.WaveState.Waiting:
-				statusLabel.Text = "Press E to start the next wave!"; break;
 		}
 	}
 
@@ -48,19 +58,19 @@ public partial class Hud : Node2D
 	{
 		healthLabel.Text = "HP: " + current + " / " + max;
 	}
-	public void OnWaveStarted(int waveNumber)
+	public void OnSwarmStarted(int swarmNumber)
 	{
 		if (gameOver)
 		{
 			return;
 		}
-		if (waveNumber <= 0)
+		if (swarmNumber <= 0)
 		{
 			waveLabel.Text = " ";
 		}
 		else
 		{
-			waveLabel.Text = "Wave: " + waveNumber;
+			waveLabel.Text = "Swarm: " + swarmNumber;
 		}
 	}
 	public void ShowGameOver()

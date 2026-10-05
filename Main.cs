@@ -20,10 +20,10 @@ public partial class Main : Node2D
 		fetchedWaveNode = GetNode<WaveManager>("WaveManager");
 		fetchedPlayerNode.Died += GameOver;
 		fetchedPlayerNode.HealthChanged += fetchedHudNode.UpdateUI;
-		fetchedWaveNode.WaveStarted += fetchedHudNode.OnWaveStarted;
+		fetchedWaveNode.SwarmStarted += fetchedHudNode.OnSwarmStarted;
 
 		fetchedHudNode.UpdateUI(fetchedPlayerNode.Health, fetchedPlayerNode.MaxHealth);
-		fetchedHudNode.OnWaveStarted(fetchedWaveNode.WaveNumber);
+		fetchedHudNode.OnSwarmStarted(fetchedWaveNode.SwarmNumber);
 
 	}
 

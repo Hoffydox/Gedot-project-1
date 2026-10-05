@@ -4,91 +4,47 @@ using Godot;
 public partial class WaveManager : Node
 {
 
-	[Signal] public delegate void WaveStartedEventHandler(int waveNumber);
-	public enum WaveState { Waiting, Active, Resting }
-	
-	[Export] bool autoStartNextWave = true;
-	[Export] public float waveDuration = 10;
-	[Export] float restDuration = 6;
+	[Signal] public delegate void SwarmStartedEventHandler(int swarmNumber);
+	[Signal] public delegate void SwarmEndedEventHandler();
+
+	public enum WaveState { Calm, Swarm } // we should maybe add a boss phase in the future? (last wave stuff)
+
+
 	[Export] EnemySpawner spawner;
 
 	//fields:
-	WaveState currentState = WaveState.Active; 
-	public WaveState State => currentState; 
-	float timeLeft;
+	Drill currentDrill;
+	public Drill CurrentDrill => currentDrill;
+	
+	WaveState currentState = WaveState.Swarm;
+	public WaveState State => currentState;
 
-	public float TimeLeft => timeLeft;
-	int waveNumber = 0;   
-	public int WaveNumber => waveNumber;
+	int swarmNumber = 0;
+	public int SwarmNumber => swarmNumber;
 
-	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		ChangeState(WaveState.Waiting);
+		ChangeState(WaveState.Calm);
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		switch (currentState)
-		{
-			case WaveState.Waiting:
 
-				if (Input.IsActionJustPressed("start_wave"))
-				{
-					StartWave();
-				}
-				break;
-
-			case WaveState.Active:
-
-
-				if (timeLeft <= 0)
-				{
-					ChangeState(WaveState.Resting);
-				}
-				else
-				{
-					timeLeft = timeLeft - (float)delta;
-				}
-				break;
-
-
-
-			case WaveState.Resting:
-				
-					//auto-Start on?
-					if (timeLeft <= 0)
-					{
-						if (autoStartNextWave)
-						{
-							StartWave();
-						} else
-						{
-							ChangeState(WaveState.Waiting);
-						}
-					} else
-					{
-						timeLeft = timeLeft - (float)delta;
-					}
-					
-					break;
-
-			default: break;
-		}
 	}
 
-	public void StartWave()
+	public void StartSwarm(Drill drill)
 	{
-		if (currentState == WaveState.Active) //Prevents start of wave, mid-wave. 
+		if (currentState == WaveState.Swarm) //Prevents start of wave, mid-wave. 
 		{
 			return;
 		}
-		waveNumber++;
-		ChangeState(WaveState.Active);
+		currentDrill = drill;
+		swarmNumber++;
+		ChangeState(WaveState.Swarm);
 		//Signal that wave started.
-		EmitSignal(SignalName.WaveStarted, waveNumber);
-		 
+		EmitSignal(SignalName.SwarmStarted, swarmNumber);
+
 	}
 
 	private void ChangeState(WaveState newState)
@@ -96,22 +52,26 @@ public partial class WaveManager : Node
 		currentState = newState;
 		switch (currentState)
 		{
-			case WaveState.Waiting:
-				GD.Print(what:"Press E to start the #" + (waveNumber + 1) + " wave!");
-				break;
-			case WaveState.Active:
-			timeLeft = waveDuration;
-			spawner.StartSpawning();
-			GD.Print(what:"Wave " + waveNumber + " started!");
-				break;
-			case WaveState.Resting:
-				timeLeft = restDuration;
+			case WaveState.Calm:
 				spawner.StopSpawning();
-				GD.Print(what:"Wave over, rest for " + restDuration + " seconds");
+				GD.Print(what: "Stopped spawning.");
 				break;
+			case WaveState.Swarm:
+
+				spawner.StartSpawning();
+				GD.Print(what: "Swarm " + swarmNumber + " started!");
+				break;
+
 			default: break;
 		}
 	}
-
-
+	public void EndSwarm()
+	{
+		if (currentState != WaveState.Swarm) //Prevents start of swarm, mid-wave. 
+		{
+			return;
+		}
+		ChangeState(WaveState.Calm);
+		EmitSignal(SignalName.SwarmEnded);
+	}
 }

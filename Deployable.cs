@@ -20,11 +20,16 @@ public partial class Deployable : StaticBody2D, IDamageable
 	}
 	public void Damage(int amount)
 	{
+
 		health -= amount;
 		GD.Print(what: "my HP: " + health);
 		if (health <= 0)
 		{
-			QueueFree();
+			OnDestroyed();
 		}
+	}
+	public virtual void OnDestroyed()
+	{
+		QueueFree();
 	}
 }

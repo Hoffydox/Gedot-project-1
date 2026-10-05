@@ -123,7 +123,6 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 
 		placedDrill = drill;
 
-		//placedDrill.
 
 	}
 	public void PlaceTurret()
@@ -141,8 +140,6 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 		turret.GlobalPosition = spawnPoint;
 
 		placedTurret = turret;
-
-		//placedDrill.
 
 	}
 }
