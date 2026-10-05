@@ -5,6 +5,8 @@ public partial class EnemySpawner : Node2D
 	[Export] PackedScene enemyScene;
 	[Export] float spawnDistance = 700;
 	PlayerCharacter targetNode;
+
+	
 	Timer spawnTimer;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -32,12 +34,14 @@ public partial class EnemySpawner : Node2D
 
 		AddChild(enemy);
 		enemy.GlobalPosition = spawnPoint;
+
+		enemy.MakeSwarmEnemy();
 	}
 
 	public void StartSpawning()
 	{
 		spawnTimer.Start();
-
+		
 	}
 	
 	public void StopSpawning()

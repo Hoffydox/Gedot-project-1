@@ -30,3 +30,31 @@ wait_time = 2.0
 [node name="WaveManager" type="Node" parent="." unique_id=862410994 node_paths=PackedStringArray("spawner") groups=["wave_manager"]]
 script = ExtResource("5_lquwl")
 spawner = NodePath("../EnemySpawner")
+
+[node name="Enemy" parent="." unique_id=1025845291 instance=ExtResource("1_0xm2m")]
+modulate = Color(0.6371297, 0.630951, 0, 1)
+position = Vector2(-486, -2244)
+
+[node name="Enemy2" parent="." unique_id=1793193475 instance=ExtResource("1_0xm2m")]
+modulate = Color(0.6371297, 0.630951, 0, 1)
+position = Vector2(-2391, -2131)
+
+[node name="Enemy3" parent="." unique_id=1160670050 instance=ExtResource("1_0xm2m")]
+modulate = Color(0.6371297, 0.630951, 0, 1)
+position = Vector2(1500, -2676)
+
+[node name="Enemy4" parent="." unique_id=1996411132 instance=ExtResource("1_0xm2m")]
+modulate = Color(0.6371297, 0.630951, 0, 1)
+position = Vector2(2868, -2757)
+
+[node name="Enemy5" parent="." unique_id=69694026 instance=ExtResource("1_0xm2m")]
+modulate = Color(0.6371297, 0.630951, 0, 1)
+position = Vector2(2037, -1805)
+
+[node name="Enemy6" parent="." unique_id=1195495998 instance=ExtResource("1_0xm2m")]
+modulate = Color(0.6371297, 0.630951, 0, 1)
+position = Vector2(816, -1422)
+
+[node name="Enemy7" parent="." unique_id=1032109736 instance=ExtResource("1_0xm2m")]
+modulate = Color(0.6371297, 0.630951, 0, 1)
+position = Vector2(-1154, -1015)
