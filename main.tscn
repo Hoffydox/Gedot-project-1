@@ -5,8 +5,10 @@
 [ext_resource type="PackedScene" uid="uid://1kq2mcdyl8tu" path="res://hud.tscn" id="2_272bh"]
 [ext_resource type="PackedScene" uid="uid://vsw26awys5id" path="res://player.tscn" id="2_h2yge"]
 [ext_resource type="Script" uid="uid://bfsvkxb2kav2w" path="res://EnemySpawner.cs" id="3_h2yge"]
+[ext_resource type="PackedScene" uid="uid://bcek81ycmhhwf" path="res://settlement.tscn" id="4_5vw27"]
 [ext_resource type="Script" uid="uid://bpatjlej76nga" path="res://WaveManager.cs" id="5_lquwl"]
 [ext_resource type="PackedScene" uid="uid://d1d2sahcjbdak" path="res://terrain.tscn" id="6_terrain"]
+[ext_resource type="PackedScene" uid="uid://d4cvo6fkojffx" path="res://turret.tscn" id="9_kek77"]
 
 [node name="Main" type="Node2D" unique_id=1471844778]
 script = ExtResource("1_h2yge")
@@ -15,6 +17,9 @@ script = ExtResource("1_h2yge")
 waveManager = NodePath("../WaveManager")
 
 [node name="Terrain" parent="." unique_id=22942818 instance=ExtResource("6_terrain")]
+
+[node name="Settlement" parent="." unique_id=281110139 instance=ExtResource("4_5vw27")]
+position = Vector2(1983, -608)
 
 [node name="Player" parent="." unique_id=1144244028 instance=ExtResource("2_h2yge")]
 position = Vector2(574, 337)
@@ -58,3 +63,9 @@ position = Vector2(816, -1422)
 [node name="Enemy7" parent="." unique_id=1032109736 instance=ExtResource("1_0xm2m")]
 modulate = Color(0.6371297, 0.630951, 0, 1)
 position = Vector2(-1154, -1015)
+
+[node name="Turret" parent="." unique_id=307342662 instance=ExtResource("9_kek77")]
+position = Vector2(2329, -580)
+
+[node name="Turret2" parent="." unique_id=2138195874 instance=ExtResource("9_kek77")]
+position = Vector2(1629, -628)

@@ -9,6 +9,7 @@ public partial class Hud : Node2D
 	Label lootLabel;
 	Label waveLabel;
 	Label statusLabel;
+	Label creditsLabel;
 
 
 
@@ -22,6 +23,7 @@ public partial class Hud : Node2D
 		lootLabel = GetNode<Label>("CanvasLayer/LootLabel");
 		waveLabel = GetNode<Label>("CanvasLayer/WaveLabel");
 		statusLabel = GetNode<Label>("CanvasLayer/StatusLabel");
+		creditsLabel = GetNode<Label>("CanvasLayer/CreditsLabel");
 
 
 
@@ -85,6 +87,10 @@ public partial class Hud : Node2D
 	public void OnLootChanged(int ore, int scrap)
 	{
 		lootLabel.Text = "Ore: " + ore + " Scrap: " + scrap + " ";
+	}
+	public void OnCreditsChanged(int credits)
+	{
+		creditsLabel.Text = "Credits: " + credits + " ";
 	}
 
 }

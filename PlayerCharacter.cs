@@ -5,6 +5,12 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 	[Signal] public delegate void DiedEventHandler();
 	[Signal] public delegate void HealthChangedEventHandler(int current, int max);
 	[Signal] public delegate void LootChangedEventHandler(int ore, int scrap);
+	[Signal] public delegate void CreditsChangedEventHandler(int credits);
+	int credits;
+	public int Credits => credits;
+	bool inSafeZone;
+	public bool InSafeZone => inSafeZone;
+
 	int carriedOre;
 	int carriedScrap;
 	public int CarriedOre => carriedOre;
@@ -60,6 +66,10 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 
 	public void Damage(int damageAmount)
 	{
+		if (inSafeZone)
+		{
+			return;
+		}
 		if (invincibleTimeLeft > 0)
 		{
 			return;
@@ -163,6 +173,27 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 			carriedScrap += amount;
 
 		}
+		EmitLootChanged();
+	}
+
+	public void EnterSafeZone()
+	{
+		inSafeZone = true;
+	}
+	public void ExitSafeZone()
+	{
+		inSafeZone = false;
+	}
+	public void AddCredits(int amount)
+	{
+		// did i use the right params and fields?
+		credits += amount;
+		EmitSignal(SignalName.CreditsChanged, credits);
+	}
+	public void ClearLoot()
+	{
+		carriedOre = 0;
+		carriedScrap = 0;
 		EmitLootChanged();
 	}
 }

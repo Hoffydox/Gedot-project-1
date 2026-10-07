@@ -24,12 +24,15 @@ public partial class Main : Node2D
 		fetchedPlayerNode.LootChanged += fetchedHudNode.OnLootChanged;
 		
 		fetchedWaveNode.SwarmStarted += fetchedHudNode.OnSwarmStarted;
+		fetchedPlayerNode.CreditsChanged += fetchedHudNode.OnCreditsChanged;
+
 		fetchedHudNode.UpdateUI(fetchedPlayerNode.Health, fetchedPlayerNode.MaxHealth);
 		fetchedHudNode.OnSwarmStarted(fetchedWaveNode.SwarmNumber);
+		fetchedHudNode.OnCreditsChanged(fetchedPlayerNode.Credits);
 
-		fetchedHudNode.OnLootChanged(0,0); // inistiate loot. Could be taken from savedstate later.
+		fetchedHudNode.OnLootChanged(fetchedPlayerNode.CarriedOre, fetchedPlayerNode.CarriedScrap); // inistiate loot. Could be taken from savedstate later.
 
-	}
+	}		
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)

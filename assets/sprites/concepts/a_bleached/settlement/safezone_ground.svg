@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <!-- Settlement ground: fenced safe ring with flags. Ring radius is 230px at scale 1. -->
+  <circle cx="256" cy="256" r="244" fill="#efe9dc" opacity="0.55"/>
+  <circle cx="256" cy="256" r="230" fill="none" stroke="#c9bea6" stroke-width="4" stroke-dasharray="14 10"/>
+  <ellipse cx="489.0" cy="260.0" rx="7" ry="5" fill="#4a3f36" opacity="0.15"/>
+  <circle cx="486.0" cy="256.0" r="6" fill="#cfc6b0" stroke="#8c826d" stroke-width="2.5"/>
+  <path d="M486.0 256.0 l14 -4 l-3 7 z" fill="#9dbdb5" stroke="#6f8c85" stroke-width="1.5" stroke-linejoin="round"/>
+  <ellipse cx="471.5" cy="348.0" rx="7" ry="5" fill="#4a3f36" opacity="0.15"/>
+  <circle cx="468.5" cy="344.0" r="6" fill="#cfc6b0" stroke="#8c826d" stroke-width="2.5"/>
+  <ellipse cx="421.6" cy="422.6" rx="7" ry="5" fill="#4a3f36" opacity="0.15"/>
+  <circle cx="418.6" cy="418.6" r="6" fill="#cfc6b0" stroke="#8c826d" stroke-width="2.5"/>
+  <path d="M418.6 418.6 l14 -4 l-3 7 z" fill="#9dbdb5" stroke="#6f8c85" stroke-width="1.5" stroke-linejoin="round"/>
+  <ellipse cx="347.0" cy="472.5" rx="7" ry="5" fill="#4a3f36" opacity="0.15"/>
+  <circle cx="344.0" cy="468.5" r="6" fill="#cfc6b0" stroke="#8c826d" stroke-width="2.5"/>
+  <ellipse cx="259.0" cy="490.0" rx="7" ry="5" fill="#4a3f36" opacity="0.15"/>
+  <circle cx="256.0" cy="486.0" r="6" fill="#cfc6b0" stroke="#8c826d" stroke-width="2.5"/>
+  <path d="M256.0 486.0 l14 -4 l-3 7 z" fill="#9dbdb5" stroke="#6f8c85" stroke-width="1.5" stroke-linejoin="round"/>
+  <ellipse cx="171.0" cy="472.5" rx="7" ry="5" fill="#4a3f36" opacity="0.15"/>
+  <circle cx="168.0" cy="468.5" r="6" fill="#cfc6b0" stroke="#8c826d" stroke-width="2.5"/>
+  <ellipse cx="96.4" cy="422.6" rx="7" ry="5" fill="#4a3f36" opacity="0.15"/>
+  <circle cx="93.4" cy="418.6" r="6" fill="#cfc6b0" stroke="#8c826d" stroke-width="2.5"/>
+  <path d="M93.4 418.6 l14 -4 l-3 7 z" fill="#9dbdb5" stroke="#6f8c85" stroke-width="1.5" stroke-linejoin="round"/>
+  <ellipse cx="46.5" cy="348.0" rx="7" ry="5" fill="#4a3f36" opacity="0.15"/>
+  <circle cx="43.5" cy="344.0" r="6" fill="#cfc6b0" stroke="#8c826d" stroke-width="2.5"/>
+  <ellipse cx="29.0" cy="260.0" rx="7" ry="5" fill="#4a3f36" opacity="0.15"/>
+  <circle cx="26.0" cy="256.0" r="6" fill="#cfc6b0" stroke="#8c826d" stroke-width="2.5"/>
+  <path d="M26.0 256.0 l14 -4 l-3 7 z" fill="#9dbdb5" stroke="#6f8c85" stroke-width="1.5" stroke-linejoin="round"/>
+  <ellipse cx="46.5" cy="172.0" rx="7" ry="5" fill="#4a3f36" opacity="0.15"/>
+  <circle cx="43.5" cy="168.0" r="6" fill="#cfc6b0" stroke="#8c826d" stroke-width="2.5"/>
+  <ellipse cx="96.4" cy="97.4" rx="7" ry="5" fill="#4a3f36" opacity="0.15"/>
+  <circle cx="93.4" cy="93.4" r="6" fill="#cfc6b0" stroke="#8c826d" stroke-width="2.5"/>
+  <path d="M93.4 93.4 l14 -4 l-3 7 z" fill="#9dbdb5" stroke="#6f8c85" stroke-width="1.5" stroke-linejoin="round"/>
+  <ellipse cx="171.0" cy="47.5" rx="7" ry="5" fill="#4a3f36" opacity="0.15"/>
+  <circle cx="168.0" cy="43.5" r="6" fill="#cfc6b0" stroke="#8c826d" stroke-width="2.5"/>
+  <ellipse cx="259.0" cy="30.0" rx="7" ry="5" fill="#4a3f36" opacity="0.15"/>
+  <circle cx="256.0" cy="26.0" r="6" fill="#cfc6b0" stroke="#8c826d" stroke-width="2.5"/>
+  <path d="M256.0 26.0 l14 -4 l-3 7 z" fill="#9dbdb5" stroke="#6f8c85" stroke-width="1.5" stroke-linejoin="round"/>
+  <ellipse cx="347.0" cy="47.5" rx="7" ry="5" fill="#4a3f36" opacity="0.15"/>
+  <circle cx="344.0" cy="43.5" r="6" fill="#cfc6b0" stroke="#8c826d" stroke-width="2.5"/>
+  <ellipse cx="421.6" cy="97.4" rx="7" ry="5" fill="#4a3f36" opacity="0.15"/>
+  <circle cx="418.6" cy="93.4" r="6" fill="#cfc6b0" stroke="#8c826d" stroke-width="2.5"/>
+  <path d="M418.6 93.4 l14 -4 l-3 7 z" fill="#9dbdb5" stroke="#6f8c85" stroke-width="1.5" stroke-linejoin="round"/>
+  <ellipse cx="471.5" cy="172.0" rx="7" ry="5" fill="#4a3f36" opacity="0.15"/>
+  <circle cx="468.5" cy="168.0" r="6" fill="#cfc6b0" stroke="#8c826d" stroke-width="2.5"/>
+  <circle cx="256" cy="256" r="120" fill="none" stroke="#ddd3bf" stroke-width="26" opacity="0.6"/>
+  <circle cx="256" cy="256" r="46" fill="none" stroke="#ff6a13" stroke-width="5" opacity="0.55"/>
+  <path d="M234 256 L278 256 M256 234 L256 278" stroke="#ff6a13" stroke-width="5" opacity="0.55" stroke-linecap="round"/>
+</svg>

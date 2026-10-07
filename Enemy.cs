@@ -17,7 +17,7 @@ public partial class Enemy : CharacterBody2D, IDamageable
 	[Export] int maxHealth = 20;
 	[Export] PackedScene pickupScene;
 	int health;
-	[Export] float moveSpeed = 150f;
+	[Export] float moveSpeed = 350f;
 	[Export] float attackCooldown = 1.0f;
 	float attackTimeLeft;
 	bool isDead = false;
@@ -113,7 +113,7 @@ public partial class Enemy : CharacterBody2D, IDamageable
 	}
 	public void Wander(float distanceToPlayer)
 	{
-		if (distanceToPlayer < detectionRange)
+		if (distanceToPlayer < detectionRange && targetNode.InSafeZone == false)
 		{
 			currentState = EnemyState.Chase;
 			return;
@@ -130,7 +130,7 @@ public partial class Enemy : CharacterBody2D, IDamageable
 	}
 	public void Chase(float distanceToPlayer)
 	{
-		if (!alwaysChase && distanceToPlayer > loseInterestRange)
+		if ((!alwaysChase && distanceToPlayer > loseInterestRange) || targetNode.InSafeZone == true)
 		{
 			currentState = EnemyState.Wander;
 			return;
