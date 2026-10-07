@@ -46,6 +46,10 @@ text = "Sell Loot"
 layout_mode = 2
 text = "Buy Turret"
 
+[node name="BuyAmmoButton" type="Button" parent="CanvasLayer/ShopMenu/VBoxContainer" unique_id=1236294245]
+layout_mode = 2
+text = "Buy 15 ammo (10 credits)"
+
 [node name="CloseButton" type="Button" parent="CanvasLayer/ShopMenu/VBoxContainer" unique_id=1675451617]
 layout_mode = 2
 text = "Close Menu"

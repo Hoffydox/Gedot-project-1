@@ -6,10 +6,13 @@ public partial class Settlement : Area2D
 	[Export] int orePrice = 10;
 	[Export] int scrapPrice = 3;
 	[Export] int turretPrice = 30;
+	[Export] int ammoPrice = 10;
+	[Export] int ammoPackSize = 15;
 
 	Control shopMenu;
 	Button sellButton;
 	Button buyTurretButton;
+	Button buyAmmoButton;
 	Button closeButton;
 
 	PlayerCharacter playerInside;
@@ -22,11 +25,13 @@ public partial class Settlement : Area2D
 		sellButton = GetNode<Button>("CanvasLayer/ShopMenu/VBoxContainer/SellButton");
 		buyTurretButton = GetNode<Button>("CanvasLayer/ShopMenu/VBoxContainer/BuyTurretButton");
 		closeButton = GetNode<Button>("CanvasLayer/ShopMenu/VBoxContainer/CloseButton");
+		buyAmmoButton = GetNode<Button>("CanvasLayer/ShopMenu/VBoxContainer/BuyAmmoButton");
 
-		
+
 		sellButton.Pressed += OnSellPressed;
 		buyTurretButton.Pressed += OnBuyTurretPressed;
 		closeButton.Pressed += OnClosePressed;
+		buyAmmoButton.Pressed += OnBuyAmmoPressed;
 	}
 
 	public void OnBodyEntered(Node2D body)
@@ -93,7 +98,34 @@ public partial class Settlement : Area2D
 			return;
 		}
 		playerInside.TryAddTurret();
-		GD.Print(what: "Bought a turret"); 
+		GD.Print(what: "Bought a turret");
+	}
+	public void OnBuyAmmoPressed()
+	{
+		BuyAmmo();
+	}
+
+	void BuyAmmo()
+	{
+		if (!IsInstanceValid(playerInside))
+		{
+			return;
+		}
+
+		if (playerInside.Ammo >= playerInside.MaxAmmo)
+		{
+			GD.Print("Ammo is full");
+			return;
+		}
+
+		if (!playerInside.TrySpendCredits(ammoPrice))
+		{
+			GD.Print("Not enough credits");
+			return;
+		}
+
+		playerInside.TryAddAmmo(ammoPackSize);
+		GD.Print("Bought " + ammoPackSize + " ammo");
 	}
 	public void OnClosePressed()
 	{

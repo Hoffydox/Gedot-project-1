@@ -7,6 +7,14 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 	[Signal] public delegate void LootChangedEventHandler(int ore, int scrap);
 	[Signal] public delegate void CreditsChangedEventHandler(int credits);
 	[Signal] public delegate void TurretsChangedEventHandler(int count, int max);
+
+	[Signal] public delegate void AmmoChangedEventHandler(int ammo, int max);
+
+	[Export] int startingAmmo = 30;
+	[Export] int maxAmmo = 90;
+	int ammo;
+	public int Ammo => ammo;
+	public int MaxAmmo => maxAmmo;
 	int credits;
 	public int Credits => credits;
 	bool inSafeZone;
@@ -20,6 +28,9 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 	public int MaxTurrets => maxTurrets;
 	[Export] int startingTurrets = 1;
 	[Export] int startingCredits = 30;
+	[Export] PackedScene bulletScene;
+	[Export] float fireCooldown = 0.25f;
+	float fireTimeLeft;
 	int turretsInInventory;
 	public int TurretCount => turretsInInventory;
 	[Export] int maxHealth = 20;
@@ -43,6 +54,7 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 		health = maxHealth;
 		turretsInInventory = startingTurrets;
 		credits = startingCredits;
+		ammo = startingAmmo;
 
 		//spawn protection
 		invincibleTimeLeft = invincibleDuration;
@@ -70,7 +82,12 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 		{
 			PlaceTurret();
 		}
+		fireTimeLeft -= (float)delta;
 
+		if (Input.IsActionPressed("shoot"))
+		{
+			TryShoot();
+		}
 	}
 
 	public void Damage(int damageAmount)
@@ -176,6 +193,47 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 		placedTurret = turret;
 
 	}
+	void TryShoot()
+	{
+		if (fireTimeLeft > 0)
+		{
+			return;
+		}
+
+		if (inSafeZone)
+		{
+			return;
+		}
+
+		if (ammo <= 0)
+		{
+			GD.Print(what: "Out of ammo!");
+			return;
+		}
+
+		Vector2 direction = (GetGlobalMousePosition() - GlobalPosition).Normalized();
+
+		var bullet = bulletScene.Instantiate<Bullet>();
+		GetParent().AddChild(bullet);
+		bullet.GlobalPosition = GlobalPosition;
+		bullet.Launch(direction);
+		ammo--;
+		EmitSignalAmmoChanged(ammo, maxAmmo);
+
+		fireTimeLeft = fireCooldown;
+	}
+
+	public bool TryAddAmmo(int amount)
+	{
+		if (ammo >= maxAmmo)
+		{
+			return false;
+		}
+
+		ammo = Mathf.Min(ammo + amount, maxAmmo);
+		EmitSignalAmmoChanged(ammo, maxAmmo);
+		return true;
+	}
 
 	public void AddLoot(Pickup.LootType type, int amount)
 	{
@@ -212,14 +270,14 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 	}
 	public bool TrySpendCredits(int amount)
 	{
-		
+
 		if (credits < amount)
 		{
 			return false;
 		}
-	
+
 		credits = credits - amount;
-		
+
 		EmitSignalCreditsChanged(credits);
 		return true;
 	}
@@ -238,11 +296,11 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 	{
 		if (turretsInInventory <= 0)
 		{
-			return(false);
+			return (false);
 		}
 		turretsInInventory--;
 		EmitSignalTurretsChanged(turretsInInventory, maxTurrets);
-		return(true);
+		return (true);
 	}
-	
+
 }

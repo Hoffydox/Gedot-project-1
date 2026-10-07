@@ -11,7 +11,7 @@ public partial class Hud : Node2D
 	Label statusLabel;
 	Label creditsLabel;
 	Label turretsLabel;
-
+	Label ammoLabel;
 
 
 	bool gameOver = false;
@@ -26,7 +26,7 @@ public partial class Hud : Node2D
 		statusLabel = GetNode<Label>("CanvasLayer/StatusLabel");
 		creditsLabel = GetNode<Label>("CanvasLayer/CreditsLabel");
 		turretsLabel = GetNode<Label>("CanvasLayer/TurretsLabel");
-
+		ammoLabel = GetNode<Label>("CanvasLayer/AmmoLabel");
 
 
 	}
@@ -98,5 +98,8 @@ public partial class Hud : Node2D
 	{
 		turretsLabel.Text = "Turrets: " + turretsInInventory + " / " + maxTurrets;
 	}
-
+	public void OnAmmoChanged(int ammo, int max)
+	{
+		ammoLabel.Text = "Ammo: " + ammo + " / " + max;
+	}
 }
