@@ -5,6 +5,12 @@ public partial class Settlement : Area2D
 
 	[Export] int orePrice = 10;
 	[Export] int scrapPrice = 3;
+	[Export] int turretPrice = 30;
+
+	Control shopMenu;
+	Button sellButton;
+	Button buyTurretButton;
+	Button closeButton;
 
 	PlayerCharacter playerInside;
 	public override void _Ready()
@@ -12,6 +18,15 @@ public partial class Settlement : Area2D
 		BodyEntered += OnBodyEntered;
 		BodyExited += OnBodyExited;
 
+		shopMenu = GetNode<PanelContainer>("CanvasLayer/ShopMenu");
+		sellButton = GetNode<Button>("CanvasLayer/ShopMenu/VBoxContainer/SellButton");
+		buyTurretButton = GetNode<Button>("CanvasLayer/ShopMenu/VBoxContainer/BuyTurretButton");
+		closeButton = GetNode<Button>("CanvasLayer/ShopMenu/VBoxContainer/CloseButton");
+
+		
+		sellButton.Pressed += OnSellPressed;
+		buyTurretButton.Pressed += OnBuyTurretPressed;
+		closeButton.Pressed += OnClosePressed;
 	}
 
 	public void OnBodyEntered(Node2D body)
@@ -20,7 +35,7 @@ public partial class Settlement : Area2D
 		{
 			playerInside = player;
 			player.EnterSafeZone();
-			GD.Print(what: "Welcome! Press E to Sell");
+			GD.Print(what: "Welcome! Press E to Trade");
 		}
 	}
 	public void OnBodyExited(Node2D body)
@@ -29,6 +44,7 @@ public partial class Settlement : Area2D
 		{
 			player.ExitSafeZone();
 			playerInside = null;
+			shopMenu.Visible = false;
 		}
 	}
 
@@ -37,7 +53,7 @@ public partial class Settlement : Area2D
 	{
 		if (IsInstanceValid(playerInside) && Input.IsActionJustPressed("interact"))
 		{
-			SellLoot();
+			shopMenu.Visible = true;
 		}
 	}
 	private void SellLoot()
@@ -51,5 +67,36 @@ public partial class Settlement : Area2D
 		playerInside.AddCredits(credits);
 		playerInside.ClearLoot();
 		GD.Print(what: "Sold for " + credits + " credits");
+	}
+	public void OnSellPressed()
+	{
+		SellLoot();
+	}
+	public void OnBuyTurretPressed()
+	{
+		BuyTurret();
+	}
+	public void BuyTurret()
+	{
+		if (!IsInstanceValid(playerInside))
+		{
+			return;
+		}
+		if (playerInside.TurretCount >= playerInside.MaxTurrets)
+		{
+			GD.Print(what: "Pack is full");
+			return;
+		}
+		if (!playerInside.TrySpendCredits(turretPrice))
+		{
+			GD.Print(what: "Not Enough credits.");
+			return;
+		}
+		playerInside.TryAddTurret();
+		GD.Print(what: "Bought a turret"); 
+	}
+	public void OnClosePressed()
+	{
+		shopMenu.Visible = false;
 	}
 }

@@ -6,6 +6,7 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 	[Signal] public delegate void HealthChangedEventHandler(int current, int max);
 	[Signal] public delegate void LootChangedEventHandler(int ore, int scrap);
 	[Signal] public delegate void CreditsChangedEventHandler(int credits);
+	[Signal] public delegate void TurretsChangedEventHandler(int count, int max);
 	int credits;
 	public int Credits => credits;
 	bool inSafeZone;
@@ -15,6 +16,12 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 	int carriedScrap;
 	public int CarriedOre => carriedOre;
 	public int CarriedScrap => carriedScrap;
+	[Export] int maxTurrets = 3;
+	public int MaxTurrets => maxTurrets;
+	[Export] int startingTurrets = 1;
+	[Export] int startingCredits = 30;
+	int turretsInInventory;
+	public int TurretCount => turretsInInventory;
 	[Export] int maxHealth = 20;
 	[Export] PackedScene turretScene;
 	int health;
@@ -34,6 +41,8 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 	public override void _Ready()
 	{
 		health = maxHealth;
+		turretsInInventory = startingTurrets;
+		credits = startingCredits;
 
 		//spawn protection
 		invincibleTimeLeft = invincibleDuration;
@@ -147,6 +156,12 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 	public void PlaceTurret()
 	{
 
+		if (!TryUseTurret())
+		{
+			GD.Print(what: turretsInInventory + " turrets in inventory!");
+			return;
+		}
+
 		var turret = turretScene.Instantiate<Turret>();
 
 		Vector2 spawnDirection = Vector2.Up;
@@ -186,7 +201,6 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 	}
 	public void AddCredits(int amount)
 	{
-		// did i use the right params and fields?
 		credits += amount;
 		EmitSignal(SignalName.CreditsChanged, credits);
 	}
@@ -196,4 +210,39 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 		carriedScrap = 0;
 		EmitLootChanged();
 	}
+	public bool TrySpendCredits(int amount)
+	{
+		
+		if (credits < amount)
+		{
+			return false;
+		}
+	
+		credits = credits - amount;
+		
+		EmitSignalCreditsChanged(credits);
+		return true;
+	}
+	public bool TryAddTurret()
+	{
+		if (turretsInInventory >= maxTurrets)
+		{
+			return (false);
+		}
+		turretsInInventory++;
+		EmitSignalTurretsChanged(turretsInInventory, maxTurrets);
+		return (true);
+	}
+
+	public bool TryUseTurret()
+	{
+		if (turretsInInventory <= 0)
+		{
+			return(false);
+		}
+		turretsInInventory--;
+		EmitSignalTurretsChanged(turretsInInventory, maxTurrets);
+		return(true);
+	}
+	
 }

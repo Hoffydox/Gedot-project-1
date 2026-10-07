@@ -18,3 +18,34 @@ texture = ExtResource("3_iv31x")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=343303271]
 shape = SubResource("CircleShape2D_kmypb")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=635527250]
+
+[node name="ShopMenu" type="PanelContainer" parent="CanvasLayer" unique_id=2086981664]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -49.0
+offset_top = -50.5
+offset_right = 49.0
+offset_bottom = 50.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/ShopMenu" unique_id=238666809]
+layout_mode = 2
+
+[node name="SellButton" type="Button" parent="CanvasLayer/ShopMenu/VBoxContainer" unique_id=207189706]
+layout_mode = 2
+text = "Sell Loot"
+
+[node name="BuyTurretButton" type="Button" parent="CanvasLayer/ShopMenu/VBoxContainer" unique_id=1864630634]
+layout_mode = 2
+text = "Buy Turret"
+
+[node name="CloseButton" type="Button" parent="CanvasLayer/ShopMenu/VBoxContainer" unique_id=1675451617]
+layout_mode = 2
+text = "Close Menu"

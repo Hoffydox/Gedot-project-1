@@ -10,6 +10,7 @@ public partial class Hud : Node2D
 	Label waveLabel;
 	Label statusLabel;
 	Label creditsLabel;
+	Label turretsLabel;
 
 
 
@@ -24,6 +25,7 @@ public partial class Hud : Node2D
 		waveLabel = GetNode<Label>("CanvasLayer/WaveLabel");
 		statusLabel = GetNode<Label>("CanvasLayer/StatusLabel");
 		creditsLabel = GetNode<Label>("CanvasLayer/CreditsLabel");
+		turretsLabel = GetNode<Label>("CanvasLayer/TurretsLabel");
 
 
 
@@ -91,6 +93,10 @@ public partial class Hud : Node2D
 	public void OnCreditsChanged(int credits)
 	{
 		creditsLabel.Text = "Credits: " + credits + " ";
+	}
+	public void OnTurretsChanged(int turretsInInventory, int maxTurrets)
+	{
+		turretsLabel.Text = "Turrets: " + turretsInInventory + " / " + maxTurrets;
 	}
 
 }
