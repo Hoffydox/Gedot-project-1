@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bbph06wvl2baa" path="res://Turret.cs" id="1_3oylf"]
 [ext_resource type="Texture2D" uid="uid://b4lr45hf3gxxm" path="res://assets/sprites/concepts/a_bleached/deployables/turret_base.svg" id="2_c5apd"]
+[ext_resource type="PackedScene" uid="uid://kta8f6vh4gis" path="res://pickup.tscn" id="3_2kw7u"]
 [ext_resource type="Texture2D" uid="uid://bn2thytca05rr" path="res://assets/sprites/concepts/a_bleached/deployables/turret_head.svg" id="3_coqkk"]
 [ext_resource type="PackedScene" uid="uid://dgt6v6tdiryjq" path="res://bullet.tscn" id="4_coqkk"]
 
@@ -14,6 +15,7 @@ radius = 500.0
 [node name="Turret" type="StaticBody2D" unique_id=307342662]
 script = ExtResource("1_3oylf")
 bulletScene = ExtResource("4_coqkk")
+pickupScene = ExtResource("3_2kw7u")
 
 [node name="Base" type="Sprite2D" parent="." unique_id=2114257505]
 texture = ExtResource("2_c5apd")
@@ -28,3 +30,20 @@ shape = SubResource("CircleShape2D_tjdg3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Range" unique_id=829666713]
 shape = SubResource("CircleShape2D_02bu0")
+
+[node name="TimeLeftLabel" type="Label" parent="." unique_id=1613416207]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -19.5
+offset_top = -73.5
+offset_right = 19.5
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0, 0.5803922, 0.9137255, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+horizontal_alignment = 1

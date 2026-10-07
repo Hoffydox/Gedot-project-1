@@ -2,7 +2,7 @@ using Godot;
 
 public partial class Drill : Deployable
 {
-	[Export] PackedScene pickupScene;
+	//[Export] PackedScene pickupScene;
 	[Export] float drillDuration = 30.3f;
 	[Export] float oreRate = 0.5f;
 	float oreMined;
@@ -46,12 +46,15 @@ public partial class Drill : Deployable
 		/* ADD an animation here in the future. maybe switch mineral patch with exhausted patch. */
 		// drop an ore pickup 
 
-		var spawnPoint = GlobalPosition;
+		/* var spawnPoint = GlobalPosition;
 
 		var pickup = pickupScene.Instantiate<Pickup>();
 		GetParent().AddChild(pickup);
 		pickup.GlobalPosition = spawnPoint;
-		pickup.Setup(Pickup.LootType.Ore, (int)oreMined);
+		pickup.Setup(Pickup.LootType.Ore, (int)oreMined); 
+		this should be deleted right?*/
+		DropPickup(Pickup.LootType.Ore, (int)oreMined);
+		
 		QueueFree();
 
 	}
