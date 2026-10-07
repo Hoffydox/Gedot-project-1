@@ -9,6 +9,7 @@ public partial class Deployable : StaticBody2D, IDamageable
 	public int Health => health;
 	public override void _Ready()
 	{
+		AddToGroup("deployables");
 		health = maxHealth;
 		OnPlaced();
 	}

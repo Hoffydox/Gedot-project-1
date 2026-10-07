@@ -23,7 +23,7 @@ public partial class Enemy : CharacterBody2D, IDamageable
 	bool isDead = false;
 
 	[Export] int minScrap = 0;
-	[Export] int maxScrap = 1; 
+	[Export] int maxScrap = 1;
 
 
 	//store player node
@@ -46,13 +46,12 @@ public partial class Enemy : CharacterBody2D, IDamageable
 			return;
 		}
 
-		float distanceToPlayer = GlobalPosition.DistanceTo(targetNode.GlobalPosition);
-
 		switch (currentState)
 		{
-			case EnemyState.Wander: Wander(distanceToPlayer); break;
-			case EnemyState.Chase: Chase(distanceToPlayer); break;
+			case EnemyState.Wander: Wander(); break;
+			case EnemyState.Chase: Chase(); break;
 		}
+
 		MoveAndSlide();
 		TryAttack(delta);
 	}
@@ -81,7 +80,7 @@ public partial class Enemy : CharacterBody2D, IDamageable
 			// runs once for each item; 'body' is the current one
 			if (body is IDamageable target)
 			{
-				if (target is Enemy) // to prevent self-damage.
+				if (target is Enemy) // to prevent self-damage and hurting other enemies.
 				{
 					continue;
 				}
@@ -95,7 +94,7 @@ public partial class Enemy : CharacterBody2D, IDamageable
 	public void EnemyDeath()
 	{
 
-		if (isDead == true)
+		if (isDead)
 		{
 			return;
 		}
@@ -111,13 +110,15 @@ public partial class Enemy : CharacterBody2D, IDamageable
 		isDead = true;
 		QueueFree();
 	}
-	public void Wander(float distanceToPlayer)
+	public void Wander()
 	{
-		if (distanceToPlayer < detectionRange && targetNode.InSafeZone == false)
+		var target = FindTarget(detectionRange);
+		if (target != null)
 		{
 			currentState = EnemyState.Chase;
 			return;
 		}
+
 		if (GlobalPosition.DistanceTo(wanderTarget) < 10)
 		{
 			PickWanderTarget();
@@ -128,22 +129,25 @@ public partial class Enemy : CharacterBody2D, IDamageable
 		var directionToTarget = targetPosition - thisPosition;
 		Velocity = directionToTarget.Normalized() * wanderSpeed;
 	}
-	public void Chase(float distanceToPlayer)
+	public void Chase()
 	{
-		if ((!alwaysChase && distanceToPlayer > loseInterestRange) || targetNode.InSafeZone == true)
+		float range = alwaysChase ? float.MaxValue : loseInterestRange;
+		var target = FindTarget(range);
+		if (target == null)
 		{
 			currentState = EnemyState.Wander;
 			return;
 		}
+
 		var thisPosition = GlobalPosition;
-		var targetPosition = targetNode.GlobalPosition;
+		var targetPosition = target.GlobalPosition;
 		var directionToTarget = targetPosition - thisPosition;
 		Velocity = directionToTarget.Normalized() * moveSpeed;
 	}
 	public void PickWanderTarget()
 	{
-		float wandernAngle = (float)GD.RandRange(0, Mathf.Tau);
-		Vector2 wanderDirection = Vector2.Right.Rotated(wandernAngle);
+		float wanderAngle = (float)GD.RandRange(0, Mathf.Tau);
+		Vector2 wanderDirection = Vector2.Right.Rotated(wanderAngle);
 		float wanderDistance = (float)GD.RandRange(50, wanderRadius);
 
 		var offset = wanderDirection * wanderDistance;
@@ -154,5 +158,36 @@ public partial class Enemy : CharacterBody2D, IDamageable
 	{
 		alwaysChase = true;
 		currentState = EnemyState.Chase;
+	}
+
+	public Node2D FindTarget(float range)
+	{
+		Node2D best = null;
+		float bestDistance = range;
+
+		if (IsInstanceValid(targetNode) && !targetNode.InSafeZone)
+		{
+			float d = GlobalPosition.DistanceTo(targetNode.GlobalPosition);
+			if (d < bestDistance)
+			{
+				best = targetNode;
+				bestDistance = d;
+
+			}
+		}
+		foreach (var node in GetTree().GetNodesInGroup("deployables"))
+		{
+			if (node is Deployable deployable)
+			{
+				float d = GlobalPosition.DistanceTo(deployable.GlobalPosition);
+				if (d < bestDistance)
+				{
+					best = deployable;
+					bestDistance = d;
+				}
+			}
+		}
+
+		return best;
 	}
 }
