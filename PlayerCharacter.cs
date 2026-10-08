@@ -207,7 +207,6 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 
 		if (ammo <= 0)
 		{
-			GD.Print(what: "Out of ammo!");
 			return;
 		}
 

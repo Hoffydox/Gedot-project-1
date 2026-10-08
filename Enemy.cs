@@ -2,7 +2,7 @@ using Godot;
 
 public partial class Enemy : CharacterBody2D, IDamageable
 {
-	public enum EnemyState { Wander, Chase }
+	public enum EnemyState { Wander, Chase, Attack }
 	EnemyState currentState = EnemyState.Wander;
 	bool alwaysChase = false;
 
@@ -10,6 +10,14 @@ public partial class Enemy : CharacterBody2D, IDamageable
 	[Export] float loseInterestRange = 1000;
 	[Export] float wanderSpeed = 50;
 	[Export] float wanderRadius = 200;
+
+	[Export] float attackRange = 140;
+	[Export] float attackWindup = 0.3f;
+	float windupTimeLeft;
+
+	[Export] float knockbackFriction = 1500;
+	Vector2 knockbackVelocity;
+	float stunTimeLeft;
 
 	Vector2 homePosition;
 	Vector2 wanderTarget;
@@ -45,15 +53,26 @@ public partial class Enemy : CharacterBody2D, IDamageable
 		{
 			return;
 		}
+		attackTimeLeft -= (float)delta;
+
+		if (stunTimeLeft > 0)
+		{
+			stunTimeLeft -= (float)delta;
+			Velocity = knockbackVelocity;
+			knockbackVelocity = knockbackVelocity.MoveToward(Vector2.Zero, knockbackFriction * (float)delta);
+			MoveAndSlide();
+			return;
+		}
 
 		switch (currentState)
 		{
 			case EnemyState.Wander: Wander(); break;
 			case EnemyState.Chase: Chase(); break;
+			case EnemyState.Attack: Attack((float)delta); break;
 		}
 
 		MoveAndSlide();
-		TryAttack(delta);
+
 	}
 
 	public void Damage(int amount)
@@ -66,30 +85,7 @@ public partial class Enemy : CharacterBody2D, IDamageable
 
 		}
 	}
-	public void TryAttack(double delta)
-	{
-		attackTimeLeft = attackTimeLeft - (float)delta;
-		if (attackTimeLeft > 0)
-		{
-			return;
-		}
 
-		var overlapCollection = hitbox.GetOverlappingBodies();
-		foreach (var body in overlapCollection)
-		{
-			// runs once for each item; 'body' is the current one
-			if (body is IDamageable target)
-			{
-				if (target is Enemy) // to prevent self-damage and hurting other enemies.
-				{
-					continue;
-				}
-				target.Damage(2);
-				attackTimeLeft = attackCooldown;
-				break; //only attacks 1 thing on the foreach "list". Break leaves the loop.
-			}
-		}
-	}
 
 	public void EnemyDeath()
 	{
@@ -139,11 +135,64 @@ public partial class Enemy : CharacterBody2D, IDamageable
 			return;
 		}
 
+		if (GlobalPosition.DistanceTo(target.GlobalPosition) <= attackRange && attackTimeLeft <= 0)
+		{
+			windupTimeLeft = attackWindup;
+			currentState = EnemyState.Attack;
+			Velocity = Vector2.Zero;
+			return;
+		}
 		var thisPosition = GlobalPosition;
 		var targetPosition = target.GlobalPosition;
 		var directionToTarget = targetPosition - thisPosition;
 		Velocity = directionToTarget.Normalized() * moveSpeed;
 	}
+
+	public void Attack(float delta)
+	{
+		Velocity = Vector2.Zero;
+		windupTimeLeft -= (float)delta;
+		if (windupTimeLeft > 0)
+		{
+			return;
+		}
+		Strike();
+		currentState = EnemyState.Chase;
+	}
+
+	public void Strike()
+	{
+
+		var overlapCollection = hitbox.GetOverlappingBodies();
+		foreach (var body in overlapCollection)
+		{
+			if (body is IDamageable target)
+			{
+				if (target is Enemy) // to prevent self-damage and hurting other enemies.
+				{
+					continue;
+				}
+				target.Damage(2);
+				break; //only attacks 1 thing on the foreach "list". Break leaves the loop.
+			}
+		}
+				attackTimeLeft = attackCooldown;
+	}
+
+	public void ApplyKnockback(Vector2 direction, float force, float stunDuration)
+	{
+		knockbackVelocity = direction * force;
+
+		stunTimeLeft = stunDuration;
+
+		if (currentState == EnemyState.Attack)
+		{
+			currentState = EnemyState.Chase;
+		}  
+
+
+	}
+
 	public void PickWanderTarget()
 	{
 		float wanderAngle = (float)GD.RandRange(0, Mathf.Tau);

@@ -7,6 +7,12 @@ public partial class Bullet : Area2D
 	[Export] float speed = 900;
     [Export] int damage = 20;
     [Export] float lifetime = 2;
+
+    [Export] float knockbackForce = 400f;
+    [Export] float stunDuration = 0.15f;
+
+
+
     Vector2 direction;
 	
 	public override void _Ready()
@@ -39,6 +45,7 @@ public partial class Bullet : Area2D
 	{
 		if (body is Enemy enemy)
 		{
+			enemy.ApplyKnockback(direction, knockbackForce, stunDuration);
 			enemy.Damage(damage);
 			QueueFree();
 		}  
