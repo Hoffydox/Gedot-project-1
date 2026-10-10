@@ -13,7 +13,7 @@ size = Vector2(132, 134)
 [node name="Enemy" type="CharacterBody2D" unique_id=1025845291]
 script = ExtResource("1_4gyqm")
 pickupScene = ExtResource("2_qi2p4")
-moveSpeed = 221.0
+moveSpeed = 308.0
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1294025134]
 texture = ExtResource("2_4gyqm")

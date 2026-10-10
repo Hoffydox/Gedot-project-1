@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://bcek81ycmhhwf" path="res://settlement.tscn" id="4_5vw27"]
 [ext_resource type="Script" uid="uid://bpatjlej76nga" path="res://WaveManager.cs" id="5_lquwl"]
 [ext_resource type="PackedScene" uid="uid://d1d2sahcjbdak" path="res://terrain.tscn" id="6_terrain"]
+[ext_resource type="PackedScene" uid="uid://dgcmgkofv8itf" path="res://skitter.tscn" id="8_4c57u"]
 [ext_resource type="PackedScene" uid="uid://d4cvo6fkojffx" path="res://turret.tscn" id="9_kek77"]
 
 [node name="Main" type="Node2D" unique_id=1471844778]
@@ -27,6 +28,7 @@ position = Vector2(574, 337)
 [node name="EnemySpawner" type="Node2D" parent="." unique_id=1506017884]
 script = ExtResource("3_h2yge")
 enemyScene = ExtResource("1_0xm2m")
+skitterScene = ExtResource("8_4c57u")
 spawnDistance = 1000.0
 
 [node name="SpawnTimer" type="Timer" parent="EnemySpawner" unique_id=679449819]

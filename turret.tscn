@@ -15,6 +15,9 @@ radius = 500.0
 [node name="Turret" type="StaticBody2D" unique_id=307342662]
 script = ExtResource("1_3oylf")
 bulletScene = ExtResource("4_coqkk")
+fireCooldown = 0.85
+lifetime = 50.0
+maxHealth = 40
 pickupScene = ExtResource("3_2kw7u")
 
 [node name="Base" type="Sprite2D" parent="." unique_id=2114257505]

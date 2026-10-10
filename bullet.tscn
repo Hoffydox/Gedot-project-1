@@ -9,12 +9,25 @@ height = 18.0
 
 [node name="Bullet" type="Area2D" unique_id=605499799]
 script = ExtResource("1_v8qja")
+speed = 1300.0
 damage = 5
+knockbackForce = 75.0
+stunDuration = 0.05
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=404633242]
+position = Vector2(2.842171e-14, -5.684342e-14)
+scale = Vector2(1.375, 0.6875)
+texture = ExtResource("2_t4vbm")
+
+[node name="Sprite2D" type="Sprite2D" parent="Sprite2D" unique_id=1929422126]
+modulate = Color(0.9843137, 0.53333336, 0.12941177, 0.023529412)
+show_behind_parent = true
+position = Vector2(-23.15909, 4.7683716e-07)
+scale = Vector2(2.5525568, 0.5582386)
 texture = ExtResource("2_t4vbm")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=119793437]
+visible = false
 position = Vector2(2, 0)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_02bu0")

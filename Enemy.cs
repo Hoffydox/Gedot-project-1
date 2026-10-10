@@ -11,6 +11,7 @@ public partial class Enemy : CharacterBody2D, IDamageable
 	[Export] float wanderSpeed = 50;
 	[Export] float wanderRadius = 200;
 
+	[Export] int attackDamage = 4;
 	[Export] float attackRange = 140;
 	[Export] float attackWindup = 0.3f;
 	float windupTimeLeft;
@@ -172,11 +173,13 @@ public partial class Enemy : CharacterBody2D, IDamageable
 				{
 					continue;
 				}
-				target.Damage(2);
+				target.Damage(attackDamage);
+				// or here.
 				break; //only attacks 1 thing on the foreach "list". Break leaves the loop.
 			}
 		}
-				attackTimeLeft = attackCooldown;
+				attackTimeLeft = attackCooldown; // either here or line 4 lines above.
+				// please explain why here.
 	}
 
 	public void ApplyKnockback(Vector2 direction, float force, float stunDuration)
