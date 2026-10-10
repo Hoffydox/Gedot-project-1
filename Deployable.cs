@@ -10,6 +10,7 @@ public partial class Deployable : StaticBody2D, IDamageable
 	Color baseModulate;
 	int health;
 	public int Health => health;
+	public virtual bool IsTargetable => true;
 	public override void _Ready()
 	{
 		AddToGroup("deployables");

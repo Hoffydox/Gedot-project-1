@@ -14,7 +14,7 @@ radius = 70.0
 
 [node name="Skitter" unique_id=1025845291 instance=ExtResource("1_xvn5b")]
 attackDamage = 1
-attackRange = 70.0
+attackRange = 80.0
 attackWindup = 0.15
 knockbackFriction = 1200.0
 separationRadius = 70.0

@@ -12,7 +12,6 @@ public partial class Enemy : CharacterBody2D, IDamageable
 	[Export] float wanderRadius = 200;
 
 	[Export] int attackDamage = 4;
-	[Export] float attackRange = 140;
 	[Export] float attackWindup = 0.3f;
 	float windupTimeLeft;
 
@@ -144,6 +143,11 @@ public partial class Enemy : CharacterBody2D, IDamageable
 			return;
 		}
 
+		if (IsBlockedByWall())
+		{
+			PickWanderTarget();
+		}
+
 		if (GlobalPosition.DistanceTo(wanderTarget) < 10)
 		{
 			PickWanderTarget();
@@ -163,20 +167,30 @@ public partial class Enemy : CharacterBody2D, IDamageable
 			currentState = EnemyState.Wander;
 			return;
 		}
-		float distanceToTarget = GlobalPosition.DistanceTo(target.GlobalPosition);
+		bool targetInReach = hitbox.OverlapsBody(target);
 
-		if (distanceToTarget <= attackRange && attackTimeLeft <= 0)
+		if (IsBlockedByWall() && attackTimeLeft <= 0)
 		{
 			windupTimeLeft = attackWindup;
 			currentState = EnemyState.Attack;
 			Velocity = Vector2.Zero;
 			return;
-		} else if (distanceToTarget <= attackRange)
+		}
+
+		if (targetInReach && attackTimeLeft <= 0)
 		{
+			windupTimeLeft = attackWindup;
+			currentState = EnemyState.Attack;
 			Velocity = Vector2.Zero;
 			return;
 		}
-		
+		else if (targetInReach)
+		{
+			// in reach but still on cooldown: hold position instead of pushing into the target
+			Velocity = Vector2.Zero;
+			return;
+		}
+
 		var thisPosition = GlobalPosition;
 		var targetPosition = target.GlobalPosition;
 		var directionToTarget = targetPosition - thisPosition;
@@ -265,6 +279,10 @@ public partial class Enemy : CharacterBody2D, IDamageable
 		{
 			if (node is Deployable deployable)
 			{
+				if (!deployable.IsTargetable)
+				{
+					continue;
+				}
 				float d = GlobalPosition.DistanceTo(deployable.GlobalPosition);
 				if (d < bestDistance)
 				{
@@ -275,5 +293,18 @@ public partial class Enemy : CharacterBody2D, IDamageable
 		}
 
 		return best;
+	}
+	public bool IsBlockedByWall()
+	{
+		var blockedCollection = hitbox.GetOverlappingBodies();
+		foreach (var body in blockedCollection)
+		{
+			if (body is Deployable d && !d.IsTargetable)
+			{
+				return true;
+			}
+			
+		}
+		return false;
 	}
 }

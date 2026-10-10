@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://d1d2sahcjbdak" path="res://terrain.tscn" id="6_terrain"]
 [ext_resource type="PackedScene" uid="uid://dgcmgkofv8itf" path="res://skitter.tscn" id="8_4c57u"]
 [ext_resource type="PackedScene" uid="uid://d4cvo6fkojffx" path="res://turret.tscn" id="9_kek77"]
+[ext_resource type="PackedScene" uid="uid://bcjulb454q1a6" path="res://wall.tscn" id="11_efxa6"]
 
 [node name="Main" type="Node2D" unique_id=1471844778]
 script = ExtResource("1_h2yge")
@@ -23,7 +24,7 @@ waveManager = NodePath("../WaveManager")
 position = Vector2(1983, -608)
 
 [node name="Player" parent="." unique_id=1144244028 instance=ExtResource("2_h2yge")]
-position = Vector2(574, 337)
+position = Vector2(-56, 459)
 
 [node name="EnemySpawner" type="Node2D" parent="." unique_id=1506017884]
 script = ExtResource("3_h2yge")
@@ -80,3 +81,15 @@ position = Vector2(1629, -628)
 fireCooldown = 1.0
 expires = false
 maxHealth = 100
+
+[node name="Wall11" parent="." unique_id=1433652044 instance=ExtResource("11_efxa6")]
+position = Vector2(-39, 276)
+
+[node name="Wall12" parent="." unique_id=1193830904 instance=ExtResource("11_efxa6")]
+position = Vector2(101, 292)
+
+[node name="Wall4" parent="." unique_id=1458112262 instance=ExtResource("11_efxa6")]
+position = Vector2(267, 712)
+
+[node name="Skitter" parent="." unique_id=215787209 instance=ExtResource("8_4c57u")]
+position = Vector2(-295, 514)

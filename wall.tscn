@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://bcjulb454q1a6"]
+
+[ext_resource type="Script" uid="uid://bxcnfui7mmhgh" path="res://Wall.cs" id="1_y4f30"]
+[ext_resource type="Texture2D" uid="uid://daouuxbna8ox0" path="res://assets/sprites/concepts/a_bleached/deployables/wall.svg" id="2_iuee5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kmypb"]
+size = Vector2(120, 50)
+
+[node name="Wall" type="StaticBody2D" unique_id=1684601824]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_y4f30")
+maxHealth = 150
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=679439006]
+texture = ExtResource("2_iuee5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1677761398]
+shape = SubResource("RectangleShape2D_kmypb")
