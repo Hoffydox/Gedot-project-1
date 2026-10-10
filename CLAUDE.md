@@ -11,6 +11,7 @@ Claude's memory is local to each machine and does not transfer — anything that
 - Always `git pull` before starting and commit + push when done; avoid editing on both machines without syncing (`.tscn` scene files merge badly).
 - Toolchain on both machines: **Godot 4.7.2 .NET (mono)** — exact version — and the **.NET 8 SDK**.
 - `.vscode/launch.json` reads the Godot executable from the `GODOT4` environment variable, set per machine.
+- Commits show which machine made them through the git author name (same email on both): **`Andreas Hoffmann (Desktop)`** on Windows, **`Andreas Hoffmann (Laptop)`** on Linux. If the laptop isn't set up yet: `git config --global user.name "Andreas Hoffmann (Laptop)"`. (Older commits use `Hoffmann15` = desktop and `Andreas Hoffmann` = laptop.)
 
 ## The user is learning C# — how to help
 
