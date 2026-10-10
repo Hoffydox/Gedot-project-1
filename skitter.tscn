@@ -3,16 +3,20 @@
 [ext_resource type="PackedScene" uid="uid://de6l0ibad3bui" path="res://enemy.tscn" id="1_xvn5b"]
 [ext_resource type="Texture2D" uid="uid://uait311qxvcc" path="res://assets/sprites/concepts/a_bleached/enemies/skitter.svg" id="2_500c3"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_mdpvt"]
-size = Vector2(64, 46)
+[sub_resource type="CircleShape2D" id="CircleShape2D_3yqyl"]
+radius = 32.38827
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3n1fv"]
-size = Vector2(72, 54)
+[sub_resource type="CircleShape2D" id="CircleShape2D_wujgv"]
+radius = 39.012817
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_500c3"]
+radius = 45.0
 
 [node name="Skitter" unique_id=1025845291 instance=ExtResource("1_xvn5b")]
 attackDamage = 1
 attackRange = 70.0
 attackWindup = 0.15
+separationRadius = 70.0
 maxHealth = 5
 moveSpeed = 450.0
 
@@ -20,7 +24,10 @@ moveSpeed = 450.0
 texture = ExtResource("2_500c3")
 
 [node name="CollisionShape2D" parent="." index="1" unique_id=652836845]
-shape = SubResource("RectangleShape2D_mdpvt")
+shape = SubResource("CircleShape2D_3yqyl")
 
 [node name="CollisionShape2D" parent="Hitbox" parent_id_path=PackedInt32Array(1853930107) index="0" unique_id=41365693]
-shape = SubResource("RectangleShape2D_3n1fv")
+shape = SubResource("CircleShape2D_wujgv")
+
+[node name="CollisionShape2D" parent="Separation" parent_id_path=PackedInt32Array(918416349) index="0" unique_id=1475154990]
+shape = SubResource("CircleShape2D_500c3")

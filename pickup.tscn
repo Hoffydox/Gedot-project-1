@@ -8,6 +8,7 @@
 radius = 22.090721
 
 [node name="Pickup" type="Area2D" unique_id=972663329]
+collision_layer = 0
 script = ExtResource("1_iqk3k")
 oreTexture = ExtResource("2_amdaw")
 scrapTexture = ExtResource("3_0tmqx")

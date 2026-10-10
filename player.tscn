@@ -6,10 +6,12 @@
 [ext_resource type="Texture2D" uid="uid://jnes7bp01kho" path="res://assets/sprites/concepts/a_bleached/player.svg" id="2_onrkg"]
 [ext_resource type="PackedScene" uid="uid://dgt6v6tdiryjq" path="res://bullet.tscn" id="2_sweqy"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_kmypb"]
-size = Vector2(130, 128)
+[sub_resource type="CircleShape2D" id="CircleShape2D_epg4t"]
+radius = 61.13101
 
 [node name="Player" type="CharacterBody2D" unique_id=1144244028 groups=["player"]]
+collision_mask = 6
+motion_mode = 1
 script = ExtResource("1_onrkg")
 startingAmmo = 60
 bulletScene = ExtResource("2_sweqy")
@@ -19,7 +21,7 @@ moveSpeed = 350.0
 drillScene = ExtResource("2_i3pqv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1220609943]
-shape = SubResource("RectangleShape2D_kmypb")
+shape = SubResource("CircleShape2D_epg4t")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1625448677]
 texture = ExtResource("2_onrkg")

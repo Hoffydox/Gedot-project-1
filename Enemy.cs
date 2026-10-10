@@ -16,7 +16,10 @@ public partial class Enemy : CharacterBody2D, IDamageable
 	[Export] float attackWindup = 0.3f;
 	float windupTimeLeft;
 
-	[Export] float knockbackFriction = 1500;
+	[Export] float knockbackFriction = 1500f;
+	[Export] float separationRadius = 90f;
+	[Export] float separationStrength = 200f;
+	Area2D separationArea;
 	Vector2 knockbackVelocity;
 	float stunTimeLeft;
 
@@ -44,8 +47,28 @@ public partial class Enemy : CharacterBody2D, IDamageable
 		// Get reference of player
 		targetNode = GetTree().GetFirstNodeInGroup("player") as PlayerCharacter;
 		hitbox = GetNode<Area2D>("Hitbox");
+		separationArea = GetNode<Area2D>("Separation");
 		homePosition = GlobalPosition;
 		PickWanderTarget();
+	}
+
+	public Vector2 GetSeparation()
+	{
+		Vector2 push = Vector2.Zero;
+		
+		foreach (var body in separationArea.GetOverlappingBodies())
+		{
+			if (body is Enemy other && other != this)
+			{
+				Vector2 away = GlobalPosition - other.GlobalPosition;
+				float distance = away.Length();
+				if (distance > 0)
+				{
+					push += away / distance * (1 - distance / separationRadius);
+				}
+			}
+		}
+		return push * separationStrength;
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -70,6 +93,11 @@ public partial class Enemy : CharacterBody2D, IDamageable
 			case EnemyState.Wander: Wander(); break;
 			case EnemyState.Chase: Chase(); break;
 			case EnemyState.Attack: Attack((float)delta); break;
+		}
+		
+		if (currentState != EnemyState.Attack)
+		{
+			Velocity += GetSeparation();
 		}
 
 		MoveAndSlide();
@@ -135,14 +163,20 @@ public partial class Enemy : CharacterBody2D, IDamageable
 			currentState = EnemyState.Wander;
 			return;
 		}
+		float distanceToTarget = GlobalPosition.DistanceTo(target.GlobalPosition);
 
-		if (GlobalPosition.DistanceTo(target.GlobalPosition) <= attackRange && attackTimeLeft <= 0)
+		if (distanceToTarget <= attackRange && attackTimeLeft <= 0)
 		{
 			windupTimeLeft = attackWindup;
 			currentState = EnemyState.Attack;
 			Velocity = Vector2.Zero;
 			return;
+		} else if (distanceToTarget <= attackRange)
+		{
+			Velocity = Vector2.Zero;
+			return;
 		}
+		
 		var thisPosition = GlobalPosition;
 		var targetPosition = target.GlobalPosition;
 		var directionToTarget = targetPosition - thisPosition;

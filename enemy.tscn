@@ -4,13 +4,19 @@
 [ext_resource type="Texture2D" uid="uid://nsg4wqdwlxe7" path="res://assets/sprites/concepts/a_bleached/enemy.svg" id="2_4gyqm"]
 [ext_resource type="PackedScene" uid="uid://kta8f6vh4gis" path="res://pickup.tscn" id="2_qi2p4"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_kmypb"]
-size = Vector2(126, 128)
+[sub_resource type="CircleShape2D" id="CircleShape2D_qi2p4"]
+radius = 78.00641
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_02bu0"]
-size = Vector2(132, 134)
+[sub_resource type="CircleShape2D" id="CircleShape2D_iifgy"]
+radius = 90.02222
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kmypb"]
+radius = 90.0
 
 [node name="Enemy" type="CharacterBody2D" unique_id=1025845291]
+collision_layer = 2
+collision_mask = 5
+motion_mode = 1
 script = ExtResource("1_4gyqm")
 pickupScene = ExtResource("2_qi2p4")
 moveSpeed = 308.0
@@ -19,9 +25,19 @@ moveSpeed = 308.0
 texture = ExtResource("2_4gyqm")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=652836845]
-shape = SubResource("RectangleShape2D_kmypb")
+shape = SubResource("CircleShape2D_qi2p4")
 
 [node name="Hitbox" type="Area2D" parent="." unique_id=1853930107]
+collision_layer = 0
+collision_mask = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=41365693]
-shape = SubResource("RectangleShape2D_02bu0")
+shape = SubResource("CircleShape2D_iifgy")
+
+[node name="Separation" type="Area2D" parent="." unique_id=918416349]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Separation" unique_id=1475154990]
+shape = SubResource("CircleShape2D_kmypb")
+debug_color = Color(0.6070733, 0.5312609, 0.28888068, 0.41960785)

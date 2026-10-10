@@ -29,6 +29,7 @@ position = Vector2(574, 337)
 script = ExtResource("3_h2yge")
 enemyScene = ExtResource("1_0xm2m")
 skitterScene = ExtResource("8_4c57u")
+packSpread = 200.0
 spawnDistance = 1000.0
 
 [node name="SpawnTimer" type="Timer" parent="EnemySpawner" unique_id=679449819]

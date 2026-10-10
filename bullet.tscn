@@ -8,6 +8,8 @@ radius = 6.0
 height = 18.0
 
 [node name="Bullet" type="Area2D" unique_id=605499799]
+collision_layer = 0
+collision_mask = 2
 script = ExtResource("1_v8qja")
 speed = 1300.0
 damage = 5

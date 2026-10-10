@@ -8,6 +8,7 @@
 radius = 248.00201
 
 [node name="Settlement" type="Area2D" unique_id=281110139]
+collision_layer = 0
 script = ExtResource("1_ctm6j")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=305227131]
