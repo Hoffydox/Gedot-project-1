@@ -215,7 +215,7 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 		var bullet = bulletScene.Instantiate<Bullet>();
 		GetParent().AddChild(bullet);
 		bullet.GlobalPosition = GlobalPosition;
-		bullet.Launch(direction);
+		bullet.Launch(direction, Bullet.Team.Player);
 		ammo--;
 		EmitSignalAmmoChanged(ammo, maxAmmo);
 

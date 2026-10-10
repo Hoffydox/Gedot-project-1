@@ -81,7 +81,7 @@ public partial class Turret : Deployable
 
 		GetParent().AddChild(bullet);
 		bullet.GlobalPosition = spawnPoint;
-		bullet.Launch(fireDirection);
+		bullet.Launch(fireDirection, Bullet.Team.Turret);
 	}
     public override void OnDestroyed()
   	{

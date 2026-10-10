@@ -3,8 +3,11 @@ using Godot;
 public partial class Deployable : StaticBody2D, IDamageable
 {
 
+
 	[Export] int maxHealth = 50;
 	[Export] PackedScene pickupScene;
+
+	Color baseModulate;
 	int health;
 	public int Health => health;
 	public override void _Ready()
@@ -12,6 +15,7 @@ public partial class Deployable : StaticBody2D, IDamageable
 		AddToGroup("deployables");
 		health = maxHealth;
 		OnPlaced();
+		baseModulate = Modulate;
 	}
 	protected void DropPickup(Pickup.LootType type, int amount)
 	{
@@ -22,9 +26,9 @@ public partial class Deployable : StaticBody2D, IDamageable
 		var spawnPoint = GlobalPosition;
 
 		var pickup = pickupScene.Instantiate<Pickup>();
-		
+
 		pickup.Setup(type, amount);
-		
+
 		pickup.GlobalPosition = spawnPoint;
 		GetParent().CallDeferred(Node.MethodName.AddChild, pickup);
 	}
@@ -48,5 +52,14 @@ public partial class Deployable : StaticBody2D, IDamageable
 	public virtual void OnDestroyed()
 	{
 		QueueFree();
+	}
+
+	public void FlashHit()
+	{
+		Modulate = Colors.Red;
+		var tween = CreateTween();
+		tween.TweenProperty(this, "modulate", baseModulate, 0.25f);
+
+
 	}
 }
