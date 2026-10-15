@@ -1,77 +1,64 @@
 using Godot;
 
-
 public partial class WaveManager : Node
 {
-
 	[Signal] public delegate void SwarmStartedEventHandler(int swarmNumber);
 	[Signal] public delegate void SwarmEndedEventHandler();
 
-	public enum WaveState { Calm, Swarm } // we should maybe add a boss phase in the future? (last wave stuff)
-
+	public enum WaveState { Calm, Swarm } // idea: a boss phase later
 
 	[Export] EnemySpawner spawner;
 
-	//fields:
-	Drill currentDrill;
-	public Drill CurrentDrill => currentDrill;
-	
-	WaveState currentState = WaveState.Swarm;
-	public WaveState State => currentState;
-
+	WaveState currentState = WaveState.Calm;
 	int swarmNumber = 0;
+	Drill currentDrill;
+
+	public WaveState State => currentState;
 	public int SwarmNumber => swarmNumber;
+	public Drill CurrentDrill => currentDrill;
 
 	public override void _Ready()
 	{
 		ChangeState(WaveState.Calm);
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-
-	}
-
 	public void StartSwarm(Drill drill)
 	{
-		if (currentState == WaveState.Swarm) //Prevents start of wave, mid-wave. 
+		// Only one swarm at a time.
+		if (currentState == WaveState.Swarm)
 		{
 			return;
 		}
 		currentDrill = drill;
 		swarmNumber++;
 		ChangeState(WaveState.Swarm);
-		//Signal that wave started.
-		EmitSignal(SignalName.SwarmStarted, swarmNumber);
-
+		EmitSignalSwarmStarted(swarmNumber);
 	}
 
-	private void ChangeState(WaveState newState)
+	public void EndSwarm()
+	{
+		// Nothing to end if no swarm is running.
+		if (currentState != WaveState.Swarm)
+		{
+			return;
+		}
+		ChangeState(WaveState.Calm);
+		EmitSignalSwarmEnded();
+	}
+
+	void ChangeState(WaveState newState)
 	{
 		currentState = newState;
 		switch (currentState)
 		{
 			case WaveState.Calm:
 				spawner.StopSpawning();
-				GD.Print(what: "Stopped spawning.");
+				GD.Print("Stopped spawning.");
 				break;
 			case WaveState.Swarm:
-
 				spawner.StartSpawning();
-				GD.Print(what: "Swarm " + swarmNumber + " started!");
+				GD.Print("Swarm " + swarmNumber + " started!");
 				break;
-
-			default: break;
 		}
-	}
-	public void EndSwarm()
-	{
-		if (currentState != WaveState.Swarm) //Prevents start of swarm, mid-wave. 
-		{
-			return;
-		}
-		ChangeState(WaveState.Calm);
-		EmitSignal(SignalName.SwarmEnded);
 	}
 }

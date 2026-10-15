@@ -4,59 +4,43 @@ public partial class Turret : Deployable
 {
 	[Export] PackedScene bulletScene;
 	[Export] float fireCooldown = 0.5f;
+	[Export] int scrapWorth = 2;
+	// Lifetime is planned to be replaced by repair + ammo (side quest step 23).
+	[Export] bool expires = true;
 	[Export] float lifetime = 60;
-    [Export] bool expires = true;
-    [Export] int scrapWorth = 2;
-    float lifeTimeLeft;
+
 	float fireTimeLeft;
+	float lifeTimeLeft;
 	Area2D range;
 	Sprite2D head;
 	Label timeLeftLabel;
-
 
 	public override void OnPlaced()
 	{
 		base.OnPlaced();
 		range = GetNode<Area2D>("Range");
 		head = GetNode<Sprite2D>("Head");
-		lifeTimeLeft = lifetime;
 		timeLeftLabel = GetNode<Label>("TimeLeftLabel");
-	}
-
-	public void UpdateTimeLeftLabel(float timeLeft)
-	{
-		timeLeftLabel.Text = Mathf.Ceil(timeLeft) + "s";
+		lifeTimeLeft = lifetime;
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
+		// Before any early return, so the turret ages even with no enemies around.
 		if (expires)
 		{
-			lifeTimeLeft = lifeTimeLeft - (float)delta;
+			lifeTimeLeft -= (float)delta;
 			if (lifeTimeLeft <= 0)
 			{
 				OnDestroyed();
-				return;	
+				return;
 			}
-			UpdateTimeLeftLabel(lifeTimeLeft);
+			timeLeftLabel.Text = Mathf.Ceil(lifeTimeLeft) + "s";
 		}
 
-		fireTimeLeft = fireTimeLeft - (float)delta;
+		fireTimeLeft -= (float)delta;
 
-		Enemy closest = null;
-		float closestDistance = float.MaxValue;
-		foreach (var body in range.GetOverlappingBodies())
-		{
-			if (body is Enemy enemy) // checks if enemy
-			{
-				float distanceToEnemy = GlobalPosition.DistanceTo(enemy.GlobalPosition);
-				if (distanceToEnemy < closestDistance)
-				{
-					closest = enemy;
-					closestDistance = distanceToEnemy;
-				}
-			}
-		}
+		Enemy closest = FindClosestEnemy();
 		if (closest == null)
 		{
 			return;
@@ -69,24 +53,39 @@ public partial class Turret : Deployable
 		}
 		Shoot(closest);
 		fireTimeLeft = fireCooldown;
-
 	}
 
-	public void Shoot(Enemy enemy)
+	public override void OnDestroyed()
 	{
-		var fireDirection = (enemy.GlobalPosition - this.GlobalPosition).Normalized();
+		DropPickup(Pickup.LootType.Scrap, scrapWorth);
+		base.OnDestroyed();
+	}
 
-		var spawnPoint = GlobalPosition;
+	Enemy FindClosestEnemy()
+	{
+		Enemy closest = null;
+		float closestDistance = float.MaxValue;
+		foreach (var body in range.GetOverlappingBodies())
+		{
+			if (body is Enemy enemy)
+			{
+				float distance = GlobalPosition.DistanceTo(enemy.GlobalPosition);
+				if (distance < closestDistance)
+				{
+					closest = enemy;
+					closestDistance = distance;
+				}
+			}
+		}
+		return closest;
+	}
+
+	void Shoot(Enemy enemy)
+	{
+		var fireDirection = (enemy.GlobalPosition - GlobalPosition).Normalized();
 		var bullet = bulletScene.Instantiate<Bullet>();
-
 		GetParent().AddChild(bullet);
-		bullet.GlobalPosition = spawnPoint;
+		bullet.GlobalPosition = GlobalPosition;
 		bullet.Launch(fireDirection, Bullet.Team.Turret);
 	}
-    public override void OnDestroyed()
-  	{
-		DropPickup(Pickup.LootType.Scrap, scrapWorth);
-        base.OnDestroyed();
-    }
-
 }

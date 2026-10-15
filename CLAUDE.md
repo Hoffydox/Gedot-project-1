@@ -37,9 +37,9 @@ Top-down 2D arena game in Godot 4.7 + C#, with a **fake 2.5D look** planned (ang
 
 Phases 1–4 are done (movement/combat basics, waves + HUD, deployables, economy loop + gun). Now on the **side quest**:
 
-- Done: 18 enemy attack wind-up + knockback/stun · 19 skitter swarm enemy · 19b movement/collision polish (floating motion, circles, layers, separation) · 20 friendly fire + hit flash · **21 Part A** walls + hitbox-based enemy reach.
-- **Next: step 21 Part B** — generalize the inventory with a `Dictionary<Deployable.Kind, int>` (replacing the turret-only inventory), then Part C (one `PlaceDeployable(kind)` method) and Part D (generic `BuyItem` in the shop + HUD walls label).
-- Then: 22 pick up turrets (keeps their health/ammo) · 23 repair with scrap + **turret ammo/resupply** (replaces the turret lifetime timer — open questions: shared vs separate ammo, how to resupply) · 24 carry weight (ore slows you).
+- Done: 18 enemy attack wind-up + knockback/stun · 19 skitter swarm enemy · 19b movement/collision polish (floating motion, circles, layers, separation) · 20 friendly fire + hit flash · 21 walls + generalized inventory (`Dictionary<Deployable.Kind, int>`), `PlaceDeployable(kind)`, generic `BuyItem` · a code cleanup pass (scripts organized into settings / state / read-only access / grouped methods; typed `EmitSignal...` helpers everywhere).
+- **Next: step 22** pick up turrets (they keep their health/ammo).
+- Then: 23 repair with scrap + **turret ammo/resupply** (replaces the turret lifetime timer — open questions: shared vs separate ammo, how to resupply) · 24 carry weight (ore slows you).
 - After the side quest: **Phase 5 enemy variety**, then discuss juice/feel and the art decision.
 
 ## Backlog of the user's ideas

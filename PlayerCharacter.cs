@@ -3,128 +3,83 @@ using System.Collections.Generic;
 
 public partial class PlayerCharacter : CharacterBody2D, IDamageable
 {
-	[Signal] public delegate void InventoryChangedEventHandler(Deployable.Kind kind, int count, int max);
 	[Signal] public delegate void DiedEventHandler();
 	[Signal] public delegate void HealthChangedEventHandler(int current, int max);
 	[Signal] public delegate void LootChangedEventHandler(int ore, int scrap);
 	[Signal] public delegate void CreditsChangedEventHandler(int credits);
-
 	[Signal] public delegate void AmmoChangedEventHandler(int ammo, int max);
+	[Signal] public delegate void InventoryChangedEventHandler(Deployable.Kind kind, int count, int max);
 
+	// --- Settings ---
+	[Export] int maxHealth = 20;
+	[Export] float moveSpeed = 300f;
+	[Export] float invincibleDuration = 0.5f;
+	[Export] int startingCredits = 30;
 
-
-	[Export] int maxTurrets = 3, startingTurrets = 1;
-	[Export] int maxWalls = 5, startingWalls = 2;
-
+	[Export] PackedScene bulletScene;
+	[Export] float fireCooldown = 0.25f;
 	[Export] int startingAmmo = 30;
 	[Export] int maxAmmo = 90;
 
+	[Export] PackedScene drillScene;
+	[Export] PackedScene turretScene;
+	[Export] PackedScene wallScene;
+	[Export] int maxTurrets = 3, startingTurrets = 1;
+	[Export] int maxWalls = 5, startingWalls = 2;
+
+	// --- State ---
+	int health;
+	float invincibleTimeLeft;
+	int credits;
+	int ammo;
+	float fireTimeLeft;
+	int carriedOre;
+	int carriedScrap;
+	bool inSafeZone;
+	Drill placedDrill;
 	Dictionary<Deployable.Kind, int> inventory = new();
 	Dictionary<Deployable.Kind, int> maxInventory = new();
 
-	int ammo;
-	public int Ammo => ammo;
-	public int MaxAmmo => maxAmmo;
-	int credits;
-	public int Credits => credits;
-	bool inSafeZone;
-	public bool InSafeZone => inSafeZone;
-
-	int carriedOre;
-	int carriedScrap;
-	public int CarriedOre => carriedOre;
-	public int CarriedScrap => carriedScrap;
-	/* 	[Export] int maxTurrets = 3;
-		public int MaxTurrets => maxTurrets;
-	 */    /* [Export] int startingTurrets = 1; */
-	[Export] int startingCredits = 30;
-	[Export] PackedScene bulletScene;
-	[Export] PackedScene wallScene;
-	[Export] float fireCooldown = 0.25f;
-	float fireTimeLeft;
-
-	[Export] int maxHealth = 20;
-	[Export] PackedScene turretScene;
-	int health;
+	// --- Read-only access for others ---
 	public int Health => health;
 	public int MaxHealth => maxHealth;
-	[Export] float moveSpeed = 300f;
-
-	[Export] float invincibleDuration = 0.5f;
-
-	[Export] PackedScene drillScene;
-
-	Drill placedDrill;
-
-
-	float invincibleTimeLeft;
-
-
-	PackedScene GetSceneFor(Deployable.Kind kind)
-	{
-		switch (kind)
-		{
-			case Deployable.Kind.Turret: return turretScene;
-			case Deployable.Kind.Wall: return wallScene;
-		}
-		return null;
-	}
-
-	void PlaceDeployable(Deployable.Kind kind)
-	{
-		if (!TryUseItem(kind))
-		{
-			GD.Print("No " + kind + " in your pack");
-			return;
-		}
-
-		var deployable = GetSceneFor(kind).Instantiate<Deployable>();
-
-		Vector2 spawnDirection = Vector2.Up;
-
-		var offset = spawnDirection * 150;
-		var spawnPoint = GlobalPosition + offset;
-
-		GetParent().AddChild(deployable);
-
-		deployable.GlobalPosition = spawnPoint;
-
-
-	}
+	public int Credits => credits;
+	public int Ammo => ammo;
+	public int MaxAmmo => maxAmmo;
+	public int CarriedOre => carriedOre;
+	public int CarriedScrap => carriedScrap;
+	public bool InSafeZone => inSafeZone;
+	public int GetCount(Deployable.Kind kind) => inventory[kind];
+	public int GetMax(Deployable.Kind kind) => maxInventory[kind];
 
 	public override void _Ready()
 	{
+		health = maxHealth;
+		credits = startingCredits;
+		ammo = startingAmmo;
+
 		inventory[Deployable.Kind.Turret] = startingTurrets;
 		maxInventory[Deployable.Kind.Turret] = maxTurrets;
 		inventory[Deployable.Kind.Wall] = startingWalls;
 		maxInventory[Deployable.Kind.Wall] = maxWalls;
 
-		health = maxHealth;
-		credits = startingCredits;
-		ammo = startingAmmo;
-
-		//spawn protection
+		// spawn protection
 		invincibleTimeLeft = invincibleDuration;
 	}
 
-	public int GetCount(Deployable.Kind kind) => inventory[kind];
-	public int GetMax(Deployable.Kind kind) => maxInventory[kind];
-
-
-	// _PhysicsProcess calls ca. 60 times per second
+	// _PhysicsProcess runs ca. 60 times per second
 	public override void _PhysicsProcess(double delta)
 	{
-		// Get direction
 		var moveDirection = Input.GetVector("move_left", "move_right", "move_up", "move_down");
-
-		// Set Velocity to direction × speed.
 		Velocity = moveDirection * moveSpeed;
 
 		// Move the body using Velocity. If we hit something (like a wall), slide
 		// along it instead of stopping dead. Velocity is already "per second",
 		// so no need to multiply by delta - MoveAndSlide handles that itself.
 		MoveAndSlide();
-		invincibleTimeLeft = invincibleTimeLeft - (float)delta;
+
+		invincibleTimeLeft -= (float)delta;
+		fireTimeLeft -= (float)delta;
 
 		if (Input.IsActionJustPressed("deploy"))
 		{
@@ -138,14 +93,13 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 		{
 			PlaceDeployable(Deployable.Kind.Wall);
 		}
-		fireTimeLeft -= (float)delta;
-
 		if (Input.IsActionPressed("shoot"))
 		{
 			TryShoot();
 		}
-
 	}
+
+	// --- Health ---
 
 	public void Damage(int damageAmount)
 	{
@@ -158,34 +112,16 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 			return;
 		}
 
-		health = health - damageAmount;
+		health -= damageAmount;
 		invincibleTimeLeft = invincibleDuration;
-		GD.Print(what: "Emotional Damage! New Hp = " + health);
-		EmitHealthChanged();
+		GD.Print("Emotional Damage! New Hp = " + health);
+		EmitSignalHealthChanged(health, maxHealth);
+
 		if (health <= 0)
 		{
-			//dies.
 			PlayerDeath();
 		}
-
 	}
-
-	public void PlayerDeath()
-	{
-		EmitSignal(SignalName.Died);
-		//Death method. Can trigger other things before QueueFree();
-		QueueFree();
-	}
-
-	public void EmitHealthChanged()
-	{
-		EmitSignal(SignalName.HealthChanged, health, maxHealth);
-	}
-	public void EmitLootChanged()
-	{
-		EmitSignal(SignalName.LootChanged, carriedOre, carriedScrap);
-	}
-
 
 	public void Heal(int healAmount)
 	{
@@ -193,18 +129,19 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 		{
 			return;
 		}
-		else if (health + healAmount >= maxHealth)
-		{
-			health = maxHealth;
-			GD.Print("Overhealed.");
-			EmitHealthChanged();
-		}
-		else
-		{
-			health = health + healAmount;
-			EmitHealthChanged();
-		}
+
+		health = Mathf.Min(health + healAmount, maxHealth);
+		EmitSignalHealthChanged(health, maxHealth);
 	}
+
+	public void PlayerDeath()
+	{
+		// Announce first, so listeners can react before the player is freed.
+		EmitSignalDied();
+		QueueFree();
+	}
+
+	// --- Deploying ---
 
 	public void PlaceDrill()
 	{
@@ -212,33 +149,78 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 		{
 			return;
 		}
+
 		var drill = drillScene.Instantiate<Drill>();
-
-		Vector2 spawnDirection = Vector2.Down;
-
-		var offset = spawnDirection * 150;
-		var spawnPoint = GlobalPosition + offset;
+		var spawnPoint = GlobalPosition + Vector2.Down * 150;
 
 		GetParent().AddChild(drill);
-
 		drill.GlobalPosition = spawnPoint;
-
 		placedDrill = drill;
-
-
 	}
+
+	void PlaceDeployable(Deployable.Kind kind)
+	{
+		if (!TryUseItem(kind))
+		{
+			GD.Print("No " + kind + " in your pack");
+			return;
+		}
+
+		var deployable = GetSceneFor(kind).Instantiate<Deployable>();
+		var spawnPoint = GlobalPosition + Vector2.Up * 150;
+
+		// Add it to the world (our parent), not to the player, so it stays put.
+		GetParent().AddChild(deployable);
+		deployable.GlobalPosition = spawnPoint;
+	}
+
+	PackedScene GetSceneFor(Deployable.Kind kind)
+	{
+		switch (kind)
+		{
+			case Deployable.Kind.Turret: return turretScene;
+			case Deployable.Kind.Wall: return wallScene;
+		}
+		return null;
+	}
+
+	// --- Inventory ---
+
+	public bool TryAddItem(Deployable.Kind kind)
+	{
+		if (inventory[kind] >= maxInventory[kind])
+		{
+			return false;
+		}
+		inventory[kind]++;
+		EmitSignalInventoryChanged(kind, inventory[kind], maxInventory[kind]);
+		return true;
+	}
+
+	public bool TryUseItem(Deployable.Kind kind)
+	{
+		if (inventory[kind] <= 0)
+		{
+			return false;
+		}
+		inventory[kind]--;
+		EmitSignalInventoryChanged(kind, inventory[kind], maxInventory[kind]);
+		return true;
+	}
+
+	// --- Shooting ---
+
 	void TryShoot()
 	{
 		if (fireTimeLeft > 0)
 		{
 			return;
 		}
-
+		// No shooting in the settlement: clicking shop buttons uses the same mouse button.
 		if (inSafeZone)
 		{
 			return;
 		}
-
 		if (ammo <= 0)
 		{
 			return;
@@ -250,9 +232,9 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 		GetParent().AddChild(bullet);
 		bullet.GlobalPosition = GlobalPosition;
 		bullet.Launch(direction, Bullet.Team.Player);
+
 		ammo--;
 		EmitSignalAmmoChanged(ammo, maxAmmo);
-
 		fireTimeLeft = fireCooldown;
 	}
 
@@ -268,6 +250,8 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 		return true;
 	}
 
+	// --- Loot and credits ---
+
 	public void AddLoot(Pickup.LootType type, int amount)
 	{
 		if (type == Pickup.LootType.Ore)
@@ -277,63 +261,43 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 		else if (type == Pickup.LootType.Scrap)
 		{
 			carriedScrap += amount;
-
 		}
-		EmitLootChanged();
+		EmitSignalLootChanged(carriedOre, carriedScrap);
 	}
+
+	public void ClearLoot()
+	{
+		carriedOre = 0;
+		carriedScrap = 0;
+		EmitSignalLootChanged(carriedOre, carriedScrap);
+	}
+
+	public void AddCredits(int amount)
+	{
+		credits += amount;
+		EmitSignalCreditsChanged(credits);
+	}
+
+	public bool TrySpendCredits(int amount)
+	{
+		if (credits < amount)
+		{
+			return false;
+		}
+		credits -= amount;
+		EmitSignalCreditsChanged(credits);
+		return true;
+	}
+
+	// --- Safe zone ---
 
 	public void EnterSafeZone()
 	{
 		inSafeZone = true;
 	}
+
 	public void ExitSafeZone()
 	{
 		inSafeZone = false;
 	}
-	public void AddCredits(int amount)
-	{
-		credits += amount;
-		EmitSignal(SignalName.CreditsChanged, credits);
-	}
-	public void ClearLoot()
-	{
-		carriedOre = 0;
-		carriedScrap = 0;
-		EmitLootChanged();
-	}
-	public bool TrySpendCredits(int amount)
-	{
-
-		if (credits < amount)
-		{
-			return false;
-		}
-
-		credits = credits - amount;
-
-		EmitSignalCreditsChanged(credits);
-		return true;
-	}
-	public bool TryAddItem(Deployable.Kind kind)
-	{
-		if (inventory[kind] >= maxInventory[kind])
-		{
-			return (false);
-		}
-		inventory[kind]++;
-		EmitSignalInventoryChanged(kind, inventory[kind], maxInventory[kind]);
-		return (true);
-	}
-
-	public bool TryUseItem(Deployable.Kind kind)
-	{
-		if (inventory[kind] <= 0)
-		{
-			return (false);
-		}
-		inventory[kind]--;
-		EmitSignalInventoryChanged(kind, inventory[kind], maxInventory[kind]);
-		return (true);
-	}
-
 }

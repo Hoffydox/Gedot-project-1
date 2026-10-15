@@ -4,64 +4,55 @@ public partial class Drill : Deployable
 {
 	[Export] float drillDuration = 30.3f;
 	[Export] float oreRate = 0.5f;
-	float oreMined;
 
 	float drillTimeLeft;
+	float oreMined;
+	WaveManager waveManager;
 
 	public float DrillTimeLeft => drillTimeLeft;
-
-	WaveManager targetWaveManager;
-
 
 	public override void OnPlaced()
 	{
 		base.OnPlaced();
-		targetWaveManager = GetTree().GetFirstNodeInGroup("wave_manager") as WaveManager;
 		drillTimeLeft = drillDuration;
-		if (!IsInstanceValid(targetWaveManager))
+		waveManager = GetTree().GetFirstNodeInGroup("wave_manager") as WaveManager;
+		if (!IsInstanceValid(waveManager))
 		{
 			return;
 		}
-		targetWaveManager.StartSwarm(this);
+		waveManager.StartSwarm(this);
 	}
 
 	public override void _Process(double delta)
 	{
-		drillTimeLeft = drillTimeLeft - (float)delta;
+		oreMined += oreRate * (float)delta;
+		drillTimeLeft -= (float)delta;
 		if (drillTimeLeft <= 0)
 		{
 			FinishDrilling();
 		}
-		oreMined += oreRate * (float)delta;
 	}
 
-	public void FinishDrilling()
+	void FinishDrilling()
 	{
-		GD.Print(what: "Drilling Complete!");
-		if (IsInstanceValid(targetWaveManager))
+		GD.Print("Drilling Complete!");
+		if (IsInstanceValid(waveManager))
 		{
-			targetWaveManager.EndSwarm();
+			waveManager.EndSwarm();
 		}
-		/* ADD an animation here in the future. maybe switch mineral patch with exhausted patch. */
-		// drop an ore pickup 
-
+		// Idea: an animation, and swap the mineral patch for an exhausted one.
 		DropPickup(Pickup.LootType.Ore, (int)oreMined);
-		
 		QueueFree();
-
 	}
 
 	public override void OnDestroyed()
 	{
-		GD.Print(what: "Drill destroyed!");
-		if (IsInstanceValid(targetWaveManager))
+		GD.Print("Drill destroyed!");
+		if (IsInstanceValid(waveManager))
 		{
-			targetWaveManager.EndSwarm();
+			waveManager.EndSwarm();
 		}
-		/* should switch mineral patch with exhausted patch. also happend here? can player get back and mine later? */
-		oreMined = 0;
+		// The ore is lost. Idea: exhausted patch here too? Can the player come back and mine later?
 		base.OnDestroyed();
-
 	}
-
 }

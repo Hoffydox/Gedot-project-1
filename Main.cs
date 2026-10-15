@@ -1,61 +1,51 @@
 using Godot;
 
+// The game manager: finds the main nodes and connects their signals.
 public partial class Main : Node2D
 {
+	PlayerCharacter player;
+	Hud hud;
+	WaveManager waveManager;
+	bool isGameOver = false;
 
-	bool isGameOver;
-	PlayerCharacter fetchedPlayerNode;
-	Hud fetchedHudNode;
-
-	WaveManager fetchedWaveNode;
-
-
-	// Called when the node enters the scene tree for the first time.
+	// Main's _Ready runs after all its children's _Ready, so everything is set up by now.
 	public override void _Ready()
 	{
+		player = GetNode<PlayerCharacter>("Player");
+		hud = GetNode<Hud>("HUD");
+		waveManager = GetNode<WaveManager>("WaveManager");
 
-		isGameOver = false;
-		fetchedPlayerNode = GetNode<PlayerCharacter>("Player");
-		fetchedHudNode = GetNode<Hud>("HUD");
-		fetchedWaveNode = GetNode<WaveManager>("WaveManager");
-		
-		fetchedPlayerNode.Died += GameOver;
-		fetchedPlayerNode.HealthChanged += fetchedHudNode.UpdateUI;
-		fetchedPlayerNode.LootChanged += fetchedHudNode.OnLootChanged;
-		
-		fetchedWaveNode.SwarmStarted += fetchedHudNode.OnSwarmStarted;
-		fetchedPlayerNode.CreditsChanged += fetchedHudNode.OnCreditsChanged;
-		
-		fetchedPlayerNode.InventoryChanged += fetchedHudNode.OnInventoryChanged;
-		fetchedPlayerNode.AmmoChanged += fetchedHudNode.OnAmmoChanged;
+		// Every future change...
+		player.Died += GameOver;
+		player.HealthChanged += hud.OnHealthChanged;
+		player.LootChanged += hud.OnLootChanged;
+		player.CreditsChanged += hud.OnCreditsChanged;
+		player.AmmoChanged += hud.OnAmmoChanged;
+		player.InventoryChanged += hud.OnInventoryChanged;
+		waveManager.SwarmStarted += hud.OnSwarmStarted;
 
-		fetchedHudNode.UpdateUI(fetchedPlayerNode.Health, fetchedPlayerNode.MaxHealth);
-		fetchedHudNode.OnSwarmStarted(fetchedWaveNode.SwarmNumber);
-		fetchedHudNode.OnCreditsChanged(fetchedPlayerNode.Credits);
-		fetchedHudNode.OnInventoryChanged(Deployable.Kind.Turret, fetchedPlayerNode.GetCount(Deployable.Kind.Turret), fetchedPlayerNode.GetMax(Deployable.Kind.Turret));
-		fetchedHudNode.OnInventoryChanged(Deployable.Kind.Wall, fetchedPlayerNode.GetCount(Deployable.Kind.Wall), fetchedPlayerNode.GetMax(Deployable.Kind.Wall));
-		fetchedHudNode.OnAmmoChanged(fetchedPlayerNode.Ammo, fetchedPlayerNode.MaxAmmo);
+		// ...plus the values right now (could come from a saved state later).
+		hud.OnHealthChanged(player.Health, player.MaxHealth);
+		hud.OnLootChanged(player.CarriedOre, player.CarriedScrap);
+		hud.OnCreditsChanged(player.Credits);
+		hud.OnAmmoChanged(player.Ammo, player.MaxAmmo);
+		hud.OnInventoryChanged(Deployable.Kind.Turret, player.GetCount(Deployable.Kind.Turret), player.GetMax(Deployable.Kind.Turret));
+		hud.OnInventoryChanged(Deployable.Kind.Wall, player.GetCount(Deployable.Kind.Wall), player.GetMax(Deployable.Kind.Wall));
+		hud.OnSwarmStarted(waveManager.SwarmNumber);
+	}
 
-		fetchedHudNode.OnLootChanged(fetchedPlayerNode.CarriedOre, fetchedPlayerNode.CarriedScrap); // intantiate loot. Could be taken from savedstate later.
-
-	}		
-
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		if (Input.IsActionJustPressed("restart") && isGameOver == true)
+		if (isGameOver && Input.IsActionJustPressed("restart"))
 		{
 			GetTree().ReloadCurrentScene();
 		}
 	}
 
-	public void GameOver()
+	void GameOver()
 	{
-
 		isGameOver = true;
-		GD.Print(what: "Game Over!");
-		fetchedHudNode.ShowGameOver();
-
+		GD.Print("Game Over!");
+		hud.ShowGameOver();
 	}
-
 }
