@@ -39,6 +39,7 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 	 */    /* [Export] int startingTurrets = 1; */
 	[Export] int startingCredits = 30;
 	[Export] PackedScene bulletScene;
+	[Export] PackedScene wallScene;
 	[Export] float fireCooldown = 0.25f;
 	float fireTimeLeft;
 
@@ -58,6 +59,39 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 
 	float invincibleTimeLeft;
 
+
+	PackedScene GetSceneFor(Deployable.Kind kind)
+	{
+		switch (kind)
+		{
+			case Deployable.Kind.Turret: return turretScene;
+			case Deployable.Kind.Wall: return wallScene;
+		}
+		return null;
+	}
+
+	void PlaceDeployable(Deployable.Kind kind)
+	{
+		if (!TryUseItem(kind))
+		{
+			GD.Print("No " + kind + " in your pack");
+			return;
+		}
+		
+		var deployable = GetSceneFor(kind).Instantiate<Deployable>();
+
+		Vector2 spawnDirection = Vector2.Up;
+
+		var offset = spawnDirection * 150;
+		var spawnPoint = GlobalPosition + offset;
+
+		GetParent().AddChild(deployable);
+
+		deployable.GlobalPosition = spawnPoint;
+
+		// add to my PARENT?? what do you mean?
+	}
+
 	public override void _Ready()
 	{
 		inventory[Deployable.Kind.Turret] = startingTurrets;
@@ -76,7 +110,7 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 	public int GetCount(Deployable.Kind kind) => inventory[kind];
 	public int GetMax(Deployable.Kind kind) => maxInventory[kind];
 
-	
+
 	// _PhysicsProcess calls ca. 60 times per second
 	public override void _PhysicsProcess(double delta)
 	{
@@ -98,7 +132,11 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 		}
 		if (Input.IsActionJustPressed("deploy_turret"))
 		{
-			PlaceTurret();
+			PlaceDeployable(Deployable.Kind.Turret);
+		}
+		if (Input.IsActionJustPressed("deploy_wall"))
+		{
+			PlaceDeployable(Deployable.Kind.Wall);
 		}
 		fireTimeLeft -= (float)delta;
 
@@ -106,6 +144,7 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 		{
 			TryShoot();
 		}
+		
 	}
 
 	public void Damage(int damageAmount)
@@ -316,7 +355,7 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 			return (false);
 		}
 		inventory[kind]--;
-		EmitSignalInventoryChanged(kind,inventory[kind], maxInventory[kind]);
+		EmitSignalInventoryChanged(kind, inventory[kind], maxInventory[kind]);
 		return (true);
 	}
 
