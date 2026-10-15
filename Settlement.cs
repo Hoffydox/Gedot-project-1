@@ -8,11 +8,13 @@ public partial class Settlement : Area2D
 	[Export] int turretPrice = 30;
 	[Export] int ammoPrice = 10;
 	[Export] int ammoPackSize = 15;
+	[Export] int wallPrice = 15;
 
 	Control shopMenu;
 	Button sellButton;
 	Button buyTurretButton;
 	Button buyAmmoButton;
+	Button buyWallButton;
 	Button closeButton;
 
 	PlayerCharacter playerInside;
@@ -24,12 +26,14 @@ public partial class Settlement : Area2D
 		shopMenu = GetNode<PanelContainer>("CanvasLayer/ShopMenu");
 		sellButton = GetNode<Button>("CanvasLayer/ShopMenu/VBoxContainer/SellButton");
 		buyTurretButton = GetNode<Button>("CanvasLayer/ShopMenu/VBoxContainer/BuyTurretButton");
+		buyWallButton = GetNode<Button>("CanvasLayer/ShopMenu/VBoxContainer/BuyWallButton");
 		closeButton = GetNode<Button>("CanvasLayer/ShopMenu/VBoxContainer/CloseButton");
 		buyAmmoButton = GetNode<Button>("CanvasLayer/ShopMenu/VBoxContainer/BuyAmmoButton");
 
 
 		sellButton.Pressed += OnSellPressed;
 		buyTurretButton.Pressed += OnBuyTurretPressed;
+		buyWallButton.Pressed += OnBuyWallPressed;
 		closeButton.Pressed += OnClosePressed;
 		buyAmmoButton.Pressed += OnBuyAmmoPressed;
 	}
@@ -79,30 +83,34 @@ public partial class Settlement : Area2D
 	}
 	public void OnBuyTurretPressed()
 	{
-		BuyTurret();
+		BuyItem(Deployable.Kind.Turret, turretPrice);
 	}
-	public void BuyTurret()
+	public void OnBuyWallPressed()
+	{
+		BuyItem(Deployable.Kind.Wall, wallPrice);
+	}
+	public void OnBuyAmmoPressed()
+	{
+		BuyAmmo();
+	}
+	public void BuyItem(Deployable.Kind kind, int price)
 	{
 		if (!IsInstanceValid(playerInside))
 		{
 			return;
 		}
-		if (playerInside.GetCount(Deployable.Kind.Turret) >= playerInside.GetMax(Deployable.Kind.Turret))
+		if (playerInside.GetCount(kind) >= playerInside.GetMax(kind))
 		{
 			GD.Print(what: "Pack is full");
 			return;
 		}
-		if (!playerInside.TrySpendCredits(turretPrice))
+		if (!playerInside.TrySpendCredits(price))
 		{
 			GD.Print(what: "Not Enough credits.");
 			return;
 		}
-		playerInside.TryAddItem(Deployable.Kind.Turret);
-		GD.Print(what: "Bought a turret");
-	}
-	public void OnBuyAmmoPressed()
-	{
-		BuyAmmo();
+		playerInside.TryAddItem(kind);
+		GD.Print(what: "Bought a " + kind);
 	}
 
 	void BuyAmmo()

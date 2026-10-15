@@ -55,7 +55,7 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 	[Export] PackedScene drillScene;
 
 	Drill placedDrill;
-	Turret placedTurret;
+
 
 	float invincibleTimeLeft;
 
@@ -77,7 +77,7 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 			GD.Print("No " + kind + " in your pack");
 			return;
 		}
-		
+
 		var deployable = GetSceneFor(kind).Instantiate<Deployable>();
 
 		Vector2 spawnDirection = Vector2.Up;
@@ -89,7 +89,7 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 
 		deployable.GlobalPosition = spawnPoint;
 
-		// add to my PARENT?? what do you mean?
+
 	}
 
 	public override void _Ready()
@@ -144,7 +144,7 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 		{
 			TryShoot();
 		}
-		
+
 	}
 
 	public void Damage(int damageAmount)
@@ -225,29 +225,6 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 
 		placedDrill = drill;
 
-
-	}
-	public void PlaceTurret()
-	{
-
-		if (!TryUseItem(Deployable.Kind.Turret))
-		{
-			GD.Print(what: GetCount(Deployable.Kind.Turret) + " turrets in inventory!");
-			return;
-		}
-
-		var turret = turretScene.Instantiate<Turret>();
-
-		Vector2 spawnDirection = Vector2.Up;
-
-		var offset = spawnDirection * 150;
-		var spawnPoint = GlobalPosition + offset;
-
-		GetParent().AddChild(turret);
-
-		turret.GlobalPosition = spawnPoint;
-
-		placedTurret = turret;
 
 	}
 	void TryShoot()
