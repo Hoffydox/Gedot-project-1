@@ -3,6 +3,7 @@ using Godot;
 public partial class Deployable : StaticBody2D, IDamageable
 {
 
+	public enum Kind { Turret, Wall}
 
 	[Export] int maxHealth = 50;
 	[Export] PackedScene pickupScene;

@@ -25,13 +25,14 @@ public partial class Main : Node2D
 		
 		fetchedWaveNode.SwarmStarted += fetchedHudNode.OnSwarmStarted;
 		fetchedPlayerNode.CreditsChanged += fetchedHudNode.OnCreditsChanged;
-		fetchedPlayerNode.TurretsChanged += fetchedHudNode.OnTurretsChanged;
+		
+		fetchedPlayerNode.InventoryChanged += fetchedHudNode.OnInventoryChanged;
 		fetchedPlayerNode.AmmoChanged += fetchedHudNode.OnAmmoChanged;
 
 		fetchedHudNode.UpdateUI(fetchedPlayerNode.Health, fetchedPlayerNode.MaxHealth);
 		fetchedHudNode.OnSwarmStarted(fetchedWaveNode.SwarmNumber);
 		fetchedHudNode.OnCreditsChanged(fetchedPlayerNode.Credits);
-		fetchedHudNode.OnTurretsChanged(fetchedPlayerNode.TurretCount, fetchedPlayerNode.MaxTurrets);
+		fetchedHudNode.OnInventoryChanged(Deployable.Kind.Turret, fetchedPlayerNode.GetCount(Deployable.Kind.Turret), fetchedPlayerNode.GetMax(Deployable.Kind.Turret));
 		fetchedHudNode.OnAmmoChanged(fetchedPlayerNode.Ammo, fetchedPlayerNode.MaxAmmo);
 
 		fetchedHudNode.OnLootChanged(fetchedPlayerNode.CarriedOre, fetchedPlayerNode.CarriedScrap); // intantiate loot. Could be taken from savedstate later.

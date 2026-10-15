@@ -94,9 +94,12 @@ public partial class Hud : Node2D
 	{
 		creditsLabel.Text = "Credits: " + credits + " ";
 	}
-	public void OnTurretsChanged(int turretsInInventory, int maxTurrets)
+	public void OnInventoryChanged(Deployable.Kind kind, int count, int max)
 	{
-		turretsLabel.Text = "Turrets: " + turretsInInventory + " / " + maxTurrets;
+		if (kind == Deployable.Kind.Turret)
+		{
+		turretsLabel.Text = "Turrets: " + count + " / " + max;
+		}
 	}
 	public void OnAmmoChanged(int ammo, int max)
 	{

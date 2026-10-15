@@ -87,7 +87,7 @@ public partial class Settlement : Area2D
 		{
 			return;
 		}
-		if (playerInside.TurretCount >= playerInside.MaxTurrets)
+		if (playerInside.GetCount(Deployable.Kind.Turret) >= playerInside.GetMax(Deployable.Kind.Turret))
 		{
 			GD.Print(what: "Pack is full");
 			return;
@@ -97,7 +97,7 @@ public partial class Settlement : Area2D
 			GD.Print(what: "Not Enough credits.");
 			return;
 		}
-		playerInside.TryAddTurret();
+		playerInside.TryAddItem(Deployable.Kind.Turret);
 		GD.Print(what: "Bought a turret");
 	}
 	public void OnBuyAmmoPressed()

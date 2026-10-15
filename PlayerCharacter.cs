@@ -1,17 +1,27 @@
 using Godot;
+using System.Collections.Generic;
 
 public partial class PlayerCharacter : CharacterBody2D, IDamageable
 {
+	[Signal] public delegate void InventoryChangedEventHandler(Deployable.Kind kind, int count, int max);
 	[Signal] public delegate void DiedEventHandler();
 	[Signal] public delegate void HealthChangedEventHandler(int current, int max);
 	[Signal] public delegate void LootChangedEventHandler(int ore, int scrap);
 	[Signal] public delegate void CreditsChangedEventHandler(int credits);
-	[Signal] public delegate void TurretsChangedEventHandler(int count, int max);
 
 	[Signal] public delegate void AmmoChangedEventHandler(int ammo, int max);
 
+
+
+	[Export] int maxTurrets = 3, startingTurrets = 1;
+	[Export] int maxWalls = 5, startingWalls = 2;
+
 	[Export] int startingAmmo = 30;
 	[Export] int maxAmmo = 90;
+
+	Dictionary<Deployable.Kind, int> inventory = new();
+	Dictionary<Deployable.Kind, int> maxInventory = new();
+
 	int ammo;
 	public int Ammo => ammo;
 	public int MaxAmmo => maxAmmo;
@@ -24,15 +34,14 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 	int carriedScrap;
 	public int CarriedOre => carriedOre;
 	public int CarriedScrap => carriedScrap;
-	[Export] int maxTurrets = 3;
-	public int MaxTurrets => maxTurrets;
-	[Export] int startingTurrets = 1;
+	/* 	[Export] int maxTurrets = 3;
+		public int MaxTurrets => maxTurrets;
+	 */    /* [Export] int startingTurrets = 1; */
 	[Export] int startingCredits = 30;
 	[Export] PackedScene bulletScene;
 	[Export] float fireCooldown = 0.25f;
 	float fireTimeLeft;
-	int turretsInInventory;
-	public int TurretCount => turretsInInventory;
+
 	[Export] int maxHealth = 20;
 	[Export] PackedScene turretScene;
 	int health;
@@ -51,14 +60,23 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 
 	public override void _Ready()
 	{
+		inventory[Deployable.Kind.Turret] = startingTurrets;
+		maxInventory[Deployable.Kind.Turret] = maxTurrets;
+		inventory[Deployable.Kind.Wall] = startingWalls;
+		maxInventory[Deployable.Kind.Wall] = maxWalls;
+
 		health = maxHealth;
-		turretsInInventory = startingTurrets;
 		credits = startingCredits;
 		ammo = startingAmmo;
 
 		//spawn protection
 		invincibleTimeLeft = invincibleDuration;
 	}
+
+	public int GetCount(Deployable.Kind kind) => inventory[kind];
+	public int GetMax(Deployable.Kind kind) => maxInventory[kind];
+
+	
 	// _PhysicsProcess calls ca. 60 times per second
 	public override void _PhysicsProcess(double delta)
 	{
@@ -173,9 +191,9 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 	public void PlaceTurret()
 	{
 
-		if (!TryUseTurret())
+		if (!TryUseItem(Deployable.Kind.Turret))
 		{
-			GD.Print(what: turretsInInventory + " turrets in inventory!");
+			GD.Print(what: GetCount(Deployable.Kind.Turret) + " turrets in inventory!");
 			return;
 		}
 
@@ -280,25 +298,25 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 		EmitSignalCreditsChanged(credits);
 		return true;
 	}
-	public bool TryAddTurret()
+	public bool TryAddItem(Deployable.Kind kind)
 	{
-		if (turretsInInventory >= maxTurrets)
+		if (inventory[kind] >= maxInventory[kind])
 		{
 			return (false);
 		}
-		turretsInInventory++;
-		EmitSignalTurretsChanged(turretsInInventory, maxTurrets);
+		inventory[kind]++;
+		EmitSignalInventoryChanged(kind, inventory[kind], maxInventory[kind]);
 		return (true);
 	}
 
-	public bool TryUseTurret()
+	public bool TryUseItem(Deployable.Kind kind)
 	{
-		if (turretsInInventory <= 0)
+		if (inventory[kind] <= 0)
 		{
 			return (false);
 		}
-		turretsInInventory--;
-		EmitSignalTurretsChanged(turretsInInventory, maxTurrets);
+		inventory[kind]--;
+		EmitSignalInventoryChanged(kind,inventory[kind], maxInventory[kind]);
 		return (true);
 	}
 
