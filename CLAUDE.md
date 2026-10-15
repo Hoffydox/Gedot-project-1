@@ -23,6 +23,20 @@ Learning C# is the main goal of this project, not just shipping the game.
 - Recurring slips to watch for: autocomplete adding stray `using` lines; case-sensitive node paths / action names / group names; `else` after an early `return`; forgetting to assign `[Export]` scene slots in the Inspector.
 - Review the user's code by reading the files and the Godot log; build with `dotnet build First-project.csproj`.
 
+## Vision and design pillars
+
+**The core fantasy:** you're a contract prospector on a hostile alien moon — not a soldier or a hero, but someone doing a dangerous job for money with gear that's practical, worn and limited. The wildlife isn't evil; it just doesn't want you there. Every drill you set down is you *choosing* to make noise and invite trouble. At heart it's an **extraction game**: risk → reward → bank it before you lose it.
+
+Pillars (use these to judge new ideas):
+1. **Weight and maintenance over disposability** — gear is looked after (repair, resupply, carry weight), not consumed.
+2. **Meaningful choices over stat bumps** — where to drill, what to buy with limited credits, whether to hide while the drill gets chewed up, friendly-fire risk near your own defences.
+3. **Systems that interact** — fire hurts everyone and sandstorms put it out; dust blocks sight so the radar matters; walls block, so enemies attack what's in the way.
+4. **Atmosphere and tension through information** — radar pings in the dark, night, sandstorms, dust: *not seeing* is part of the feel.
+5. **Readable, fair combat** — dodgeable wind-ups, knockback with impact, recovery after missed attacks; deliberate even when a swarm is overwhelming.
+6. **Escalation by choice** — deposit tiers scale the swarm; the player decides how much risk to take; manual mining is the safe fallback.
+
+**On art, feel and vision:** questions and inspiration ideas are welcome (references, options, "what if" suggestions, concept placeholders) — but **the user wants to create the final art themselves**. Treat any art made by Claude (e.g. the SVGs in `assets/sprites/concepts/`) as placeholders and inspiration, not final assets.
+
 ## The game
 
 Top-down 2D arena game in Godot 4.7 + C#, with a **fake 2.5D look** planned (angled art + Y-sort); real 3D is a possible future step.
