@@ -13,17 +13,19 @@ public partial class Bullet : Area2D
 
 	Team team;
 	Vector2 direction;
+	float timeLeft;
 
 	public override void _Ready()
 	{
 		BodyEntered += OnBodyEntered;
+		timeLeft = lifetime; // the setting stays untouched; the countdown is state
 	}
 
 	public override void _Process(double delta)
 	{
 		GlobalPosition += direction * speed * (float)delta;
-		lifetime -= (float)delta;
-		if (lifetime < 0)
+		timeLeft -= (float)delta;
+		if (timeLeft < 0)
 		{
 			QueueFree();
 		}
