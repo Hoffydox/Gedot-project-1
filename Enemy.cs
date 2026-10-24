@@ -6,19 +6,19 @@ public partial class Enemy : CharacterBody2D, IDamageable
 
 	// --- Settings ---
 	[Export] int maxHealth = 20;
-	[Export] float moveSpeed = 350f;
-	[Export] float wanderSpeed = 50;
-	[Export] float wanderRadius = 200;
-	[Export] float detectionRange = 450;
-	[Export] float loseInterestRange = 1000;
+	[Export] float moveSpeed = 117f;
+	[Export] float wanderSpeed = 17;
+	[Export] float wanderRadius = 67;
+	[Export] float detectionRange = 150;
+	[Export] float loseInterestRange = 333;
 
 	[Export] int attackDamage = 4;
 	[Export] float attackWindup = 0.3f;
 	[Export] float attackCooldown = 1.0f;
 
-	[Export] float knockbackFriction = 1500f;
-	[Export] float separationRadius = 90f;
-	[Export] float separationStrength = 200f;
+	[Export] float knockbackFriction = 500f;
+	[Export] float separationRadius = 30f;
+	[Export] float separationStrength = 67f;
 
 	[Export] PackedScene pickupScene;
 	[Export] int minScrap = 0;
@@ -123,7 +123,7 @@ public partial class Enemy : CharacterBody2D, IDamageable
 			return;
 		}
 
-		if (IsBlockedByWall() || GlobalPosition.DistanceTo(wanderTarget) < 10)
+		if (IsBlockedByWall() || GlobalPosition.DistanceTo(wanderTarget) < 3)
 		{
 			PickWanderTarget();
 		}
@@ -267,7 +267,7 @@ public partial class Enemy : CharacterBody2D, IDamageable
 	{
 		float wanderAngle = (float)GD.RandRange(0, Mathf.Tau);
 		Vector2 wanderDirection = Vector2.Right.Rotated(wanderAngle);
-		float wanderDistance = (float)GD.RandRange(50, wanderRadius);
+		float wanderDistance = (float)GD.RandRange(17, wanderRadius);
 		wanderTarget = homePosition + wanderDirection * wanderDistance;
 	}
 

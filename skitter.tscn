@@ -4,22 +4,21 @@
 [ext_resource type="Texture2D" uid="uid://uait311qxvcc" path="res://assets/sprites/concepts/a_bleached/enemies/skitter.svg" id="2_500c3"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3yqyl"]
-radius = 32.38827
+radius = 11.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wujgv"]
-radius = 39.012817
+radius = 13.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_500c3"]
-radius = 70.0
+radius = 23.0
 
 [node name="Skitter" unique_id=1025845291 instance=ExtResource("1_xvn5b")]
-attackDamage = 1
-attackRange = 80.0
-attackWindup = 0.15
-knockbackFriction = 1200.0
-separationRadius = 70.0
 maxHealth = 5
-moveSpeed = 450.0
+moveSpeed = 145.0
+attackDamage = 1
+attackWindup = 0.15
+knockbackFriction = 400.0
+separationRadius = 23.0
 
 [node name="Sprite2D" parent="." index="0" unique_id=1294025134]
 texture = ExtResource("2_500c3")

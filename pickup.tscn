@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://cu23cstbl1ww3" path="res://assets/sprites/concepts/a_bleached/pickups/scrap.svg" id="3_0tmqx"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kmypb"]
-radius = 22.090721
+radius = 7.0
 
 [node name="Pickup" type="Area2D" unique_id=972663329]
 collision_layer = 0

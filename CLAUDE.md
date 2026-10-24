@@ -43,6 +43,14 @@ Top-down 2D arena game in Godot 4.7 + C#, with a **fake 2.5D look** planned (ang
 
 **Theme:** a contract prospector on a hostile alien moon, inspired by the film *Prospect* (2018) — weight, scarcity, purpose, analog "used future" tech, but avoiding the overused rust/amber-CRT look. Visual direction still open: concept A (sun-bleached) is the most developed; concept B (sewn/taped gear + crystal fauna) is the alternative. Art lives in `assets/sprites/concepts/`.
 
+**Art style — decided: pixel art, 32px player, drawn by the user in Aseprite.** Chosen from the density test in `assets/sprites/concepts/pixel_density/` (16/24/32/48px compared at equal on-screen size).
+- **Render setup:** base resolution **640×360**, stretch mode `viewport`, scale mode `integer` (×3 at 1080p, ×4 at 1440p), default texture filter **Nearest**, **fullscreen**. 1 art pixel = 1 world unit at camera zoom 1.
+- **Sizes (rough):** player ~32px tall, skitter ~16–18px, basic enemy ~40px, drill/turret ~32–48px. Never scale a sprite to fit; redraw it at the right size.
+- **Pivot at the feet** (sprite offset so the node origin is where it touches the ground) for Y-sort and the fake 2.5D look.
+- **One shared palette** (16–32 colours) across all sprites.
+- **Files:** `.aseprite` sources in `art_src/` (contains a `.gdignore` so Godot skips it); exported PNGs in `assets/sprites/`. Commit both. Static sprites → `Sprite2D`; animations → sprite-sheet export → `AnimatedSprite2D` + SpriteFrames.
+- **Switch-over plan:** (A) change the render settings and rescale the world ÷3 (collision radii, speeds, ranges, spawn distances, camera zoom 0.6 → 1, HUD font sizes) in one commit on one machine; (B) then replace placeholder sprites one at a time, starting with the player.
+
 **Core loop:** roam (wandering enemies, scrap) → place a **drill** → the drill triggers a **swarm** → defend with turrets, walls and your gun → collect ore + scrap → sell at the **settlement** (safe zone + merchant) for credits → buy turrets, walls, ammo → drill again. You lose carried (unsold) loot on death.
 
 **Main systems:** `WaveManager` (Calm/Swarm, started by the drill), `EnemySpawner` (single enemies + skitter packs), `Enemy` (Wander/Chase/Attack state machine, knockback/stun, separation, targets the closest valid target), `Deployable` base class (`Drill`, `Turret`, `Wall`) implementing `IDamageable`, `Pickup` (ore/scrap), `Settlement` (shop), `Hud`, `Main` (wires signals together). Physics layers: 1 player, 2 enemies, 3 deployables.
@@ -52,7 +60,9 @@ Top-down 2D arena game in Godot 4.7 + C#, with a **fake 2.5D look** planned (ang
 Phases 1–4 are done (movement/combat basics, waves + HUD, deployables, economy loop + gun). Now on the **side quest**:
 
 - Done: 18 enemy attack wind-up + knockback/stun · 19 skitter swarm enemy · 19b movement/collision polish (floating motion, circles, layers, separation) · 20 friendly fire + hit flash · 21 walls + generalized inventory (`Dictionary<Deployable.Kind, int>`), `PlaceDeployable(kind)`, generic `BuyItem` · a code cleanup pass (scripts organized into settings / state / read-only access / grouped methods; typed `EmitSignal...` helpers everywhere).
-- **Next: step 22** pick up turrets (they keep their health/ammo).
+- Done: **pixel-art switch-over step A** — 640×360 viewport/integer/Nearest/fullscreen, world rescaled ÷3 (placeholder SVGs shrunk via import scale 0.333, terrain decals kept their old positions so they're sparser), snap-to-pixel + physics interpolation on. With interpolation on, **anything spawned and then moved must call `ResetPhysicsInterpolation()` after its last position/rotation change** (otherwise it flickers in from (0,0)).
+- **Now: step B** — the user is drawing a 32px test player in Aseprite to replace the placeholder.
+- Next: step 22 pick up turrets (they keep their health/ammo).
 - Then: 23 repair with scrap + **turret ammo/resupply** (replaces the turret lifetime timer — open questions: shared vs separate ammo, how to resupply) · 24 carry weight (ore slows you).
 - After the side quest: **Phase 5 enemy variety**, then discuss juice/feel and the art decision.
 

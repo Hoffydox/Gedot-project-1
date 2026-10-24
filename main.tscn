@@ -21,17 +21,17 @@ waveManager = NodePath("../WaveManager")
 [node name="Terrain" parent="." unique_id=22942818 instance=ExtResource("6_terrain")]
 
 [node name="Settlement" parent="." unique_id=281110139 instance=ExtResource("4_5vw27")]
-position = Vector2(1983, -608)
+position = Vector2(660, -203)
 
 [node name="Player" parent="." unique_id=1144244028 instance=ExtResource("2_h2yge")]
-position = Vector2(-56, 459)
+position = Vector2(19, 153)
 
 [node name="EnemySpawner" type="Node2D" parent="." unique_id=1506017884]
 script = ExtResource("3_h2yge")
 enemyScene = ExtResource("1_0xm2m")
 skitterScene = ExtResource("8_4c57u")
-packSpread = 200.0
-spawnDistance = 1000.0
+spawnDistance = 333.0
+packSpread = 67.0
 
 [node name="SpawnTimer" type="Timer" parent="EnemySpawner" unique_id=679449819]
 wait_time = 2.0
@@ -70,26 +70,26 @@ position = Vector2(-1154, -1015)
 
 [node name="Turret" parent="." unique_id=307342662 instance=ExtResource("9_kek77")]
 modulate = Color(0.8645772, 0.93674403, 0.99999994, 1)
-position = Vector2(2329, -580)
+position = Vector2(767, -186)
 fireCooldown = 1.0
 expires = false
 maxHealth = 100
 
 [node name="Turret2" parent="." unique_id=2138195874 instance=ExtResource("9_kek77")]
 modulate = Color(0.8645772, 0.93674403, 0.99999994, 1)
-position = Vector2(1629, -628)
+position = Vector2(552, -214)
 fireCooldown = 1.0
 expires = false
 maxHealth = 100
 
 [node name="Wall11" parent="." unique_id=1433652044 instance=ExtResource("11_efxa6")]
-position = Vector2(-39, 276)
+position = Vector2(231, 178)
 
 [node name="Wall12" parent="." unique_id=1193830904 instance=ExtResource("11_efxa6")]
-position = Vector2(101, 292)
+position = Vector2(276, 192)
 
 [node name="Wall4" parent="." unique_id=1458112262 instance=ExtResource("11_efxa6")]
-position = Vector2(267, 712)
+position = Vector2(236, 238)
 
 [node name="Skitter" parent="." unique_id=215787209 instance=ExtResource("8_4c57u")]
-position = Vector2(-295, 514)
+position = Vector2(-69, 160)

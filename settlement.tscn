@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://2kusy1y0qeen" path="res://assets/sprites/concepts/a_bleached/npcs/merchant.svg" id="3_iv31x"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kmypb"]
-radius = 248.00201
+radius = 83.0
 
 [node name="Settlement" type="Area2D" unique_id=281110139]
 collision_layer = 0

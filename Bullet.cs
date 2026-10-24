@@ -5,10 +5,10 @@ public partial class Bullet : Area2D
 	// Who fired the bullet. Decides what it can hit (see Launch).
 	public enum Team { Player, Turret, Drill, Hazard }
 
-	[Export] float speed = 900;
+	[Export] float speed = 300;
 	[Export] int damage = 20;
 	[Export] float lifetime = 2;
-	[Export] float knockbackForce = 400f;
+	[Export] float knockbackForce = 133f;
 	[Export] float stunDuration = 0.15f;
 
 	Team team;

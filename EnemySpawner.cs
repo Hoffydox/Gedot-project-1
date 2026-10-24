@@ -4,11 +4,11 @@ public partial class EnemySpawner : Node2D
 {
 	[Export] PackedScene enemyScene;
 	[Export] PackedScene skitterScene;
-	[Export] float spawnDistance = 700;
+	[Export] float spawnDistance = 233;
 	[Export] float skitterPackChance = 0.3f;
 	[Export] int minPackSize = 6;
 	[Export] int maxPackSize = 10;
-	[Export] float packSpread = 120;
+	[Export] float packSpread = 40;
 
 	PlayerCharacter player;
 	Timer spawnTimer;
@@ -58,6 +58,7 @@ public partial class EnemySpawner : Node2D
 		var enemy = scene.Instantiate<Enemy>();
 		AddChild(enemy);
 		enemy.GlobalPosition = position;
+		enemy.ResetPhysicsInterpolation();
 		enemy.MakeSwarmEnemy();
 	}
 

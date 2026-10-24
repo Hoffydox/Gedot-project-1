@@ -87,5 +87,6 @@ public partial class Turret : Deployable
 		GetParent().AddChild(bullet);
 		bullet.GlobalPosition = GlobalPosition;
 		bullet.Launch(fireDirection, Bullet.Team.Turret);
+		bullet.ResetPhysicsInterpolation();
 	}
 }

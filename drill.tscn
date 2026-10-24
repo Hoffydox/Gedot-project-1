@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://bhhu84wvq40" path="res://assets/sprites/concepts/a_bleached/deployables/drill.svg" id="2_xj5j7"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_x3gae"]
-radius = 70.0
+radius = 23.0
 
 [node name="Drill" type="StaticBody2D" unique_id=136462650]
 collision_layer = 4
@@ -17,5 +17,5 @@ pickupScene = ExtResource("2_6i236")
 texture = ExtResource("2_xj5j7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1250898611]
-position = Vector2(0, -4)
+position = Vector2(0, -1)
 shape = SubResource("CircleShape2D_x3gae")

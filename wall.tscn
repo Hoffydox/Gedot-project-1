@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://daouuxbna8ox0" path="res://assets/sprites/concepts/a_bleached/deployables/wall.svg" id="2_iuee5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kmypb"]
-size = Vector2(120, 50)
+size = Vector2(41, 15.5)
 
 [node name="Wall" type="StaticBody2D" unique_id=1684601824]
 collision_layer = 4
@@ -16,4 +16,5 @@ maxHealth = 150
 texture = ExtResource("2_iuee5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1677761398]
+position = Vector2(0.5, 0.75)
 shape = SubResource("RectangleShape2D_kmypb")

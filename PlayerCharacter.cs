@@ -12,7 +12,7 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 
 	// --- Settings ---
 	[Export] int maxHealth = 20;
-	[Export] float moveSpeed = 300f;
+	[Export] float moveSpeed = 100f;
 	[Export] float invincibleDuration = 0.5f;
 	[Export] int startingCredits = 30;
 
@@ -151,10 +151,11 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 		}
 
 		var drill = drillScene.Instantiate<Drill>();
-		var spawnPoint = GlobalPosition + Vector2.Down * 150;
+		var spawnPoint = GlobalPosition + Vector2.Down * 50;
 
 		GetParent().AddChild(drill);
 		drill.GlobalPosition = spawnPoint;
+		drill.ResetPhysicsInterpolation();
 		placedDrill = drill;
 	}
 
@@ -167,11 +168,12 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 		}
 
 		var deployable = GetSceneFor(kind).Instantiate<Deployable>();
-		var spawnPoint = GlobalPosition + Vector2.Up * 150;
+		var spawnPoint = GlobalPosition + Vector2.Up * 50;
 
 		// Add it to the world (our parent), not to the player, so it stays put.
 		GetParent().AddChild(deployable);
 		deployable.GlobalPosition = spawnPoint;
+		deployable.ResetPhysicsInterpolation();
 	}
 
 	PackedScene GetSceneFor(Deployable.Kind kind)
@@ -232,6 +234,7 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 		GetParent().AddChild(bullet);
 		bullet.GlobalPosition = GlobalPosition;
 		bullet.Launch(direction, Bullet.Team.Player);
+		bullet.ResetPhysicsInterpolation();
 
 		ammo--;
 		EmitSignalAmmoChanged(ammo, maxAmmo);
