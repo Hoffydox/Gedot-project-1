@@ -49,6 +49,7 @@ Top-down 2D arena game in Godot 4.7 + C#, with a **fake 2.5D look** planned (ang
 - **Sizes (rough):** player ~32px tall, skitter ~16–18px, basic enemy ~40px, drill/turret ~32–48px. Never scale a sprite to fit; redraw it at the right size.
 - **Pivot at the feet** (sprite offset so the node origin is where it touches the ground) for Y-sort and the fake 2.5D look.
 - **One shared palette** (16–32 colours) across all sprites.
+- **Font:** pixel font **m5x7** (`assets/fonts/m5x7.ttf`, imported with antialiasing/hinting off) set as the project's custom font; default theme scale 1. Use font size **16** (or 32) only — pixel fonts blur at other sizes. Anything made by someone else (fonts, sounds, etc.) gets a line in `CREDITS.md`.
 - **Files:** `.aseprite` sources in `art_src/` (contains a `.gdignore` so Godot skips it); exported PNGs in `assets/sprites/`. Commit both. Static sprites → `Sprite2D`; animations → sprite-sheet export → `AnimatedSprite2D` + SpriteFrames.
 - **Switch-over plan:** (A) change the render settings and rescale the world ÷3 (collision radii, speeds, ranges, spawn distances, camera zoom 0.6 → 1, HUD font sizes) in one commit on one machine; (B) then replace placeholder sprites one at a time, starting with the player.
 
@@ -67,8 +68,8 @@ Phases 1–4 are done (movement/combat basics, waves + HUD, deployables, economy
 - **Step 23**, split into small steps (design agreed 2026-10-30):
   - Done: **23a** turrets get ammo (magazine, 1 round per shot, ~30), lifetime timer removed; the pickup stack remembers health **and** ammo (a small `TurretState` class).
   - Done: **23b** **ammo types**: `enum AmmoType` (`Small` for now; later `Medium`/`Heavy` for new guns/turrets). The handgun and current turrets both use Small, so turret ammo comes from the player's own supply (a meaningful choice). Player ammo becomes `Dictionary<AmmoType, int>`, like the inventory, with `GetAmmo(type)` / `TryAddAmmo(type, amount)`; the gun's type is `gunAmmoType`, the turret's is `ammoType`; `AmmoChanged` sends the type.
-  - **Next: 23c** a **prompt above the nearest turret in range** (e.g. "E pick up · R reload · hold Q repair") + a pixel font (default font is unreadable at 360p). Prompts in the field, menus only in the settlement.
-  - **23d** a **timed-action system**: hold the key → a progress bar with text ("Picking up…", "Refilling…") fills above the turret; releasing the key or leaving range cancels. Used for pick up (~1 s, no longer instant) and refill (~1.5 s, fills to max or as much as the player has).
+  - Done: **23c** prompt above the nearest turret in range: each turret has a hidden `PromptLabel` + `ShowPrompt(bool)`; `PlayerCharacter.UpdateFocusedTurret()` keeps a `focusedTurret` field and only switches when the closest turret changes. Prompts in the field, menus only in the settlement.
+  - **Next: 23d** a **timed-action system**: hold the key → a progress bar with text ("Picking up…", "Refilling…") fills above the turret; releasing the key or leaving range cancels. Used for pick up (~1 s, no longer instant) and refill (~1.5 s, fills to max or as much as the player has).
   - **23e** **repair** with the same system: repeats every ~0.5 s while held, +5 HP per 1 scrap, until full or out of scrap. Scrap becomes "sell it or repair with it".
 - Then: 24 carry weight (ore slows you).
 - After the side quest: **Phase 5 enemy variety**, then discuss juice/feel and the art decision.

@@ -29,7 +29,7 @@ project/assembly_name="First-project"
 
 [gui]
 
-theme/default_theme_scale=0.5
+theme/custom_font="uid://dqb2b2hskdmq3"
 
 [input]
 

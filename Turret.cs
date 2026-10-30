@@ -13,6 +13,7 @@ public partial class Turret : Deployable
 	Area2D range;
 	Sprite2D head;
 	Label ammoLabel;
+	Label promptLabel;
 
 	public override void OnPlaced()
 	{
@@ -20,9 +21,13 @@ public partial class Turret : Deployable
 		range = GetNode<Area2D>("Range");
 		head = GetNode<Sprite2D>("Head");
 		ammoLabel = GetNode<Label>("AmmoLabel");
+		promptLabel = GetNode<Label>("PromptLabel");
+		promptLabel.Visible = false;
 		ammo = maxAmmo;
 		UpdateAmmoLabel();
 	}
+
+
 
 	public override void _PhysicsProcess(double delta)
 	{
@@ -105,5 +110,11 @@ public partial class Turret : Deployable
 		RestoreHealth(state.Health);
 		ammo = Mathf.Min(state.Ammo, maxAmmo);
 		UpdateAmmoLabel();
+	}
+
+	// The player calls this when this turret becomes, or stops being, the one you'd interact with.
+	public void ShowPrompt(bool show)
+	{
+		promptLabel.Visible = show;
 	}
 }

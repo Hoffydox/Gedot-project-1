@@ -45,6 +45,7 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 	Dictionary<Deployable.Kind, int> maxInventory = new();
 	AnimatedSprite2D body;
 	Stack<TurretState> storedTurrets = new();
+	Turret focusedTurret;
 
 	// --- Read-only access for others ---
 	public int Health => health;
@@ -111,8 +112,12 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 		{
 			TryPickUpTurret();
 		}
+		UpdateFocusedTurret();
 		UpdateAnimation();
 	}
+
+
+
 
 	// --- Animation ---
 
@@ -272,6 +277,25 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 			}
 		}
 		return closest;
+	}
+	// Shows the prompt on the closest turret in range and hides it on the one before.
+	void UpdateFocusedTurret()
+	{
+		Turret closest = FindClosestTurret();
+		if (closest == focusedTurret)
+		{
+			return;
+		}
+
+		if (IsInstanceValid(focusedTurret))
+		{
+			focusedTurret.ShowPrompt(false);
+		}
+		if (closest != null)
+		{
+			closest.ShowPrompt(true);
+		}
+		focusedTurret = closest;
 	}
 
 	// --- Inventory ---

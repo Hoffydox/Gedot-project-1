@@ -3,18 +3,19 @@
 [ext_resource type="Script" uid="uid://cnn5gkx4m8lf" path="res://Hud.cs" id="1_37p78"]
 
 [node name="HUD" type="Node2D" unique_id=515233469]
+position = Vector2(44, 3)
 script = ExtResource("1_37p78")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1301283802]
 
 [node name="HealthLabel" type="Label" parent="CanvasLayer" unique_id=1094262651]
-anchors_preset = -1
 offset_left = 16.0
 offset_right = 52.0
 offset_bottom = 23.0
 theme_override_colors/font_color = Color(0.20536679, 0.09932422, 1.2032688e-08, 1)
-theme_override_font_sizes/font_size = 11
+theme_override_font_sizes/font_size = 16
 text = "Health"
+metadata/_edit_use_anchors_ = true
 
 [node name="WaveLabel" type="Label" parent="CanvasLayer" unique_id=181236762]
 anchors_preset = 5
@@ -25,7 +26,7 @@ offset_right = 21.5
 offset_bottom = 23.0
 grow_horizontal = 2
 theme_override_colors/font_color = Color(0.20536679, 0.09932422, 1.2032688e-08, 1)
-theme_override_font_sizes/font_size = 11
+theme_override_font_sizes/font_size = 16
 text = "Wave"
 horizontal_alignment = 1
 
@@ -38,7 +39,7 @@ offset_right = -16.0
 offset_bottom = 23.0
 grow_horizontal = 0
 theme_override_colors/font_color = Color(0.20536679, 0.09932422, 1.2032688e-08, 1)
-theme_override_font_sizes/font_size = 11
+theme_override_font_sizes/font_size = 16
 text = "Status"
 horizontal_alignment = 2
 
@@ -46,68 +47,68 @@ horizontal_alignment = 2
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = -9.0
-offset_top = -118.0
-offset_right = 60.0
-offset_bottom = -73.0
+offset_left = 527.0
+offset_top = 161.0
+offset_right = 596.0
+offset_bottom = 206.0
 grow_vertical = 2
 theme_override_colors/font_color = Color(0.20536679, 0.09932422, 1.2032688e-08, 1)
-theme_override_font_sizes/font_size = 11
+theme_override_font_sizes/font_size = 16
 text = "Loot"
-horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="CreditsLabel" type="Label" parent="CanvasLayer" unique_id=345500437]
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = -21.0
-offset_top = -164.0
-offset_right = 89.0
-offset_bottom = -119.0
+offset_left = 401.0
+offset_top = 162.0
+offset_right = 511.0
+offset_bottom = 207.0
 grow_vertical = 2
 theme_override_colors/font_color = Color(0.20536679, 0.09932422, 1.2032688e-08, 1)
-theme_override_font_sizes/font_size = 11
+theme_override_font_sizes/font_size = 16
 text = "Credits"
-horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="TurretsLabel" type="Label" parent="CanvasLayer" unique_id=552065617]
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = -18.0
-offset_top = 66.0
-offset_right = 131.0
-offset_bottom = 111.0
+offset_left = 16.0
+offset_top = 136.0
+offset_right = 165.0
+offset_bottom = 181.0
 grow_vertical = 2
 theme_override_colors/font_color = Color(0.20536679, 0.09932422, 1.2032688e-08, 1)
-theme_override_font_sizes/font_size = 11
+theme_override_font_sizes/font_size = 16
 text = "Turrets: X"
-horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="WallsLabel" type="Label" parent="CanvasLayer" unique_id=146096773]
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = -26.0
-offset_top = 119.0
-offset_right = 123.0
-offset_bottom = 164.0
+offset_left = 16.0
+offset_top = 163.0
+offset_right = 165.0
+offset_bottom = 208.0
 grow_vertical = 2
 theme_override_colors/font_color = Color(0.20536679, 0.09932422, 1.2032688e-08, 1)
-theme_override_font_sizes/font_size = 11
+theme_override_font_sizes/font_size = 16
 text = "Walls: X"
-horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="AmmoLabel" type="Label" parent="CanvasLayer" unique_id=1115726810]
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = -19.0
-offset_top = 16.0
-offset_right = 130.0
-offset_bottom = 61.0
+offset_left = 16.0
+offset_top = 149.0
+offset_right = 165.0
+offset_bottom = 194.0
 grow_vertical = 2
 theme_override_colors/font_color = Color(0.20536679, 0.09932422, 1.2032688e-08, 1)
-theme_override_font_sizes/font_size = 11
+theme_override_font_sizes/font_size = 16
 text = "Ammo: X"
-horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
