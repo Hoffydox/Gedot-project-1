@@ -6,6 +6,7 @@ public partial class Turret : Deployable
 	[Export] float fireCooldown = 0.5f;
 	[Export] int scrapWorth = 2;
 	[Export] int maxAmmo = 30;
+	[Export] AmmoType ammoType = AmmoType.Small;
 
 	float fireTimeLeft;
 	int ammo;

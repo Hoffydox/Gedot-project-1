@@ -23,7 +23,7 @@ public partial class Settlement : Area2D
 		GetNode<Button>("CanvasLayer/ShopMenu/VBoxContainer/SellButton").Pressed += SellLoot;
 		GetNode<Button>("CanvasLayer/ShopMenu/VBoxContainer/BuyTurretButton").Pressed += OnBuyTurretPressed;
 		GetNode<Button>("CanvasLayer/ShopMenu/VBoxContainer/BuyWallButton").Pressed += OnBuyWallPressed;
-		GetNode<Button>("CanvasLayer/ShopMenu/VBoxContainer/BuyAmmoButton").Pressed += BuyAmmo;
+		GetNode<Button>("CanvasLayer/ShopMenu/VBoxContainer/BuyAmmoButton").Pressed += OnBuyAmmoPressed;
 		GetNode<Button>("CanvasLayer/ShopMenu/VBoxContainer/CloseButton").Pressed += CloseShop;
 	}
 
@@ -109,23 +109,29 @@ public partial class Settlement : Area2D
 		GD.Print("Bought a " + kind);
 	}
 
-	void BuyAmmo()
+	void OnBuyAmmoPressed()
+	{
+		BuyAmmo(AmmoType.Small, ammoPrice);
+	}
+
+	// Same safe order as BuyItem: valid player -> room for it -> pay -> add.
+	void BuyAmmo(AmmoType type, int price)
 	{
 		if (!IsInstanceValid(playerInside))
 		{
 			return;
 		}
-		if (playerInside.Ammo >= playerInside.MaxAmmo)
+		if (playerInside.GetAmmo(type) >= playerInside.GetMaxAmmo(type))
 		{
-			GD.Print("Ammo is full");
+			GD.Print(type + " ammo is full");
 			return;
 		}
-		if (!playerInside.TrySpendCredits(ammoPrice))
+		if (!playerInside.TrySpendCredits(price))
 		{
 			GD.Print("Not enough credits");
 			return;
 		}
-		playerInside.TryAddAmmo(ammoPackSize);
-		GD.Print("Bought " + ammoPackSize + " ammo");
+		playerInside.TryAddAmmo(type, ammoPackSize);
+		GD.Print("Bought " + ammoPackSize + " " + type + " ammo");
 	}
 }

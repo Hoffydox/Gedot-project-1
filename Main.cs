@@ -28,7 +28,7 @@ public partial class Main : Node2D
 		hud.OnHealthChanged(player.Health, player.MaxHealth);
 		hud.OnLootChanged(player.CarriedOre, player.CarriedScrap);
 		hud.OnCreditsChanged(player.Credits);
-		hud.OnAmmoChanged(player.Ammo, player.MaxAmmo);
+		hud.OnAmmoChanged(AmmoType.Small, player.GetAmmo(AmmoType.Small), player.GetMaxAmmo(AmmoType.Small));
 		hud.OnInventoryChanged(Deployable.Kind.Turret, player.GetCount(Deployable.Kind.Turret), player.GetMax(Deployable.Kind.Turret));
 		hud.OnInventoryChanged(Deployable.Kind.Wall, player.GetCount(Deployable.Kind.Wall), player.GetMax(Deployable.Kind.Wall));
 		hud.OnSwarmStarted(waveManager.SwarmNumber);

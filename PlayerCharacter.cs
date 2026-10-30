@@ -7,7 +7,8 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 	[Signal] public delegate void HealthChangedEventHandler(int current, int max);
 	[Signal] public delegate void LootChangedEventHandler(int ore, int scrap);
 	[Signal] public delegate void CreditsChangedEventHandler(int credits);
-	[Signal] public delegate void AmmoChangedEventHandler(int ammo, int max);
+	[Signal] public delegate void AmmoChangedEventHandler(AmmoType type, int ammo, int max);
+
 	[Signal] public delegate void InventoryChangedEventHandler(Deployable.Kind kind, int count, int max);
 
 	// --- Settings ---
@@ -18,8 +19,8 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 
 	[Export] PackedScene bulletScene;
 	[Export] float fireCooldown = 0.25f;
-	[Export] int startingAmmo = 30;
-	[Export] int maxAmmo = 90;
+	[Export] AmmoType gunAmmoType = AmmoType.Small;
+	[Export] int startingSmallAmmo = 70, maxSmallAmmo = 120;
 
 	[Export] PackedScene drillScene;
 	[Export] PackedScene turretScene;
@@ -28,12 +29,13 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 	[Export] int maxWalls = 5, startingWalls = 2;
 	[Export] float pickupRange = 50f;
 
-
 	// --- State ---
 	int health;
 	float invincibleTimeLeft;
 	int credits;
-	int ammo;
+	Dictionary<AmmoType, int> ammo = new();
+	Dictionary<AmmoType, int> maxAmmo = new();
+
 	float fireTimeLeft;
 	int carriedOre;
 	int carriedScrap;
@@ -48,8 +50,9 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 	public int Health => health;
 	public int MaxHealth => maxHealth;
 	public int Credits => credits;
-	public int Ammo => ammo;
-	public int MaxAmmo => maxAmmo;
+	public int GetAmmo(AmmoType type) => ammo[type];
+	public int GetMaxAmmo(AmmoType type) => maxAmmo[type];
+
 	public int CarriedOre => carriedOre;
 	public int CarriedScrap => carriedScrap;
 	public bool InSafeZone => inSafeZone;
@@ -60,7 +63,8 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 	{
 		health = maxHealth;
 		credits = startingCredits;
-		ammo = startingAmmo;
+		ammo[AmmoType.Small] = startingSmallAmmo;
+		maxAmmo[AmmoType.Small] = maxSmallAmmo;
 
 		inventory[Deployable.Kind.Turret] = startingTurrets;
 		maxInventory[Deployable.Kind.Turret] = maxTurrets;
@@ -307,7 +311,7 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 		{
 			return;
 		}
-		if (ammo <= 0)
+		if (ammo[gunAmmoType] <= 0)
 		{
 			return;
 		}
@@ -320,20 +324,21 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 		bullet.Launch(direction, Bullet.Team.Player);
 		bullet.ResetPhysicsInterpolation();
 
-		ammo--;
-		EmitSignalAmmoChanged(ammo, maxAmmo);
+		ammo[gunAmmoType]--;
+		EmitSignalAmmoChanged(gunAmmoType, ammo[gunAmmoType], maxAmmo[gunAmmoType]);
+
 		fireTimeLeft = fireCooldown;
 	}
 
-	public bool TryAddAmmo(int amount)
+	public bool TryAddAmmo(AmmoType type, int amount)
 	{
-		if (ammo >= maxAmmo)
+		if (ammo[type] >= maxAmmo[type])
 		{
 			return false;
 		}
 
-		ammo = Mathf.Min(ammo + amount, maxAmmo);
-		EmitSignalAmmoChanged(ammo, maxAmmo);
+		ammo[type] = Mathf.Min(ammo[type] + amount, maxAmmo[type]);
+		EmitSignalAmmoChanged(type, ammo[type], maxAmmo[type]);
 		return true;
 	}
 

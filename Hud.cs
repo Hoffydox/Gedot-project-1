@@ -73,9 +73,9 @@ public partial class Hud : Node2D
 		creditsLabel.Text = "Credits: " + credits;
 	}
 
-	public void OnAmmoChanged(int ammo, int max)
+	public void OnAmmoChanged(AmmoType type, int ammo, int max)
 	{
-		ammoLabel.Text = "Ammo: " + ammo + " / " + max;
+		ammoLabel.Text = type + " ammo: " + ammo + " / " + max;
 	}
 
 	public void OnInventoryChanged(Deployable.Kind kind, int count, int max)
