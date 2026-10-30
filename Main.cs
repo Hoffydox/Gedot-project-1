@@ -31,6 +31,7 @@ public partial class Main : Node2D
 		hud.OnAmmoChanged(AmmoType.Small, player.GetAmmo(AmmoType.Small), player.GetMaxAmmo(AmmoType.Small));
 		hud.OnInventoryChanged(Deployable.Kind.Turret, player.GetCount(Deployable.Kind.Turret), player.GetMax(Deployable.Kind.Turret));
 		hud.OnInventoryChanged(Deployable.Kind.Wall, player.GetCount(Deployable.Kind.Wall), player.GetMax(Deployable.Kind.Wall));
+		hud.OnInventoryChanged(Deployable.Kind.AmmoCrate, player.GetCount(Deployable.Kind.AmmoCrate), player.GetMax(Deployable.Kind.AmmoCrate));
 		hud.OnSwarmStarted(waveManager.SwarmNumber);
 	}
 

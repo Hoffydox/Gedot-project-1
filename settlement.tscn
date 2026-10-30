@@ -12,7 +12,8 @@ collision_layer = 0
 script = ExtResource("1_ctm6j")
 orePrice = 15
 scrapPrice = 1
-turretPrice = 50
+turretPrice = 75
+wallPrice = 35
 ammoPrice = 6
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=305227131]
@@ -49,15 +50,19 @@ text = "Sell Loot"
 
 [node name="BuyTurretButton" type="Button" parent="CanvasLayer/ShopMenu/VBoxContainer" unique_id=1864630634]
 layout_mode = 2
-text = "Buy Turret"
+text = "Buy Turret (75 credits)"
 
 [node name="BuyWallButton" type="Button" parent="CanvasLayer/ShopMenu/VBoxContainer" unique_id=126764984]
 layout_mode = 2
-text = "Buy Wall"
+text = "Buy Wall (35 credits)"
+
+[node name="BuyCrateButton" type="Button" parent="CanvasLayer/ShopMenu/VBoxContainer" unique_id=625596991]
+layout_mode = 2
+text = "Buy Ammo crate (120 credits)"
 
 [node name="BuyAmmoButton" type="Button" parent="CanvasLayer/ShopMenu/VBoxContainer" unique_id=1236294245]
 layout_mode = 2
-text = "Buy 15 ammo (10 credits)"
+text = "Buy 15 ammo (6 credits)"
 
 [node name="CloseButton" type="Button" parent="CanvasLayer/ShopMenu/VBoxContainer" unique_id=1675451617]
 layout_mode = 2

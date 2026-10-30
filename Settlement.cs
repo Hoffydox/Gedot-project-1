@@ -6,6 +6,7 @@ public partial class Settlement : Area2D
 	[Export] int scrapPrice = 3;
 	[Export] int turretPrice = 30;
 	[Export] int wallPrice = 15;
+	[Export] int cratePrice = 120;
 	[Export] int ammoPrice = 10;
 	[Export] int ammoPackSize = 15;
 
@@ -23,6 +24,7 @@ public partial class Settlement : Area2D
 		GetNode<Button>("CanvasLayer/ShopMenu/VBoxContainer/SellButton").Pressed += SellLoot;
 		GetNode<Button>("CanvasLayer/ShopMenu/VBoxContainer/BuyTurretButton").Pressed += OnBuyTurretPressed;
 		GetNode<Button>("CanvasLayer/ShopMenu/VBoxContainer/BuyWallButton").Pressed += OnBuyWallPressed;
+		GetNode<Button>("CanvasLayer/ShopMenu/VBoxContainer/BuyCrateButton").Pressed += OnBuyCratePressed;
 		GetNode<Button>("CanvasLayer/ShopMenu/VBoxContainer/BuyAmmoButton").Pressed += OnBuyAmmoPressed;
 		GetNode<Button>("CanvasLayer/ShopMenu/VBoxContainer/CloseButton").Pressed += CloseShop;
 	}
@@ -86,6 +88,11 @@ public partial class Settlement : Area2D
 	void OnBuyWallPressed()
 	{
 		BuyItem(Deployable.Kind.Wall, wallPrice);
+	}
+
+	void OnBuyCratePressed()
+	{
+		BuyItem(Deployable.Kind.AmmoCrate, cratePrice);
 	}
 
 	// Safe order for every purchase: valid player -> room in the pack -> pay -> add.

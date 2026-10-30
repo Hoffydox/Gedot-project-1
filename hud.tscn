@@ -99,6 +99,20 @@ theme_override_font_sizes/font_size = 16
 text = "Walls: X"
 metadata/_edit_use_anchors_ = true
 
+[node name="CratesLabel" type="Label" parent="CanvasLayer" unique_id=525373722]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 16.0
+offset_top = 122.0
+offset_right = 165.0
+offset_bottom = 167.0
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.20536679, 0.09932422, 1.2032688e-08, 1)
+theme_override_font_sizes/font_size = 16
+text = "Crates: X"
+metadata/_edit_use_anchors_ = true
+
 [node name="AmmoLabel" type="Label" parent="CanvasLayer" unique_id=1115726810]
 anchors_preset = 4
 anchor_top = 0.5

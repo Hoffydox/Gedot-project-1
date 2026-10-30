@@ -10,6 +10,7 @@ public partial class Hud : Node2D
 	Label ammoLabel;
 	Label turretsLabel;
 	Label wallsLabel;
+	Label cratesLabel;
 	Label waveLabel;
 	Label statusLabel;
 
@@ -23,6 +24,7 @@ public partial class Hud : Node2D
 		ammoLabel = GetNode<Label>("CanvasLayer/AmmoLabel");
 		turretsLabel = GetNode<Label>("CanvasLayer/TurretsLabel");
 		wallsLabel = GetNode<Label>("CanvasLayer/WallsLabel");
+		cratesLabel = GetNode<Label>("CanvasLayer/CratesLabel");
 		waveLabel = GetNode<Label>("CanvasLayer/WaveLabel");
 		statusLabel = GetNode<Label>("CanvasLayer/StatusLabel");
 	}
@@ -87,6 +89,9 @@ public partial class Hud : Node2D
 				break;
 			case Deployable.Kind.Wall:
 				wallsLabel.Text = "Walls: " + count + " / " + max;
+				break;
+			case Deployable.Kind.AmmoCrate:
+				cratesLabel.Text = "Crates: " + count + " / " + max;
 				break;
 		}
 	}

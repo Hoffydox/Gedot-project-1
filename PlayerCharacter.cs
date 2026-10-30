@@ -30,8 +30,10 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 	[Export] PackedScene drillScene;
 	[Export] PackedScene turretScene;
 	[Export] PackedScene wallScene;
+	[Export] PackedScene crateScene;
 	[Export] int maxTurrets = 3, startingTurrets = 1;
 	[Export] int maxWalls = 5, startingWalls = 2;
+	[Export] int maxCrates = 2, startingCrates = 1;
 	[Export] float pickupRange = 50f;
 	[Export] float drillRange = 40f;
 	[Export] float pickUpTime = 1f;
@@ -88,6 +90,8 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 		maxInventory[Deployable.Kind.Turret] = maxTurrets;
 		inventory[Deployable.Kind.Wall] = startingWalls;
 		maxInventory[Deployable.Kind.Wall] = maxWalls;
+		inventory[Deployable.Kind.AmmoCrate] = startingCrates;
+		maxInventory[Deployable.Kind.AmmoCrate] = maxCrates;
 
 		// spawn protection
 		invincibleTimeLeft = invincibleDuration;
@@ -120,6 +124,10 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 		if (Input.IsActionJustPressed("deploy_wall"))
 		{
 			PlaceDeployable(Deployable.Kind.Wall);
+		}
+		if (Input.IsActionJustPressed("deploy_crate"))
+		{
+			PlaceDeployable(Deployable.Kind.AmmoCrate);
 		}
 		if (Input.IsActionPressed("shoot"))
 		{
@@ -257,6 +265,7 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 		{
 			case Deployable.Kind.Turret: return turretScene;
 			case Deployable.Kind.Wall: return wallScene;
+			case Deployable.Kind.AmmoCrate: return crateScene;
 		}
 		return null;
 	}

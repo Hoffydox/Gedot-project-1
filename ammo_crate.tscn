@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://yd3huxdsqyqk"]
+
+[ext_resource type="Script" uid="uid://d0dxxefqkgkwf" path="res://AmmoCrate.cs" id="1_s7mof"]
+[ext_resource type="Texture2D" uid="uid://30nic2yru0x2" path="res://assets/sprites/Deployables/AMMO_BOX.png" id="2_s8h70"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gkk0d"]
+radius = 6.0
+height = 22.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kmypb"]
+size = Vector2(31, 20)
+
+[node name="AmmoCrate" type="StaticBody2D" unique_id=68993739]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_s7mof")
+maxHealth = 25
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=193591810]
+texture = ExtResource("2_s8h70")
+
+[node name="PlayerBlocker" type="StaticBody2D" parent="." unique_id=2047257330]
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerBlocker" unique_id=2082987966]
+position = Vector2(0, 10)
+rotation = -1.5707964
+shape = SubResource("CapsuleShape2D_gkk0d")
+
+[node name="AmmoLabel" type="Label" parent="." unique_id=747038789]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -19.0
+offset_top = -18.0
+offset_right = 20.0
+offset_bottom = 9.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0, 0.5803922, 0.9137255, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = "Ammo"
+horizontal_alignment = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=279161503]
+position = Vector2(-0.5, 6)
+shape = SubResource("RectangleShape2D_kmypb")

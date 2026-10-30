@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bl04none8oq0q" path="res://drill.tscn" id="2_i3pqv"]
 [ext_resource type="PackedScene" uid="uid://dgt6v6tdiryjq" path="res://bullet.tscn" id="2_sweqy"]
 [ext_resource type="PackedScene" uid="uid://bcjulb454q1a6" path="res://wall.tscn" id="3_2hs0m"]
+[ext_resource type="PackedScene" uid="uid://yd3huxdsqyqk" path="res://ammo_crate.tscn" id="6_1jxqw"]
 [ext_resource type="Texture2D" uid="uid://dj0l56j3x4xh4" path="res://assets/sprites/player/player_poses.png" id="6_2hs0m"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_epg4t"]
@@ -118,6 +119,7 @@ maxSmallAmmo = 240
 drillScene = ExtResource("2_i3pqv")
 turretScene = ExtResource("2_hqtel")
 wallScene = ExtResource("3_2hs0m")
+crateScene = ExtResource("6_1jxqw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1220609943]
 shape = SubResource("CircleShape2D_epg4t")
