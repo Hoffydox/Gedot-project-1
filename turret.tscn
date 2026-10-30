@@ -38,7 +38,7 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Range" unique_id=829666713]
 shape = SubResource("CircleShape2D_02bu0")
 
-[node name="TimeLeftLabel" type="Label" parent="." unique_id=1613416207]
+[node name="AmmoLabel" type="Label" parent="." unique_id=1613416207]
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0

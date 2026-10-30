@@ -42,7 +42,7 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 	Dictionary<Deployable.Kind, int> inventory = new();
 	Dictionary<Deployable.Kind, int> maxInventory = new();
 	AnimatedSprite2D body;
-	Stack<int> storedTurretHealth = new();
+	Stack<TurretState> storedTurrets = new();
 
 	// --- Read-only access for others ---
 	public int Health => health;
@@ -114,30 +114,29 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 
 	public void UpdateAnimation()
 	{
-
 		Vector2 aim = GetGlobalMousePosition() - GlobalPosition;
-		
+
 		string direction;
 		bool flip = false;
-
 
 		if (Mathf.Abs(aim.X) > Mathf.Abs(aim.Y))
 		{
 			direction = "side";
 			flip = aim.X < 0;
 		}
-		else if ( aim.Y < 0)
+		else if (aim.Y < 0)
 		{
 			direction = "up";
-		} else
+		}
+		else
 		{
 			direction = "down";
 		}
+
 		string pose = Input.IsActionPressed("shoot") ? "aim" : "idle";
 
 		body.FlipH = flip;
 		body.Play($"{pose}_{direction}");
-
 	}
 
 	// --- Health ---
@@ -216,9 +215,10 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 		deployable.GlobalPosition = spawnPoint;
 		deployable.ResetPhysicsInterpolation();
 
-		if (kind == Deployable.Kind.Turret && storedTurretHealth.Count > 0)
+		// A picked-up turret comes back with the health and ammo it had.
+		if (deployable is Turret turret && storedTurrets.Count > 0)
 		{
-			deployable.RestoreHealth(storedTurretHealth.Pop());
+			turret.LoadState(storedTurrets.Pop());
 		}
 	}
 
@@ -245,7 +245,8 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 			GD.Print("No room for another turret in your pack");
 			return;
 		}
-		storedTurretHealth.Push(turret.Health);
+
+		storedTurrets.Push(turret.SaveState());
 		turret.QueueFree();
 	}
 
