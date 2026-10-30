@@ -39,6 +39,7 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 	Drill placedDrill;
 	Dictionary<Deployable.Kind, int> inventory = new();
 	Dictionary<Deployable.Kind, int> maxInventory = new();
+	AnimatedSprite2D body;
 
 	// --- Read-only access for others ---
 	public int Health => health;
@@ -65,6 +66,8 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 
 		// spawn protection
 		invincibleTimeLeft = invincibleDuration;
+
+		body = GetNode<AnimatedSprite2D>("Body");
 	}
 
 	// _PhysicsProcess runs ca. 60 times per second
@@ -97,6 +100,37 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 		{
 			TryShoot();
 		}
+		UpdateAnimation();
+	}
+
+	// --- Animation ---
+
+	public void UpdateAnimation()
+	{
+
+		Vector2 aim = GetGlobalMousePosition() - GlobalPosition;
+		
+		string direction;
+		bool flip = false;
+
+
+		if (Mathf.Abs(aim.X) > Mathf.Abs(aim.Y))
+		{
+			direction = "side";
+			flip = aim.X < 0;
+		}
+		else if ( aim.Y < 0)
+		{
+			direction = "up";
+		} else
+		{
+			direction = "down";
+		}
+		string pose = Input.IsActionPressed("shoot") ? "aim" : "idle";
+
+		body.FlipH = flip;
+		body.Play($"{pose}_{direction}");
+
 	}
 
 	// --- Health ---
