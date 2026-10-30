@@ -42,11 +42,11 @@ spawner = NodePath("../EnemySpawner")
 
 [node name="Enemy" parent="." unique_id=1025845291 instance=ExtResource("1_0xm2m")]
 modulate = Color(0.6371297, 0.630951, 0, 1)
-position = Vector2(-486, -2244)
+position = Vector2(-304, -966)
 
 [node name="Enemy2" parent="." unique_id=1793193475 instance=ExtResource("1_0xm2m")]
 modulate = Color(0.6371297, 0.630951, 0, 1)
-position = Vector2(-2391, -2131)
+position = Vector2(-413, -483)
 
 [node name="Enemy3" parent="." unique_id=1160670050 instance=ExtResource("1_0xm2m")]
 modulate = Color(0.6371297, 0.630951, 0, 1)
@@ -62,11 +62,11 @@ position = Vector2(2037, -1805)
 
 [node name="Enemy6" parent="." unique_id=1195495998 instance=ExtResource("1_0xm2m")]
 modulate = Color(0.6371297, 0.630951, 0, 1)
-position = Vector2(816, -1422)
+position = Vector2(231, -1234)
 
 [node name="Enemy7" parent="." unique_id=1032109736 instance=ExtResource("1_0xm2m")]
 modulate = Color(0.6371297, 0.630951, 0, 1)
-position = Vector2(-1154, -1015)
+position = Vector2(-885, -954)
 
 [node name="Turret" parent="." unique_id=307342662 instance=ExtResource("9_kek77")]
 modulate = Color(0.8645772, 0.93674403, 0.99999994, 1)

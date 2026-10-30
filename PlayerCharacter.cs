@@ -26,6 +26,8 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 	[Export] PackedScene wallScene;
 	[Export] int maxTurrets = 3, startingTurrets = 1;
 	[Export] int maxWalls = 5, startingWalls = 2;
+	[Export] float pickupRange = 50f;
+
 
 	// --- State ---
 	int health;
@@ -40,6 +42,7 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 	Dictionary<Deployable.Kind, int> inventory = new();
 	Dictionary<Deployable.Kind, int> maxInventory = new();
 	AnimatedSprite2D body;
+	Stack<int> storedTurretHealth = new();
 
 	// --- Read-only access for others ---
 	public int Health => health;
@@ -99,6 +102,10 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 		if (Input.IsActionPressed("shoot"))
 		{
 			TryShoot();
+		}
+		if (Input.IsActionJustPressed("interact"))
+		{
+			TryPickUpTurret();
 		}
 		UpdateAnimation();
 	}
@@ -208,6 +215,11 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 		GetParent().AddChild(deployable);
 		deployable.GlobalPosition = spawnPoint;
 		deployable.ResetPhysicsInterpolation();
+
+		if (kind == Deployable.Kind.Turret && storedTurretHealth.Count > 0)
+		{
+			deployable.RestoreHealth(storedTurretHealth.Pop());
+		}
 	}
 
 	PackedScene GetSceneFor(Deployable.Kind kind)
@@ -218,6 +230,43 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 			case Deployable.Kind.Wall: return wallScene;
 		}
 		return null;
+	}
+
+	void TryPickUpTurret()
+	{
+		Turret turret = FindClosestTurret();
+		if (turret == null)
+		{
+			return;
+		}
+
+		if (!TryAddItem(Deployable.Kind.Turret))
+		{
+			GD.Print("No room for another turret in your pack");
+			return;
+		}
+		storedTurretHealth.Push(turret.Health);
+		turret.QueueFree();
+	}
+
+	Turret FindClosestTurret()
+	{
+		Turret closest = null;
+		float closestDistance = pickupRange;
+
+		foreach (var node in GetTree().GetNodesInGroup("deployables"))
+		{
+			if (node is Turret turret)
+			{
+				float distance = GlobalPosition.DistanceTo(turret.GlobalPosition);
+				if (distance < closestDistance)
+				{
+					closest = turret;
+					closestDistance = distance;
+				}
+			}
+		}
+		return closest;
 	}
 
 	// --- Inventory ---

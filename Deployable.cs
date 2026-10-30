@@ -43,6 +43,12 @@ public partial class Deployable : StaticBody2D, IDamageable
 		}
 	}
 
+	public void RestoreHealth(int amount)
+	{
+		health = Mathf.Min(amount, maxHealth);
+		GD.Print(Name + " restored to HP: " + health);
+	}
+
 	// Red flash that fades back to this deployable's own tint (used for friendly fire).
 	public void FlashHit()
 	{
