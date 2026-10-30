@@ -2,8 +2,9 @@ using Godot;
 
 public partial class Drill : Deployable
 {
-	[Export] float drillDuration = 30.3f;
-	[Export] float oreRate = 0.5f;
+	// One entry per tier: [0] = tier 1, [1] = tier 2, [2] = tier 3.
+	[Export] float[] drillDurationPerTier = { 45f, 60f, 75f };
+	[Export] float oreRate = 0.4f;
 
 	float drillTimeLeft;
 	float oreMined;
@@ -22,7 +23,7 @@ public partial class Drill : Deployable
 	public override void OnPlaced()
 	{
 		base.OnPlaced();
-		drillTimeLeft = drillDuration;
+		drillTimeLeft = drillDurationPerTier[Tier - 1];
 		waveManager = GetTree().GetFirstNodeInGroup("wave_manager") as WaveManager;
 		if (!IsInstanceValid(waveManager))
 		{

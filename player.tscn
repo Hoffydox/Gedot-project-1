@@ -107,13 +107,14 @@ animations = [{
 }]
 
 [node name="Player" type="CharacterBody2D" unique_id=1144244028 groups=["player"]]
-collision_mask = 6
+collision_mask = 10
 motion_mode = 1
 script = ExtResource("1_onrkg")
 moveSpeed = 117.0
 bulletScene = ExtResource("2_sweqy")
 fireCooldown = 0.35
-startingAmmo = 60
+startingSmallAmmo = 120
+maxSmallAmmo = 240
 drillScene = ExtResource("2_i3pqv")
 turretScene = ExtResource("2_hqtel")
 wallScene = ExtResource("3_2hs0m")

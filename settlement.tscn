@@ -10,6 +10,10 @@ radius = 83.0
 [node name="Settlement" type="Area2D" unique_id=281110139]
 collision_layer = 0
 script = ExtResource("1_ctm6j")
+orePrice = 15
+scrapPrice = 1
+turretPrice = 50
+ammoPrice = 6
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=305227131]
 texture = ExtResource("2_bxv3n")

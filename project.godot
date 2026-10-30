@@ -103,6 +103,7 @@ repair={
 2d_physics/layer_1="player"
 2d_physics/layer_2="enemies"
 2d_physics/layer_3="deployables"
+2d_physics/layer_4="player_blockers"
 
 [physics]
 

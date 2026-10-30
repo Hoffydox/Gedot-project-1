@@ -12,12 +12,14 @@ radius = 24.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_02bu0"]
 radius = 167.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_kmypb"]
+
 [node name="Turret" type="StaticBody2D" unique_id=307342662]
 collision_layer = 4
 collision_mask = 0
 script = ExtResource("1_3oylf")
 bulletScene = ExtResource("4_coqkk")
-fireCooldown = 0.85
+fireCooldown = 0.6
 maxHealth = 40
 pickupScene = ExtResource("3_2kw7u")
 
@@ -84,3 +86,10 @@ offset_bottom = -22.0
 max_value = 1.0
 step = 0.0
 show_percentage = false
+
+[node name="PlayerBlocker" type="StaticBody2D" parent="." unique_id=1184427541]
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerBlocker" unique_id=1641524101]
+shape = SubResource("CircleShape2D_kmypb")
