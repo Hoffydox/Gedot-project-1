@@ -14,6 +14,11 @@ public partial class Turret : Deployable
 	Sprite2D head;
 	Label ammoLabel;
 	Label promptLabel;
+	ProgressBar actionBar;
+	string promptText;
+
+	public AmmoType AmmoType => ammoType;
+	public bool NeedsAmmo => ammo < maxAmmo;
 
 	public override void OnPlaced()
 	{
@@ -23,6 +28,9 @@ public partial class Turret : Deployable
 		ammoLabel = GetNode<Label>("AmmoLabel");
 		promptLabel = GetNode<Label>("PromptLabel");
 		promptLabel.Visible = false;
+		promptText = promptLabel.Text;
+		actionBar = GetNode<ProgressBar>("ActionBar");
+		actionBar.Visible = false;
 		ammo = maxAmmo;
 		UpdateAmmoLabel();
 	}
@@ -95,6 +103,15 @@ public partial class Turret : Deployable
 		ammoLabel.Text = ammo > 0 ? ammo.ToString() : "EMPTY";
 	}
 
+	// Takes as much as it needs from what's offered, and returns how much it took.
+	public int Refill(int offered)
+	{
+		int taken = Mathf.Min(maxAmmo - ammo, offered);
+		ammo += taken;
+		UpdateAmmoLabel();
+		return taken;
+	}
+
 	// Writes down everything a turret should remember while it's packed away.
 	public TurretState SaveState()
 	{
@@ -116,5 +133,20 @@ public partial class Turret : Deployable
 	public void ShowPrompt(bool show)
 	{
 		promptLabel.Visible = show;
+	}
+
+	// Shows how far the player is with an action on this turret. Progress goes from 0 to 1.
+	public void ShowProgress(string text, float progress)
+	{
+		promptLabel.Text = text;
+		actionBar.Value = progress;
+		actionBar.Visible = true;
+	}
+
+	// Back to the normal prompt.
+	public void HideProgress()
+	{
+		promptLabel.Text = promptText;
+		actionBar.Visible = false;
 	}
 }

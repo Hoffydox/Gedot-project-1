@@ -11,6 +11,8 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 
 	[Signal] public delegate void InventoryChangedEventHandler(Deployable.Kind kind, int count, int max);
 
+	enum TurretAction { None, PickUp, Refill, Repair, Upgrade, Move } // I added some ideas here could be used in future versions
+
 	// --- Settings ---
 	[Export] int maxHealth = 20;
 	[Export] float moveSpeed = 100f;
@@ -28,6 +30,8 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 	[Export] int maxTurrets = 3, startingTurrets = 1;
 	[Export] int maxWalls = 5, startingWalls = 2;
 	[Export] float pickupRange = 50f;
+	[Export] float pickUpTime = 1f;
+	[Export] float refillTime = 1.5f;
 
 	// --- State ---
 	int health;
@@ -46,6 +50,9 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 	AnimatedSprite2D body;
 	Stack<TurretState> storedTurrets = new();
 	Turret focusedTurret;
+	TurretAction currentAction;
+	Turret actionTurret;
+	float actionTime;
 
 	// --- Read-only access for others ---
 	public int Health => health;
@@ -108,11 +115,8 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 		{
 			TryShoot();
 		}
-		if (Input.IsActionJustPressed("interact"))
-		{
-			TryPickUpTurret();
-		}
 		UpdateFocusedTurret();
+		UpdateTurretAction((float)delta);
 		UpdateAnimation();
 	}
 
@@ -241,14 +245,8 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 		return null;
 	}
 
-	void TryPickUpTurret()
+	void TryPickUpTurret(Turret turret)
 	{
-		Turret turret = FindClosestTurret();
-		if (turret == null)
-		{
-			return;
-		}
-
 		if (!TryAddItem(Deployable.Kind.Turret))
 		{
 			GD.Print("No room for another turret in your pack");
@@ -296,6 +294,113 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 			closest.ShowPrompt(true);
 		}
 		focusedTurret = closest;
+	}
+
+	// Hold a key near a turret to act on it. Letting go, walking off or switching turret starts over.
+	void UpdateTurretAction(float delta)
+	{
+		TurretAction held = GetHeldTurretAction();
+
+		if (held != currentAction || focusedTurret != actionTurret)
+		{
+			StopTurretAction();
+			currentAction = held;
+			actionTurret = focusedTurret;
+		}
+
+		if (currentAction == TurretAction.None || actionTurret == null)
+		{
+			return;
+		}
+		if (!CanDoTurretAction(currentAction, actionTurret))
+		{
+			StopTurretAction();
+			return;
+		}
+
+		actionTime += delta;
+		float duration = GetActionTime(currentAction);
+		actionTurret.ShowProgress(GetActionText(currentAction), actionTime / duration);
+
+		if (actionTime >= duration)
+		{
+			FinishTurretAction(currentAction, actionTurret);
+			StopTurretAction();
+		}
+	}
+
+	TurretAction GetHeldTurretAction()
+	{
+		if (Input.IsActionPressed("interact"))
+		{
+			return TurretAction.PickUp;
+		}
+		if (Input.IsActionPressed("refill"))
+		{
+			return TurretAction.Refill;
+		}
+		return TurretAction.None;
+	}
+
+	void StopTurretAction()
+	{
+		if (IsInstanceValid(actionTurret))
+		{
+			actionTurret.HideProgress();
+		}
+		actionTime = 0;
+	}
+
+	// Is this action possible right now? Checked before the bar starts, and every frame while it fills.
+	bool CanDoTurretAction(TurretAction action, Turret turret)
+	{
+		switch (action)
+		{
+			case TurretAction.PickUp: return GetCount(Deployable.Kind.Turret) < GetMax(Deployable.Kind.Turret);
+			case TurretAction.Refill: return turret.NeedsAmmo && ammo[turret.AmmoType] > 0;
+		}
+		return false;
+	}
+
+	float GetActionTime(TurretAction action)
+	{
+		switch (action)
+		{
+			case TurretAction.PickUp: return pickUpTime;
+			case TurretAction.Refill: return refillTime;
+		}
+		return 1f;
+	}
+
+	string GetActionText(TurretAction action)
+	{
+		switch (action)
+		{
+			case TurretAction.PickUp: return "Picking up...";
+			case TurretAction.Refill: return "Refilling...";
+		}
+		return "";
+	}
+
+	void FinishTurretAction(TurretAction action, Turret turret)
+	{
+		switch (action)
+		{
+			case TurretAction.PickUp:
+				TryPickUpTurret(turret);
+				break;
+			case TurretAction.Refill:
+				RefillTurret(turret);
+				break;
+		}
+	}
+
+	void RefillTurret(Turret turret)
+	{
+		AmmoType type = turret.AmmoType;
+		int used = turret.Refill(ammo[type]);
+		ammo[type] -= used;
+		EmitSignalAmmoChanged(type, ammo[type], maxAmmo[type]);
 	}
 
 	// --- Inventory ---
