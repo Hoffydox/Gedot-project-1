@@ -33,6 +33,7 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 	[Export] int maxTurrets = 3, startingTurrets = 1;
 	[Export] int maxWalls = 5, startingWalls = 2;
 	[Export] float pickupRange = 50f;
+	[Export] float drillRange = 40f;
 	[Export] float pickUpTime = 1f;
 	[Export] float refillTime = 1.5f;
 	[Export] float repairTime = 1f;
@@ -212,11 +213,17 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 			return;
 		}
 
-		var drill = drillScene.Instantiate<Drill>();
-		var spawnPoint = GlobalPosition + Vector2.Down * 50;
+		Deposit deposit = FindClosestDeposit();
+		if (deposit == null)
+		{
+			GD.Print("No deposit here");
+			return;
+		}
 
+		var drill = drillScene.Instantiate<Drill>();
+		drill.Setup(deposit);
 		GetParent().AddChild(drill);
-		drill.GlobalPosition = spawnPoint;
+		drill.GlobalPosition = deposit.GlobalPosition;
 		drill.ResetPhysicsInterpolation();
 		placedDrill = drill;
 	}
@@ -285,6 +292,27 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 		}
 		return closest;
 	}
+
+	Deposit FindClosestDeposit()
+	{
+		Deposit closest = null;
+		float closestDistance = drillRange;
+
+		foreach (var node in GetTree().GetNodesInGroup("deposits"))
+		{
+			if (node is Deposit deposit)
+			{
+				float distance = GlobalPosition.DistanceTo(deposit.GlobalPosition);
+				if (distance < closestDistance)
+				{
+					closest = deposit;
+					closestDistance = distance;
+				}
+			}
+		}
+		return closest;
+	}
+
 	// Shows the prompt on the closest turret in range and hides it on the one before.
 	void UpdateFocusedTurret()
 	{

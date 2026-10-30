@@ -74,7 +74,19 @@ Phases 1–4 are done (movement/combat basics, waves + HUD, deployables, economy
 - Done: **step 24** carry weight: `PlayerCharacter.Load` (0–1) = (ore × `oreWeight` 1 + scrap × `scrapWeight` 0.5) / `maxLoad` 40, capped at 1; speed = `moveSpeed * Mathf.Lerp(1, heavySpeedFactor 0.7, Load)` — linear, max 30% slower (the user tried 50% and found it too harsh; a `Load * Load` curve was offered and declined for now). `LootChanged` sends the load and the HUD shows "Load: x%". Enemies were slowed a bit to match (enemy 95, skitter 120).
 - **The side quest is done.**
 - Possible polish for the turret prompt: only list the actions that are possible right now (`CanDoTurretAction` already knows); a health bar on deployables.
-- **Next: Phase 5 enemy variety**, then discuss juice/feel and the art decision.
+- **Next: step 25 deposits** (chosen over Phase 5 on 2026-10-30; design agreed):
+  - A `Deposit` scene (`[Export] int tier` 1–3, group `deposits`). **Hand-placed** in `main.tscn` for now; random placement later.
+  - The drill key (F, `deploy`) only works near a deposit; the drill **snaps onto its centre**. Otherwise "No deposit here".
+  - Tiers scale **ore and swarm together** (roughly tier 1 ≈ 15 ore as now, tier 2 ≈ 30, tier 3 ≈ 50; faster spawns + bigger skitter packs). The drill knows its deposit; the spawner reads the tier via the WaveManager.
+  - After a **successful drill the deposit is exhausted for good** (greyed out). If enemies **destroy the drill, the deposit stays** and you can try again.
+  - Tier info: **a hint from afar** (size/colour) **and the exact tier up close** (a prompt like the turret's: "Tier 2 deposit · [F] Drill").
+  - Steps: **25a** deposit scene + drill only on a deposit · **25b** tiers scale ore + swarm · **25c** exhausted state + prompt + tier look.
+  - Done: **25a** `Deposit.cs` / `deposit.tscn` (the user's own `Ore_patch.png`), three hand-placed deposits (tiers 1–3) right below `Terrain` in `main.tscn`; `PlayerCharacter.FindClosestDeposit()` (`drillRange` 40) and `PlaceDrill` snaps onto the deposit.
+  - Done: **25b** `Drill.Setup(deposit)` is called **before** `AddChild` (because `OnPlaced` starts the swarm and reads `Tier`); ore = `oreRate * Tier`; `WaveManager` calls `spawner.StartSpawning(currentDrill.Tier)`; `EnemySpawner` has `[Export] float[] spawnIntervalPerTier {2, 1.4, 1}` and `int[] extraPackSizePerTier {0, 3, 6}` (index `tier - 1`).
+  - **Now: balancing the tiers.** Rough numbers per 30 s drill before tuning: tier 1 ≈ 46 enemies / 78 bullets, tier 2 ≈ 84 / 128, tier 3 ≈ 147 / 210 (more than max ammo 120 + 30 per turret); skitters are most of the swarm. Next: ask the user how each tier should feel, then tune.
+  - **Next after balancing: 25c**.
+- Then: **Phase 5 enemy variety** — ideas discussed: Charger (wind-up straight-line charge, smashes walls; suggested first), Spitter (ranged lobbed globs, reuses `Bullet`), Burrower (underground, pops up at the drill/turrets), Drill-eater (ignores the player), Shell beetle (armoured front, flank it).
+- Other directions the user can pick from later: atmosphere (radar, night, sandstorms, dust), fire on kill, bank/safe space/inventory, more guns (Medium/Heavy ammo), the user's own art for the next sprites + feet pivot + Y-sort, juice and sound, game structure (menu, pause, restart, saving), small polish (prompt shows only possible actions, deployable health bars, muzzle spawn, enemy homePosition (0,0) bug, debug prints)., then discuss juice/feel and the art decision.
 
 ## Backlog of the user's ideas
 

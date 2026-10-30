@@ -56,7 +56,7 @@ public partial class WaveManager : Node
 				GD.Print("Stopped spawning.");
 				break;
 			case WaveState.Swarm:
-				spawner.StartSpawning();
+				spawner.StartSpawning(currentDrill.Tier);
 				GD.Print("Swarm " + swarmNumber + " started!");
 				break;
 		}

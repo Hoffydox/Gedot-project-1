@@ -7,9 +7,17 @@ public partial class Drill : Deployable
 
 	float drillTimeLeft;
 	float oreMined;
+	Deposit deposit;
 	WaveManager waveManager;
 
 	public float DrillTimeLeft => drillTimeLeft;
+	public int Tier => deposit.Tier;
+
+	// Called by the player before the drill is added to the world.
+	public void Setup(Deposit onDeposit)
+	{
+		deposit = onDeposit;
+	}
 
 	public override void OnPlaced()
 	{
@@ -25,7 +33,7 @@ public partial class Drill : Deployable
 
 	public override void _Process(double delta)
 	{
-		oreMined += oreRate * (float)delta;
+		oreMined += oreRate * Tier * (float)delta;
 		drillTimeLeft -= (float)delta;
 		if (drillTimeLeft <= 0)
 		{

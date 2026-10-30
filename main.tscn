@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://dgcmgkofv8itf" path="res://skitter.tscn" id="8_4c57u"]
 [ext_resource type="PackedScene" uid="uid://d4cvo6fkojffx" path="res://turret.tscn" id="9_kek77"]
 [ext_resource type="PackedScene" uid="uid://bcjulb454q1a6" path="res://wall.tscn" id="11_efxa6"]
+[ext_resource type="PackedScene" uid="uid://c8dcu56oqf3y2" path="res://deposit.tscn" id="12_dg77c"]
 
 [node name="Main" type="Node2D" unique_id=1471844778]
 script = ExtResource("1_h2yge")
@@ -19,6 +20,17 @@ script = ExtResource("1_h2yge")
 waveManager = NodePath("../WaveManager")
 
 [node name="Terrain" parent="." unique_id=22942818 instance=ExtResource("6_terrain")]
+
+[node name="Deposit" parent="." unique_id=286756655 instance=ExtResource("12_dg77c")]
+position = Vector2(96, 104)
+
+[node name="Deposit2" parent="." unique_id=1495964915 instance=ExtResource("12_dg77c")]
+position = Vector2(114, -256)
+tier = 2
+
+[node name="Deposit3" parent="." unique_id=1273180721 instance=ExtResource("12_dg77c")]
+position = Vector2(119, -697)
+tier = 3
 
 [node name="Settlement" parent="." unique_id=281110139 instance=ExtResource("4_5vw27")]
 position = Vector2(660, -203)
@@ -42,7 +54,7 @@ spawner = NodePath("../EnemySpawner")
 
 [node name="Enemy" parent="." unique_id=1025845291 instance=ExtResource("1_0xm2m")]
 modulate = Color(0.6371297, 0.630951, 0, 1)
-position = Vector2(-304, -966)
+position = Vector2(-1256, -764)
 
 [node name="Enemy2" parent="." unique_id=1793193475 instance=ExtResource("1_0xm2m")]
 modulate = Color(0.6371297, 0.630951, 0, 1)
@@ -50,36 +62,62 @@ position = Vector2(-413, -483)
 
 [node name="Enemy3" parent="." unique_id=1160670050 instance=ExtResource("1_0xm2m")]
 modulate = Color(0.6371297, 0.630951, 0, 1)
-position = Vector2(1500, -2676)
+position = Vector2(245, -1335)
 
 [node name="Enemy4" parent="." unique_id=1996411132 instance=ExtResource("1_0xm2m")]
 modulate = Color(0.6371297, 0.630951, 0, 1)
-position = Vector2(2868, -2757)
+position = Vector2(1743, -955)
 
 [node name="Enemy5" parent="." unique_id=69694026 instance=ExtResource("1_0xm2m")]
 modulate = Color(0.6371297, 0.630951, 0, 1)
-position = Vector2(2037, -1805)
+position = Vector2(826, -1315)
 
 [node name="Enemy6" parent="." unique_id=1195495998 instance=ExtResource("1_0xm2m")]
 modulate = Color(0.6371297, 0.630951, 0, 1)
-position = Vector2(231, -1234)
+position = Vector2(72, -858)
+
+[node name="Enemy8" parent="." unique_id=938226116 instance=ExtResource("1_0xm2m")]
+modulate = Color(0.6371297, 0.630951, 0, 1)
+position = Vector2(-1062, 519)
+
+[node name="Enemy14" parent="." unique_id=1520707149 instance=ExtResource("1_0xm2m")]
+modulate = Color(0.6371297, 0.630951, 0, 1)
+position = Vector2(-1288, -58)
+
+[node name="Enemy9" parent="." unique_id=305818212 instance=ExtResource("1_0xm2m")]
+modulate = Color(0.6371297, 0.630951, 0, 1)
+position = Vector2(1413, 1369)
+
+[node name="Enemy10" parent="." unique_id=1544624256 instance=ExtResource("1_0xm2m")]
+modulate = Color(0.6371297, 0.630951, 0, 1)
+position = Vector2(2132, -155)
+
+[node name="Enemy11" parent="." unique_id=590363053 instance=ExtResource("1_0xm2m")]
+modulate = Color(0.6371297, 0.630951, 0, 1)
+position = Vector2(2037, 913)
+
+[node name="Enemy12" parent="." unique_id=1649854599 instance=ExtResource("1_0xm2m")]
+modulate = Color(0.6371297, 0.630951, 0, 1)
+position = Vector2(-577, 1355)
+
+[node name="Enemy13" parent="." unique_id=96448716 instance=ExtResource("1_0xm2m")]
+modulate = Color(0.6371297, 0.630951, 0, 1)
+position = Vector2(398, 1518)
 
 [node name="Enemy7" parent="." unique_id=1032109736 instance=ExtResource("1_0xm2m")]
 modulate = Color(0.6371297, 0.630951, 0, 1)
-position = Vector2(-885, -954)
+position = Vector2(326, -825)
 
 [node name="Turret" parent="." unique_id=307342662 instance=ExtResource("9_kek77")]
 modulate = Color(0.8645772, 0.93674403, 0.99999994, 1)
 position = Vector2(767, -186)
 fireCooldown = 1.0
-expires = false
 maxHealth = 100
 
 [node name="Turret2" parent="." unique_id=2138195874 instance=ExtResource("9_kek77")]
 modulate = Color(0.8645772, 0.93674403, 0.99999994, 1)
 position = Vector2(552, -214)
 fireCooldown = 1.0
-expires = false
 maxHealth = 100
 
 [node name="Wall11" parent="." unique_id=1433652044 instance=ExtResource("11_efxa6")]

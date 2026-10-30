@@ -9,9 +9,13 @@ public partial class EnemySpawner : Node2D
 	[Export] int minPackSize = 6;
 	[Export] int maxPackSize = 10;
 	[Export] float packSpread = 40;
+	// One entry per tier: [0] = tier 1, [1] = tier 2, [2] = tier 3.
+	[Export] float[] spawnIntervalPerTier = { 2f, 1.4f, 1f };
+	[Export] int[] extraPackSizePerTier = { 0, 3, 6 };
 
 	PlayerCharacter player;
 	Timer spawnTimer;
+	int tier = 1;
 
 	public override void _Ready()
 	{
@@ -20,8 +24,10 @@ public partial class EnemySpawner : Node2D
 		spawnTimer.Timeout += OnSpawnTimerTimeout;
 	}
 
-	public void StartSpawning()
+	public void StartSpawning(int newTier)
 	{
+		tier = newTier;
+		spawnTimer.WaitTime = spawnIntervalPerTier[tier - 1];
 		spawnTimer.Start();
 	}
 
@@ -41,7 +47,8 @@ public partial class EnemySpawner : Node2D
 
 		if (GD.Randf() < skitterPackChance)
 		{
-			int count = GD.RandRange(minPackSize, maxPackSize);
+			int extra = extraPackSizePerTier[tier - 1];
+			int count = GD.RandRange(minPackSize + extra, maxPackSize + extra);
 			for (int i = 0; i < count; i++)
 			{
 				SpawnEnemy(skitterScene, spawnPoint + RandomOffset(0, packSpread));

@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://c8dcu56oqf3y2"]
+
+[ext_resource type="Script" uid="uid://dgfdrxj1kdbma" path="res://Deposit.cs" id="1_7mc6o"]
+[ext_resource type="Texture2D" uid="uid://mft1cr7vuk85" path="res://assets/sprites/terrain/Ore_patch.png" id="2_cbcg5"]
+
+[node name="Deposit" type="Node2D" unique_id=286756655]
+script = ExtResource("1_7mc6o")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1012559512]
+texture = ExtResource("2_cbcg5")
