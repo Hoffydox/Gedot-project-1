@@ -71,9 +71,10 @@ Phases 1–4 are done (movement/combat basics, waves + HUD, deployables, economy
   - Done: **23c** prompt above the nearest turret in range: each turret has a hidden `PromptLabel` + `ShowPrompt(bool)`; `PlayerCharacter.UpdateFocusedTurret()` keeps a `focusedTurret` field and only switches when the closest turret changes. Prompts in the field, menus only in the settlement.
   - Done: **23d** **timed-action system**: hold E (`interact`) to pick up (`pickUpTime` 1 s) or R (`refill`) to refill (`refillTime` 1.5 s, the turret takes `Min(room, what you have)` of its `AmmoType`). `PlayerCharacter` has `enum TurretAction` and `UpdateTurretAction()` (only does timing; restarts when the key, the action or the focused turret changes) plus one `switch` helper per question: `CanDoTurretAction` (checked every frame, so the bar never appears for impossible actions), `GetActionTime`, `GetActionText`, `FinishTurretAction`. The turret just displays: `ShowProgress(text, 0..1)` / `HideProgress()` on its `ActionBar` + `PromptLabel`. Holding E keeps picking up nearby turrets one after another (intended).
   - Done: **23e** **repair**: hold Q (`repair`), every `repairTime` (set to 1 s) costs 1 scrap for +`repairPerScrap` (5) HP and repeats while held (the timed-action system restarts by itself) until full or out of scrap; text shows "Repairing 25/40". `Deployable` has `MaxHealth`, `NeedsRepair` and `Repair(amount)`, so walls/drill can reuse it later. Scrap is now "sell it or repair with it".
-- **Next: step 24** carry weight (ore slows you).
+- Done: **step 24** carry weight: `PlayerCharacter.Load` (0–1) = (ore × `oreWeight` 1 + scrap × `scrapWeight` 0.5) / `maxLoad` 40, capped at 1; speed = `moveSpeed * Mathf.Lerp(1, heavySpeedFactor 0.7, Load)` — linear, max 30% slower (the user tried 50% and found it too harsh; a `Load * Load` curve was offered and declined for now). `LootChanged` sends the load and the HUD shows "Load: x%". Enemies were slowed a bit to match (enemy 95, skitter 120).
+- **The side quest is done.**
 - Possible polish for the turret prompt: only list the actions that are possible right now (`CanDoTurretAction` already knows); a health bar on deployables.
-- After the side quest: **Phase 5 enemy variety**, then discuss juice/feel and the art decision.
+- **Next: Phase 5 enemy variety**, then discuss juice/feel and the art decision.
 
 ## Backlog of the user's ideas
 

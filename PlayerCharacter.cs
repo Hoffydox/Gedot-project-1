@@ -5,7 +5,7 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 {
 	[Signal] public delegate void DiedEventHandler();
 	[Signal] public delegate void HealthChangedEventHandler(int current, int max);
-	[Signal] public delegate void LootChangedEventHandler(int ore, int scrap);
+	[Signal] public delegate void LootChangedEventHandler(int ore, int scrap, float load);
 	[Signal] public delegate void CreditsChangedEventHandler(int credits);
 	[Signal] public delegate void AmmoChangedEventHandler(AmmoType type, int ammo, int max);
 
@@ -16,6 +16,9 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 	// --- Settings ---
 	[Export] int maxHealth = 20;
 	[Export] float moveSpeed = 100f;
+	[Export] float oreWeight = 1f, scrapWeight = 0.5f;
+	[Export] float maxLoad = 40f;
+	[Export] float heavySpeedFactor = 0.7f;
 	[Export] float invincibleDuration = 0.5f;
 	[Export] int startingCredits = 30;
 
@@ -65,6 +68,10 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 
 	public int CarriedOre => carriedOre;
 	public int CarriedScrap => carriedScrap;
+
+	// How loaded down you are: 0 = empty-handed, 1 = fully loaded (or more).
+	public float Load => Mathf.Min((carriedOre * oreWeight + carriedScrap * scrapWeight) / maxLoad, 1f);
+
 	public bool InSafeZone => inSafeZone;
 	public int GetCount(Deployable.Kind kind) => inventory[kind];
 	public int GetMax(Deployable.Kind kind) => maxInventory[kind];
@@ -91,7 +98,7 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 	public override void _PhysicsProcess(double delta)
 	{
 		var moveDirection = Input.GetVector("move_left", "move_right", "move_up", "move_down");
-		Velocity = moveDirection * moveSpeed;
+		Velocity = moveDirection * moveSpeed * Mathf.Lerp(1f, heavySpeedFactor, Load);
 
 		// Move the body using Velocity. If we hit something (like a wall), slide
 		// along it instead of stopping dead. Velocity is already "per second",
@@ -418,7 +425,7 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 	void RepairTurret(Turret turret)
 	{
 		carriedScrap--;
-		EmitSignalLootChanged(carriedOre, carriedScrap);
+		EmitSignalLootChanged(carriedOre, carriedScrap, Load);
 		turret.Repair(repairPerScrap);
 	}
 
@@ -502,14 +509,14 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 		{
 			carriedScrap += amount;
 		}
-		EmitSignalLootChanged(carriedOre, carriedScrap);
+		EmitSignalLootChanged(carriedOre, carriedScrap, Load);
 	}
 
 	public void ClearLoot()
 	{
 		carriedOre = 0;
 		carriedScrap = 0;
-		EmitSignalLootChanged(carriedOre, carriedScrap);
+		EmitSignalLootChanged(carriedOre, carriedScrap, Load);
 	}
 
 	public void AddCredits(int amount)

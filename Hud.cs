@@ -63,9 +63,9 @@ public partial class Hud : Node2D
 		healthLabel.Text = "HP: " + current + " / " + max;
 	}
 
-	public void OnLootChanged(int ore, int scrap)
+	public void OnLootChanged(int ore, int scrap, float load)
 	{
-		lootLabel.Text = "Ore: " + ore + "  Scrap: " + scrap;
+		lootLabel.Text = "Ore: " + ore + "  Scrap: " + scrap + "  Load: " + Mathf.RoundToInt(load * 100) + "%";
 	}
 
 	public void OnCreditsChanged(int credits)

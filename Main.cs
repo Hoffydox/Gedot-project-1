@@ -26,7 +26,7 @@ public partial class Main : Node2D
 
 		// ...plus the values right now (could come from a saved state later).
 		hud.OnHealthChanged(player.Health, player.MaxHealth);
-		hud.OnLootChanged(player.CarriedOre, player.CarriedScrap);
+		hud.OnLootChanged(player.CarriedOre, player.CarriedScrap, player.Load);
 		hud.OnCreditsChanged(player.Credits);
 		hud.OnAmmoChanged(AmmoType.Small, player.GetAmmo(AmmoType.Small), player.GetMaxAmmo(AmmoType.Small));
 		hud.OnInventoryChanged(Deployable.Kind.Turret, player.GetCount(Deployable.Kind.Turret), player.GetMax(Deployable.Kind.Turret));
