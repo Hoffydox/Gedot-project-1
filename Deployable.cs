@@ -11,6 +11,8 @@ public partial class Deployable : StaticBody2D, IDamageable
 	Color baseModulate;
 
 	public int Health => health;
+	public int MaxHealth => maxHealth;
+	public bool NeedsRepair => health < maxHealth;
 	// Whether enemies go looking for this deployable. Walls override this to false.
 	public virtual bool IsTargetable => true;
 
@@ -47,6 +49,12 @@ public partial class Deployable : StaticBody2D, IDamageable
 	{
 		health = Mathf.Min(amount, maxHealth);
 		GD.Print(Name + " restored to HP: " + health);
+	}
+
+	// Adds health, but never above max.
+	public void Repair(int amount)
+	{
+		health = Mathf.Min(health + amount, maxHealth);
 	}
 
 	// Red flash that fades back to this deployable's own tint (used for friendly fire).

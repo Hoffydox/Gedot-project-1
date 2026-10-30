@@ -32,6 +32,8 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 	[Export] float pickupRange = 50f;
 	[Export] float pickUpTime = 1f;
 	[Export] float refillTime = 1.5f;
+	[Export] float repairTime = 1f;
+	[Export] int repairPerScrap = 5;
 
 	// --- State ---
 	int health;
@@ -320,7 +322,7 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 
 		actionTime += delta;
 		float duration = GetActionTime(currentAction);
-		actionTurret.ShowProgress(GetActionText(currentAction), actionTime / duration);
+		actionTurret.ShowProgress(GetActionText(currentAction, actionTurret), actionTime / duration);
 
 		if (actionTime >= duration)
 		{
@@ -338,6 +340,10 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 		if (Input.IsActionPressed("refill"))
 		{
 			return TurretAction.Refill;
+		}
+		if (Input.IsActionPressed("repair"))
+		{
+			return TurretAction.Repair;
 		}
 		return TurretAction.None;
 	}
@@ -358,6 +364,7 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 		{
 			case TurretAction.PickUp: return GetCount(Deployable.Kind.Turret) < GetMax(Deployable.Kind.Turret);
 			case TurretAction.Refill: return turret.NeedsAmmo && ammo[turret.AmmoType] > 0;
+			case TurretAction.Repair: return turret.NeedsRepair && carriedScrap > 0;
 		}
 		return false;
 	}
@@ -368,16 +375,18 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 		{
 			case TurretAction.PickUp: return pickUpTime;
 			case TurretAction.Refill: return refillTime;
+			case TurretAction.Repair: return repairTime;
 		}
 		return 1f;
 	}
 
-	string GetActionText(TurretAction action)
+	string GetActionText(TurretAction action, Turret turret)
 	{
 		switch (action)
 		{
 			case TurretAction.PickUp: return "Picking up...";
 			case TurretAction.Refill: return "Refilling...";
+			case TurretAction.Repair: return "Repairing " + turret.Health + "/" + turret.MaxHealth;
 		}
 		return "";
 	}
@@ -392,6 +401,9 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 			case TurretAction.Refill:
 				RefillTurret(turret);
 				break;
+			case TurretAction.Repair:
+				RepairTurret(turret);
+				break;
 		}
 	}
 
@@ -401,6 +413,13 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 		int used = turret.Refill(ammo[type]);
 		ammo[type] -= used;
 		EmitSignalAmmoChanged(type, ammo[type], maxAmmo[type]);
+	}
+
+	void RepairTurret(Turret turret)
+	{
+		carriedScrap--;
+		EmitSignalLootChanged(carriedOre, carriedScrap);
+		turret.Repair(repairPerScrap);
 	}
 
 	// --- Inventory ---
