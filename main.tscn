@@ -20,17 +20,27 @@ script = ExtResource("1_h2yge")
 waveManager = NodePath("../WaveManager")
 
 [node name="Terrain" parent="." unique_id=22942818 instance=ExtResource("6_terrain")]
+position = Vector2(-372, 208.00003)
+scale = Vector2(0.33, 0.33)
 
 [node name="Deposit" parent="." unique_id=286756655 instance=ExtResource("12_dg77c")]
-position = Vector2(96, 104)
+position = Vector2(-285, 165)
 
 [node name="Deposit2" parent="." unique_id=1495964915 instance=ExtResource("12_dg77c")]
-position = Vector2(114, -256)
+position = Vector2(-250, -312)
 tier = 2
 
 [node name="Deposit3" parent="." unique_id=1273180721 instance=ExtResource("12_dg77c")]
-position = Vector2(119, -697)
+position = Vector2(-873, -318)
 tier = 3
+
+[node name="Deposit4" parent="." unique_id=1873301144 instance=ExtResource("12_dg77c")]
+position = Vector2(-1350, 450)
+tier = 4
+
+[node name="Deposit5" parent="." unique_id=1873301145 instance=ExtResource("12_dg77c")]
+position = Vector2(-1800, -700)
+tier = 5
 
 [node name="Settlement" parent="." unique_id=281110139 instance=ExtResource("4_5vw27")]
 position = Vector2(660, -203)
@@ -55,15 +65,35 @@ spawner = NodePath("../EnemySpawner")
 
 [node name="Enemy" parent="." unique_id=1025845291 instance=ExtResource("1_0xm2m")]
 modulate = Color(0.6371297, 0.630951, 0, 1)
-position = Vector2(-1256, -764)
+position = Vector2(-790, -272)
+
+[node name="Enemy17" parent="." unique_id=363874869 instance=ExtResource("1_0xm2m")]
+modulate = Color(0.6371297, 0.630951, 0, 1)
+position = Vector2(-903, -416)
+
+[node name="Enemy16" parent="." unique_id=1621420361 instance=ExtResource("1_0xm2m")]
+modulate = Color(0.6371297, 0.630951, 0, 1)
+position = Vector2(-987, -283)
+
+[node name="Enemy15" parent="." unique_id=69988149 instance=ExtResource("1_0xm2m")]
+modulate = Color(0.6371297, 0.630951, 0, 1)
+position = Vector2(-1006, -375)
 
 [node name="Enemy2" parent="." unique_id=1793193475 instance=ExtResource("1_0xm2m")]
 modulate = Color(0.6371297, 0.630951, 0, 1)
-position = Vector2(-413, -483)
+position = Vector2(-303, -411)
+
+[node name="Enemy18" parent="." unique_id=1871274550 instance=ExtResource("1_0xm2m")]
+modulate = Color(0.6371297, 0.630951, 0, 1)
+position = Vector2(-78, -309)
+
+[node name="Enemy19" parent="." unique_id=854782691 instance=ExtResource("1_0xm2m")]
+modulate = Color(0.6371297, 0.630951, 0, 1)
+position = Vector2(-286, -203)
 
 [node name="Enemy3" parent="." unique_id=1160670050 instance=ExtResource("1_0xm2m")]
 modulate = Color(0.6371297, 0.630951, 0, 1)
-position = Vector2(245, -1335)
+position = Vector2(-1088, -327)
 
 [node name="Enemy4" parent="." unique_id=1996411132 instance=ExtResource("1_0xm2m")]
 modulate = Color(0.6371297, 0.630951, 0, 1)
@@ -71,19 +101,19 @@ position = Vector2(1743, -955)
 
 [node name="Enemy5" parent="." unique_id=69694026 instance=ExtResource("1_0xm2m")]
 modulate = Color(0.6371297, 0.630951, 0, 1)
-position = Vector2(826, -1315)
+position = Vector2(-1751, -851)
 
 [node name="Enemy6" parent="." unique_id=1195495998 instance=ExtResource("1_0xm2m")]
 modulate = Color(0.6371297, 0.630951, 0, 1)
-position = Vector2(72, -858)
+position = Vector2(-215, -361)
 
 [node name="Enemy8" parent="." unique_id=938226116 instance=ExtResource("1_0xm2m")]
 modulate = Color(0.6371297, 0.630951, 0, 1)
-position = Vector2(-1062, 519)
+position = Vector2(-800, -363)
 
 [node name="Enemy14" parent="." unique_id=1520707149 instance=ExtResource("1_0xm2m")]
 modulate = Color(0.6371297, 0.630951, 0, 1)
-position = Vector2(-1288, -58)
+position = Vector2(-880, -243)
 
 [node name="Enemy9" parent="." unique_id=305818212 instance=ExtResource("1_0xm2m")]
 modulate = Color(0.6371297, 0.630951, 0, 1)
@@ -107,7 +137,7 @@ position = Vector2(398, 1518)
 
 [node name="Enemy7" parent="." unique_id=1032109736 instance=ExtResource("1_0xm2m")]
 modulate = Color(0.6371297, 0.630951, 0, 1)
-position = Vector2(326, -825)
+position = Vector2(-782, -466)
 
 [node name="Turret" parent="." unique_id=307342662 instance=ExtResource("9_kek77")]
 modulate = Color(0.8645772, 0.93674403, 0.99999994, 1)
@@ -131,4 +161,13 @@ position = Vector2(276, 192)
 position = Vector2(236, 238)
 
 [node name="Skitter" parent="." unique_id=215787209 instance=ExtResource("8_4c57u")]
-position = Vector2(-69, 160)
+position = Vector2(-282, 68)
+
+[node name="Skitter" parent="Skitter" unique_id=993687348 instance=ExtResource("8_4c57u")]
+position = Vector2(-106, 89)
+
+[node name="Skitter" parent="Skitter/Skitter" unique_id=858820682 instance=ExtResource("8_4c57u")]
+position = Vector2(24, -48)
+
+[node name="Skitter" parent="Skitter/Skitter/Skitter" unique_id=67969983 instance=ExtResource("8_4c57u")]
+position = Vector2(18, 134)

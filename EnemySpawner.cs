@@ -9,9 +9,9 @@ public partial class EnemySpawner : Node2D
 	[Export] int minPackSize = 6;
 	[Export] int maxPackSize = 10;
 	[Export] float packSpread = 40;
-	// One entry per tier: [0] = tier 1, [1] = tier 2, [2] = tier 3.
-	[Export] float[] spawnIntervalPerTier = { 2f, 1.4f, 1f };
-	[Export] int[] extraPackSizePerTier = { 0, 2, 4 };
+	// One entry per tier: [0] = tier 1 ... [4] = tier 5.
+	[Export] float[] spawnIntervalPerTier = { 2f, 1.4f, 1f, 0.8f, 0.6f };
+	[Export] int[] extraPackSizePerTier = { 0, 2, 4, 6, 8 };
 
 	PlayerCharacter player;
 	Timer spawnTimer;

@@ -2,9 +2,33 @@
 
 [ext_resource type="Script" uid="uid://dgfdrxj1kdbma" path="res://Deposit.cs" id="1_7mc6o"]
 [ext_resource type="Texture2D" uid="uid://mft1cr7vuk85" path="res://assets/sprites/terrain/Ore_patch.png" id="2_cbcg5"]
+[ext_resource type="Texture2D" uid="uid://qwhalus3o5b6" path="res://assets/sprites/terrain/Ore_patch_lvl_1.png" id="3_lvl1"]
+[ext_resource type="Texture2D" uid="uid://dk88wmwfxdp8f" path="res://assets/sprites/terrain/Ore_patch_lvl_2.png" id="3_lvl2"]
+[ext_resource type="Texture2D" uid="uid://qtqn16i2wmy8" path="res://assets/sprites/terrain/Ore_patch_lvl_3.png" id="3_lvl3"]
+[ext_resource type="Texture2D" uid="uid://h81f140okejs" path="res://assets/sprites/terrain/Ore_patch_lvl_4.png" id="3_lvl4"]
+[ext_resource type="Texture2D" uid="uid://cmy2pq66aemje" path="res://assets/sprites/terrain/Ore_patch_lvl_5.png" id="3_lvl5"]
 
 [node name="Deposit" type="Node2D" unique_id=286756655]
 script = ExtResource("1_7mc6o")
+tierTextures = Array[Texture2D]([ExtResource("3_lvl1"), ExtResource("3_lvl2"), ExtResource("3_lvl3"), ExtResource("3_lvl4"), ExtResource("3_lvl5")])
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1012559512]
 texture = ExtResource("2_cbcg5")
+
+[node name="PromptLabel" type="Label" parent="." unique_id=518350634]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -27.0
+offset_top = -63.0
+offset_right = 28.0
+offset_bottom = -18.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.40927535, 0.58594656, 0.6490138, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = "[F] Mine Ore"

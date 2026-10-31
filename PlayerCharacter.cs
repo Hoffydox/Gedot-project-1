@@ -58,6 +58,7 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 	AnimatedSprite2D body;
 	Stack<TurretState> storedTurrets = new();
 	Turret focusedTurret;
+	Deposit focusedDeposit;
 	TurretAction currentAction;
 	Turret actionTurret;
 	float actionTime;
@@ -134,6 +135,7 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 			TryShoot();
 		}
 		UpdateFocusedTurret();
+		UpdateFocusedDeposit();
 		UpdateTurretAction((float)delta);
 		UpdateAnimation();
 	}
@@ -309,7 +311,7 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 
 		foreach (var node in GetTree().GetNodesInGroup("deposits"))
 		{
-			if (node is Deposit deposit)
+			if (node is Deposit deposit && !deposit.IsExhausted)
 			{
 				float distance = GlobalPosition.DistanceTo(deposit.GlobalPosition);
 				if (distance < closestDistance)
@@ -340,6 +342,26 @@ public partial class PlayerCharacter : CharacterBody2D, IDamageable
 			closest.ShowPrompt(true);
 		}
 		focusedTurret = closest;
+	}
+
+	// Shows the prompt on the closest drillable deposit in range, unless a drill is already running.
+	void UpdateFocusedDeposit()
+	{
+		Deposit closest = IsInstanceValid(placedDrill) ? null : FindClosestDeposit();
+		if (closest == focusedDeposit)
+		{
+			return;
+		}
+
+		if (IsInstanceValid(focusedDeposit))
+		{
+			focusedDeposit.ShowPrompt(false);
+		}
+		if (closest != null)
+		{
+			closest.ShowPrompt(true);
+		}
+		focusedDeposit = closest;
 	}
 
 	// Hold a key near a turret to act on it. Letting go, walking off or switching turret starts over.

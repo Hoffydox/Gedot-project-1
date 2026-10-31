@@ -2,8 +2,8 @@ using Godot;
 
 public partial class Drill : Deployable
 {
-	// One entry per tier: [0] = tier 1, [1] = tier 2, [2] = tier 3.
-	[Export] float[] drillDurationPerTier = { 45f, 60f, 75f };
+	// One entry per tier: [0] = tier 1 ... [4] = tier 5.
+	[Export] float[] drillDurationPerTier = { 45f, 60f, 75f, 90f, 105f };
 	[Export] float oreRate = 0.4f;
 
 	float drillTimeLeft;
@@ -49,7 +49,7 @@ public partial class Drill : Deployable
 		{
 			waveManager.EndSwarm();
 		}
-		// Idea: an animation, and swap the mineral patch for an exhausted one.
+		deposit.Exhaust();
 		DropPickup(Pickup.LootType.Ore, (int)oreMined);
 		QueueFree();
 	}
